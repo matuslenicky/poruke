@@ -134,13 +134,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (pointer: coarse){ .top-actions .btn{min-height:44px} }
 
 /* Hero */
-.hero{position:relative;overflow:hidden;padding-block:clamp(40px, 6vw, 88px) clamp(56px, 7vw, 96px)}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(40px, 6vw, 96px);align-items:center}
-.hero-copy{display:grid;gap:24px;min-width:0}
+.hero{position:relative;overflow:hidden;padding-block:clamp(48px, 8vw, 112px) clamp(56px, 7vw, 96px);background:linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%)}
+.hero-grid{display:block}
+.hero-copy{display:grid;justify-items:center;gap:24px;min-width:0;max-width:760px;margin-inline:auto;text-align:center}
 .hero h1{font-weight:700;font-size:clamp(40px, 5.2vw, 64px);line-height:1.04;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--brand-text)}
 .lead{font-size:clamp(17px, 1.45vw, 19px);color:var(--muted);max-width:50ch}
-.search{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:10px;max-width:600px;transition:border-color .15s}
+.search{width:100%;display:grid;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:10px;max-width:600px;transition:border-color .15s}
 .search:focus-within{border-color:var(--brand)}
 .s-field{display:flex;align-items:center;gap:12px;padding:0 14px;border-radius:12px;min-width:0;cursor:text}
 .s-field .ic{color:var(--muted)}
@@ -153,47 +153,17 @@ button,input,select,textarea{font:inherit;color:inherit}
 .s-row .s-field{border:1px solid var(--line);border-radius:999px}
 .s-row .s-field input{height:48px}
 .s-row .btn{min-height:50px}
-.privacy{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--ink-2)}
-.privacy .ic{color:var(--good)}
-.stats{display:flex;flex-wrap:wrap;gap:12px 40px;margin:4px 0 0;padding:0}
+.privacy{display:block;text-align:center;font-size:14.5px;color:var(--ink-2)}
+.privacy .ic{display:inline-block;vertical-align:-3px;margin-right:6px;color:var(--good)}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 48px;margin:4px 0 0;padding:0}
 .stats div{display:grid;gap:2px}
 .stats dt{order:2;font-size:14px;color:var(--muted)}
 .stats dd{order:1;margin:0;font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 
-.visual{position:relative;margin:0;display:grid;place-items:center;min-width:0;padding-block:20px}
-.blob{position:absolute;width:min(520px, 110%);aspect-ratio:1;border-radius:50%;background:var(--blob);top:50%;left:50%;transform:translate(-46%, -50%)}
-.phone{position:relative;width:300px;max-width:100%;border:10px solid var(--device);border-radius:46px;background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden;animation:lift .7s cubic-bezier(.2,.7,.2,1) both}
-@keyframes lift{from{transform:translateY(16px);opacity:.001}to{transform:none;opacity:1}}
-.phone-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 4px;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
-.notch{width:84px;height:22px;border-radius:999px;background:var(--device)}
-.sig{display:flex;gap:2px;align-items:flex-end}
-.sig i{display:block;width:3px;background:var(--ink);border-radius:1px}
-.app{padding:10px 16px 18px;display:grid;gap:12px}
-.app-back{display:flex;align-items:center;gap:4px;font-size:12.5px;color:var(--brand-text);font-weight:600}
-.app-back .ic{width:14px;height:14px;transform:scaleX(-1)}
-.app-title{font-weight:700;font-size:18px;letter-spacing:-.02em;line-height:1.25}
-.app-meta{font-size:12.5px;color:var(--muted);margin-top:-8px}
-.app-offers{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.app-offers li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:14px}
-.app-offers li.sel{border-color:var(--brand);background:var(--brand-soft)}
-.app-offers li.sel small,.app-offers li.sel strong span{color:color-mix(in srgb, var(--brand-text) 75%, var(--ink))}
-.app-offers b{display:flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;line-height:1.25}
-.app-offers b .ic{width:14px;height:14px;color:var(--brand-text)}
-.app-offers small{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--muted)}
-.app-offers strong{font-size:15px;font-weight:700;text-align:right;line-height:1.2;font-variant-numeric:tabular-nums}
-.app-offers strong span{display:block;font-size:12px;font-weight:500;color:var(--muted)}
-.app-cta{display:grid;place-items:center;height:42px;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-weight:600;font-size:14px}
-.app-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;color:var(--muted)}
-.app-note .ic{width:12px;height:12px}
+
+/* Avatary a hviezdičky (karty majstrov) */
 .ava{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-text);font-weight:700;font-size:12px;letter-spacing:.02em;flex:none}
-.sel .ava{background:var(--surface)}
 .star{width:12px;height:12px;fill:var(--star);stroke:var(--star)}
-.float{position:absolute;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);font-size:13.5px;line-height:1.3;animation:lift .7s cubic-bezier(.2,.7,.2,1) both .25s}
-.float b{display:block;font-weight:600}
-.float span{color:var(--muted);font-size:12.5px}
-.float .fi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--good-soft);color:var(--good);flex:none}
-.float .fi .ic{width:18px;height:18px;stroke-width:2.2}
-.f1{left:-2%;top:0}
 
 /* Pás služieb */
 .cats{border-block:1px solid var(--line);background:var(--bg)}
@@ -421,8 +391,7 @@ dialog::backdrop{background:var(--scrim)}
   .foot-brand{grid-column:1 / -1;max-width:none}
 }
 @media (max-width: 980px){
-  .hero-grid,.prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
-  .visual{padding-block:8px 0}
+  .prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
   .how{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width: 919px){
@@ -454,9 +423,6 @@ dialog::backdrop{background:var(--scrim)}
   .s-row{grid-template-columns:minmax(0,1fr)}
   .stats{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px}
   .stats dd{font-size:24px}
-  .phone{width:280px}
-  .f1{left:0;top:0}
-  .float{padding:10px 12px}
   .pros{grid-template-columns:minmax(0,1fr)}
   .filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding-inline:var(--gut) var(--gut-r);padding-block:2px;scroll-padding-inline:var(--gut)}
   .filter::-webkit-scrollbar{display:none}
@@ -479,7 +445,6 @@ dialog::backdrop{background:var(--scrim)}
 @media (max-width: 380px){
   .foot-grid{grid-template-columns:minmax(0,1fr)}
   .logo{font-size:20px}
-  .float{display:none}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -586,26 +551,6 @@ dialog::backdrop{background:var(--scrim)}
         <div><dt>pre zákazníka</dt><dd>0 €</dd></div>
       </dl>
     </div>
-
-    <figure class="visual" aria-label="Ukážka: porovnanie troch ponúk v aplikácii">
-      <span class="blob" aria-hidden="true"></span>
-      <div class="phone">
-        <div class="phone-bar" aria-hidden="true"><span>9:41</span><span class="notch"></span><span class="sig"><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i><i style="height:11px"></i></span></div>
-        <div class="app">
-          <p class="app-back"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>Moje zákazky</p>
-          <p class="app-title">Výmena bojlera 80 l</p>
-          <p class="app-meta">Trnava · 3 ponuky z 3 · ukážka</p>
-          <ul class="app-offers">
-            <li class="sel"><span class="ava" aria-hidden="true">MK</span><span><b>Martin Kováč <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,9 · št 5. 11.</small></span><strong>240 €<span>s DPH</span></strong></li>
-            <li><span class="ava" aria-hidden="true">VT</span><span><b>VodoTerm <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,7 · po 9. 11.</small></span><strong>34 €/h<span>s DPH</span></strong></li>
-            <li><span class="ava" aria-hidden="true">JP</span><span><b>Ján Polák <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,8 · ut 10. 11.</small></span><strong>228 €<span>konečná</span></strong></li>
-          </ul>
-          <span class="app-cta">Vybrať Martina</span>
-          <p class="app-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Kontakt pošleme až po výbere</p>
-        </div>
-      </div>
-      <div class="float f1" aria-hidden="true"><span class="fi"><svg class="ic"><use href="#i-shield"/></svg></span><span><b>IČO overené</b><span>Elektrotechnik § 22</span></span></div>
-    </figure>
   </div>
 </section>
 
