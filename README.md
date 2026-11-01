@@ -1,6 +1,6 @@
 # Poruke
 
-Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuálne v čistom modernom business štýle (inšpirácia Thumbtack a Behance), obsahom v európskom duchu namiesto amerického modelu predaja kontaktov.
+Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuálne v čistom modernom business štýle (inšpirácia Thumbtack), obsahom v európskom duchu namiesto amerického modelu predaja kontaktov.
 
 **Živá ukážka:** https://matuslenicky.github.io/poruke/
 
@@ -34,5 +34,6 @@ Bez závislostí, stačí Node.js.
 ## Písmo a fotky
 
 - [Figtree](https://fonts.google.com/specimen/Figtree), licencia [SIL Open Font License 1.1](https://openfontlicense.org).
+- Ikony [Lucide](https://lucide.dev), licencia ISC.
 - Fotky sú voľné diela nájdené cez [Openverse](https://openverse.org); autori, licencie a zdroje sú v `src/photos/credits.json`, fotky s licenciou CC BY sú uvedené aj v pätičke stránky.
-- Ikony sú vlastné SVG.
+

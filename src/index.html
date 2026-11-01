@@ -7,51 +7,46 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Overení remeselníci a služby pre domácnosť na Slovensku. Najviac tri ponuky s cenou vrátane DPH, kontakt dostane len majster, ktorého vyberiete.">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231E5BFF'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0B1018" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D5BD6'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-/* Layout: čistá business mriežka do 1200 px v duchu Behance. Vycentrovaný hero s hrubým nadpisom
-   a fotkami prác po bokoch, pás kategórií s fotkami, mriežka prác bez rámčekov, tlačidlá ako tabletky. */
+/* Layout: produktový business štýl. Biele plochy, mriežka do 1200 px, hero = text a vyhľadávacia karta vľavo,
+   mobil s ukážkou troch ponúk vpravo; pás služieb s ikonami; karty s jemným okrajom, jeden modrý akcent. */
 :root{
   --bg:#FFFFFF;
   --bg-alt:#F6F7F9;
-  --hero-top:#EEF3FF;
   --surface:#FFFFFF;
-  --ink:#111418;
-  --ink-2:#2A3139;
-  --muted:#5B6570;
-  --line:#E3E6EB;
-  --line-strong:#8B95A0;
-  --brand:#1E5BFF;
-  --brand-hover:#1548D9;
+  --ink:#0E1525;
+  --ink-2:#2B3445;
+  --muted:#5E6878;
+  --line:#E4E7EC;
+  --line-strong:#8A94A3;
+  --brand:#1D5BD6;
+  --brand-hover:#1749B3;
   --brand-ink:#FFFFFF;
-  --brand-soft:#EDF2FF;
-  --brand-soft-line:#D3DEFF;
-  --brand-text:#1A4FE0;
-  --chip-dark:#1A2232;
-  --on-photo:#FFFFFF;
-  --photo-shade:rgba(9,13,22,.62);
-  --star:#F4A41C;
+  --brand-soft:#EEF3FD;
+  --brand-text:#1A4FC2;
+  --blob:#E6EEFC;
+  --device:#0E1525;
+  --star:#E8A21A;
   --good:#0F7A55;
-  --good-soft:#E3F5EC;
-  --bad:#B4232A;
+  --good-soft:#E4F4EC;
   --danger:#C5221F;
-  --flag-bg:#FFF1D6;
-  --flag-ink:#6B4500;
-  --focus:#1E5BFF;
-  --navy:#0E1A3A;
-  --navy-2:#17264D;
+  --focus:#1D5BD6;
+  --navy:#0B1B3F;
+  --navy-2:#13285A;
   --navy-ink:#F2F5FF;
-  --navy-muted:#B5C0DC;
-  --navy-line:#2C3D6B;
+  --navy-muted:#B4C0DD;
+  --navy-line:#2A3D6E;
   --navy-warn:#FFC76B;
   --warn-ink:#1A1405;
   --scrim:rgba(10,14,22,.55);
-  --shadow-sm:0 1px 2px rgba(15,20,25,.06), 0 1px 4px rgba(15,20,25,.05);
-  --shadow:0 2px 6px rgba(15,20,25,.05), 0 16px 40px rgba(15,20,25,.12);
+  --shadow-sm:0 1px 2px rgba(14,21,37,.06);
+  --shadow:0 1px 3px rgba(14,21,37,.06), 0 10px 30px rgba(14,21,37,.08);
+  --shadow-lg:0 2px 6px rgba(14,21,37,.06), 0 24px 60px rgba(14,21,37,.16);
 
   --f:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --wrap:1240px;
+  --wrap:1200px;
   --gut:max(20px, env(safe-area-inset-left, 0px));
   --gut-r:max(20px, env(safe-area-inset-right, 0px));
   --header:72px;
@@ -59,133 +54,166 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0D1117; --bg-alt:#121821; --hero-top:#111B33; --surface:#171E29; --ink:#EDF1F5; --ink-2:#C9D1DA; --muted:#9AA5B2;
-    --line:#252F3D; --line-strong:#5E6B7A;
-    --brand:#6F97FF; --brand-hover:#8AABFF; --brand-ink:#08112B; --brand-soft:#17254A; --brand-soft-line:#26386A; --brand-text:#93B1FF;
-    --chip-dark:#222C40; --on-photo:#FFFFFF; --photo-shade:rgba(5,8,14,.66);
-    --star:#F6B33F; --good:#52D59D; --good-soft:#123326; --bad:#FF8A8A; --danger:#FF8A80; --flag-bg:#3A2D10; --flag-ink:#F5C86E; --focus:#93B1FF;
-    --navy:#0F1830; --navy-2:#182545; --navy-ink:#EDF1F5; --navy-muted:#A9B5D0; --navy-line:#2B3A62; --navy-warn:#FFC76B; --warn-ink:#1A1405;
+    --bg:#0B1018; --bg-alt:#10161F; --surface:#151C27; --ink:#E9EEF4; --ink-2:#C6CFDA; --muted:#98A3B3;
+    --line:#232C3A; --line-strong:#5E6B7A;
+    --brand:#6E9BFF; --brand-hover:#8DB0FF; --brand-ink:#08112B; --brand-soft:#162544; --brand-text:#93B4FF; --blob:#121E36; --device:#2B3546;
+    --star:#F2B33D; --good:#52D59D; --good-soft:#12301F; --danger:#FF8A80; --focus:#93B4FF;
+    --navy:#0E1830; --navy-2:#172445; --navy-ink:#E9EEF4; --navy-muted:#A6B3CF; --navy-line:#293A64; --navy-warn:#FFC76B; --warn-ink:#1A1405;
     --scrim:rgba(0,0,0,.68);
     --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow:0 2px 6px rgba(0,0,0,.35), 0 18px 44px rgba(0,0,0,.45);
+    --shadow:0 1px 3px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.5);
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0D1117; --bg-alt:#121821; --hero-top:#111B33; --surface:#171E29; --ink:#EDF1F5; --ink-2:#C9D1DA; --muted:#9AA5B2;
-  --line:#252F3D; --line-strong:#5E6B7A;
-  --brand:#6F97FF; --brand-hover:#8AABFF; --brand-ink:#08112B; --brand-soft:#17254A; --brand-soft-line:#26386A; --brand-text:#93B1FF;
-  --chip-dark:#222C40; --on-photo:#FFFFFF; --photo-shade:rgba(5,8,14,.66);
-  --star:#F6B33F; --good:#52D59D; --good-soft:#123326; --bad:#FF8A8A; --danger:#FF8A80; --flag-bg:#3A2D10; --flag-ink:#F5C86E; --focus:#93B1FF;
-  --navy:#0F1830; --navy-2:#182545; --navy-ink:#EDF1F5; --navy-muted:#A9B5D0; --navy-line:#2B3A62; --navy-warn:#FFC76B; --warn-ink:#1A1405;
+  --bg:#0B1018; --bg-alt:#10161F; --surface:#151C27; --ink:#E9EEF4; --ink-2:#C6CFDA; --muted:#98A3B3;
+  --line:#232C3A; --line-strong:#5E6B7A;
+  --brand:#6E9BFF; --brand-hover:#8DB0FF; --brand-ink:#08112B; --brand-soft:#162544; --brand-text:#93B4FF; --blob:#121E36; --device:#2B3546;
+  --star:#F2B33D; --good:#52D59D; --good-soft:#12301F; --danger:#FF8A80; --focus:#93B4FF;
+  --navy:#0E1830; --navy-2:#172445; --navy-ink:#E9EEF4; --navy-muted:#A6B3CF; --navy-line:#293A64; --navy-warn:#FFC76B; --warn-ink:#1A1405;
   --scrim:rgba(0,0,0,.68);
   --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-  --shadow:0 2px 6px rgba(0,0,0,.35), 0 18px 44px rgba(0,0,0,.45);
+  --shadow:0 1px 3px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.5);
   color-scheme:dark;
 }
 
 *,*::before,*::after{box-sizing:border-box}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--header) + 16px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f);-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
 body:has(dialog[open]){overflow:hidden}
-img{max-width:100%;height:auto}
-svg{max-width:100%}
+img,svg{max-width:100%}
 h1,h2,h3{text-wrap:balance;margin:0}
 p{margin:0}
 a{color:var(--brand-text);text-underline-offset:3px}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.ic{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.ic-s{width:18px;height:18px}
+.ic{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.ic-s{width:16px;height:16px}
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
 .section{padding-block:clamp(64px, 8vw, 104px)}
 .alt{background:var(--bg-alt)}
-.h2{font-weight:800;font-size:clamp(28px, 3.4vw, 42px);line-height:1.08;letter-spacing:-.035em}
-.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px;margin-bottom:clamp(24px, 3.5vw, 40px)}
-.sec-head > div{display:grid;gap:10px;max-width:660px}
-.sub{color:var(--muted);font-size:17px;line-height:1.55;max-width:60ch}
+.h2{font-weight:700;font-size:clamp(28px, 3.2vw, 40px);line-height:1.12;letter-spacing:-.025em}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px;margin-bottom:clamp(28px, 3.5vw, 44px)}
+.sec-head > div{display:grid;gap:10px;max-width:640px}
+.sec-head.center{justify-content:center;text-align:center}
+.sec-head.center > div{justify-items:center}
+.sub{color:var(--muted);font-size:17px;line-height:1.6;max-width:60ch}
 
-/* Tlačidlá: tabletky */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;border:1px solid transparent;font-weight:700;font-size:15.5px;line-height:1.2;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s, border-color .15s, color .15s, box-shadow .15s}
+/* Tlačidlá */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:600;font-size:15.5px;line-height:1.2;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s, border-color .15s, color .15s, box-shadow .15s}
 .btn-primary{background:var(--brand);color:var(--brand-ink)}
 .btn-primary:hover{background:var(--brand-hover)}
-.btn-soft{background:var(--brand-soft);border-color:var(--brand-soft-line);color:var(--brand-text)}
-.btn-soft:hover{border-color:var(--brand)}
+.btn-outline{background:var(--surface);border-color:var(--line-strong);color:var(--ink)}
+.btn-outline:hover{border-color:var(--ink)}
 .btn-light{background:var(--surface);color:var(--ink)}
 .btn-light:hover{box-shadow:0 0 0 4px color-mix(in srgb, var(--surface) 35%, transparent)}
 .btn-warn{background:var(--navy-warn);color:var(--warn-ink)}
 .btn-warn:hover{filter:brightness(1.05)}
-.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--brand-text);font-weight:700;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--brand-text);font-weight:600;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
 .link:hover{text-decoration:underline}
 
-/* Oznam */
-.notice{background:var(--navy);color:var(--navy-ink);font-size:14.5px}
-.notice .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0 14px;padding-block:6px;text-align:center}
-.notice strong{font-weight:700}
-.notice button{background:none;border:0;padding:0;min-height:36px;color:var(--navy-warn);font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
-.notice button:hover{text-decoration:underline}
-.nt-pre{display:none;color:var(--navy-ink);font-weight:500}
-@media (pointer: coarse){ .notice button{min-height:44px} }
-@media (max-width: 640px){ .notice p{display:none} .nt-pre{display:inline} }
-
 /* Hlavička */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--line);transition:box-shadow .2s}
-.top.scrolled{box-shadow:var(--shadow-sm)}
-.top .wrap{display:flex;align-items:center;gap:28px;height:var(--header)}
-.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800;font-size:24px;letter-spacing:-.045em;min-height:44px}
-.mark{width:32px;height:32px;flex:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .wrap{display:flex;align-items:center;gap:32px;height:var(--header)}
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:22px;letter-spacing:-.03em;min-height:44px}
+.mark{width:30px;height:30px;flex:none}
 .mark rect{fill:var(--brand)}
 .mark path{fill:none;stroke:var(--brand-ink);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-.nav{display:flex;gap:6px;align-self:stretch}
-.nav a{position:relative;display:inline-flex;align-items:center;padding:0 10px;color:var(--ink-2);text-decoration:none;font-weight:600;font-size:15.5px}
-.nav a::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--ink);transform:scaleX(0);transition:transform .2s}
-.nav a:hover{color:var(--ink)}
-.nav a:hover::after{transform:none}
-.top-actions{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav{display:flex;gap:4px;margin-left:auto}
+.nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:999px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:15px}
+.nav a:hover{color:var(--ink);background:var(--bg-alt)}
+.top-actions{display:flex;align-items:center;gap:8px}
 .top-actions .btn{min-height:42px;padding:0 18px;font-size:15px}
 @media (pointer: coarse){ .top-actions .btn{min-height:44px} }
 
 /* Hero */
-.hero{position:relative;overflow:hidden;background:linear-gradient(180deg, var(--hero-top) 0%, var(--bg) 88%);padding-block:clamp(48px, 8vw, 112px) clamp(48px, 6vw, 80px)}
-.hero-center{position:relative;z-index:2;max-width:780px;margin-inline:auto;display:grid;justify-items:center;gap:24px;text-align:center}
-.hero h1{font-weight:800;font-size:clamp(42px, 6.6vw, 86px);line-height:.98;letter-spacing:-.05em}
-.hero h1 span{display:block}
+.hero{position:relative;overflow:hidden;padding-block:clamp(40px, 6vw, 88px) clamp(56px, 7vw, 96px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(40px, 6vw, 96px);align-items:center}
+.hero-copy{display:grid;gap:24px;min-width:0}
+.hero h1{font-weight:700;font-size:clamp(40px, 5.2vw, 64px);line-height:1.04;letter-spacing:-.035em}
 .hero h1 em{font-style:normal;color:var(--brand-text)}
-.lead{font-size:clamp(17px, 1.5vw, 19.5px);color:var(--ink-2);max-width:54ch}
-.search{width:100%;max-width:720px;display:flex;align-items:stretch;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);padding:6px;margin-top:6px;transition:border-color .15s}
+.lead{font-size:clamp(17px, 1.45vw, 19px);color:var(--muted);max-width:50ch}
+.search{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:10px;max-width:600px;transition:border-color .15s}
 .search:focus-within{border-color:var(--brand)}
-.sfield{flex:1 1 0;display:flex;align-items:center;gap:10px;padding:0 18px;min-width:0;cursor:text;text-align:left}
-.sfield:first-child{flex-grow:1.5}
-.sfield + .sfield{border-left:1px solid var(--line)}
-.sfield .ic{color:var(--muted)}
-.sfield input{border:0;background:transparent;font-size:16.5px;width:100%;min-width:0;height:52px;padding:0}
-.sfield input::placeholder{color:var(--muted)}
-.sfield input:focus{outline:none}
-.sfield:focus-within .ic{color:var(--brand-text)}
-.search .btn{min-height:52px;padding:0 26px;font-size:16px}
-.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;font-size:14.5px;color:var(--ink-2)}
-.trust span{display:inline-flex;align-items:center;gap:7px}
-.trust .ic{color:var(--good);stroke-width:2.4}
+.s-field{display:flex;align-items:center;gap:12px;padding:0 14px;border-radius:12px;min-width:0;cursor:text}
+.s-field .ic{color:var(--muted)}
+.s-field input{border:0;background:transparent;font-size:16.5px;width:100%;min-width:0;height:52px;padding:0}
+.s-field input::placeholder{color:var(--muted)}
+.s-field input:focus{outline:none}
+.s-field:focus-within{background:var(--bg-alt)}
+.s-field:focus-within .ic{color:var(--brand-text)}
+.s-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:10px}
+.s-row .s-field{border:1px solid var(--line);border-radius:999px}
+.s-row .s-field input{height:48px}
+.s-row .btn{min-height:50px}
+.privacy{display:flex;align-items:center;gap:8px;font-size:14.5px;color:var(--ink-2)}
+.privacy .ic{color:var(--good)}
+.stats{display:flex;flex-wrap:wrap;gap:12px 40px;margin:4px 0 0;padding:0}
+.stats div{display:grid;gap:2px}
+.stats dt{order:2;font-size:14px;color:var(--muted)}
+.stats dd{order:1;margin:0;font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 
-.art{position:absolute;top:0;bottom:0;width:calc((100% - 820px) / 2);z-index:1;pointer-events:none}
-.art-l{left:0}
-.art-r{right:0}
-.art .ph{position:absolute;border-radius:14px;box-shadow:var(--shadow-sm);animation:tile .7s cubic-bezier(.2,.7,.2,1) both}
-.a1{left:10%;top:9%;width:min(44%, 170px);aspect-ratio:4 / 3}
-.a2{left:48%;top:30%;width:min(46%, 190px);aspect-ratio:4 / 5;animation-delay:.08s!important}
-.a3{left:-6%;top:56%;width:min(50%, 200px);aspect-ratio:4 / 3;animation-delay:.16s!important}
-.a4{left:8%;top:7%;width:min(52%, 200px);aspect-ratio:4 / 3;animation-delay:.04s!important}
-.a5{left:58%;top:31%;width:min(38%, 150px);aspect-ratio:1;animation-delay:.12s!important}
-.a6{left:6%;top:52%;width:min(46%, 180px);aspect-ratio:4 / 3;animation-delay:.2s!important}
-@keyframes tile{from{transform:translateY(14px) scale(.98);opacity:.001}to{transform:none;opacity:1}}
+.visual{position:relative;margin:0;display:grid;place-items:center;min-width:0;padding-block:20px}
+.blob{position:absolute;width:min(520px, 110%);aspect-ratio:1;border-radius:50%;background:var(--blob);top:50%;left:50%;transform:translate(-46%, -50%)}
+.phone{position:relative;width:300px;max-width:100%;border:10px solid var(--device);border-radius:46px;background:var(--surface);box-shadow:var(--shadow-lg);overflow:hidden;animation:lift .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes lift{from{transform:translateY(16px);opacity:.001}to{transform:none;opacity:1}}
+.phone-bar{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 4px;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.notch{width:84px;height:22px;border-radius:999px;background:var(--device)}
+.sig{display:flex;gap:2px;align-items:flex-end}
+.sig i{display:block;width:3px;background:var(--ink);border-radius:1px}
+.app{padding:10px 16px 18px;display:grid;gap:12px}
+.app-back{display:flex;align-items:center;gap:4px;font-size:12.5px;color:var(--brand-text);font-weight:600}
+.app-back .ic{width:14px;height:14px;transform:scaleX(-1)}
+.app h3{font-weight:700;font-size:18px;letter-spacing:-.02em;line-height:1.25}
+.app-meta{font-size:12.5px;color:var(--muted);margin-top:-8px}
+.app-offers{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.app-offers li{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:14px}
+.app-offers li.sel{border-color:var(--brand);background:var(--brand-soft)}
+.app-offers b{display:flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;line-height:1.25}
+.app-offers b .ic{width:14px;height:14px;color:var(--brand-text)}
+.app-offers small{display:flex;align-items:center;gap:3px;font-size:12px;color:var(--muted)}
+.app-offers strong{font-size:15px;font-weight:700;text-align:right;line-height:1.2;font-variant-numeric:tabular-nums}
+.app-offers strong span{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+.app-cta{display:grid;place-items:center;height:42px;border-radius:999px;background:var(--brand);color:var(--brand-ink);font-weight:600;font-size:14px}
+.app-note{display:flex;align-items:center;justify-content:center;gap:5px;font-size:12px;color:var(--muted)}
+.app-note .ic{width:12px;height:12px}
+.ava{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-text);font-weight:700;font-size:12px;letter-spacing:.02em;flex:none}
+.sel .ava{background:var(--surface)}
+.star{width:12px;height:12px;fill:var(--star);stroke:var(--star)}
+.float{position:absolute;display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);font-size:13.5px;line-height:1.3;animation:lift .7s cubic-bezier(.2,.7,.2,1) both .25s}
+.float b{display:block;font-weight:600}
+.float span{color:var(--muted);font-size:12.5px}
+.float .fi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--good-soft);color:var(--good);flex:none}
+.float .fi .ic{width:18px;height:18px;stroke-width:2.2}
+.f1{left:-2%;top:0}
+
+/* Pás služieb */
+.cats{border-block:1px solid var(--line);background:var(--bg)}
+.cat-row{position:relative}
+.cat-scroll{display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;list-style:none;margin:0;padding:0}
+.cat-scroll::-webkit-scrollbar{display:none}
+.cat-scroll > li{flex:none}
+.cat{position:relative;display:grid;justify-items:center;gap:8px;min-width:96px;padding:18px 10px 16px;border:0;background:none;color:var(--muted);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .15s}
+.cat .ic{width:26px;height:26px;stroke-width:1.6}
+.cat::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;border-radius:2px;background:var(--ink);transform:scaleX(0);transition:transform .2s}
+.cat:hover{color:var(--ink)}
+.cat:hover::after{transform:none}
+.row-arrow{position:absolute;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm);cursor:pointer;z-index:2}
+.row-arrow .ic{width:16px;height:16px}
+.row-arrow.prev{left:calc(var(--gut) - 18px)}
+.row-arrow.next{right:calc(var(--gut-r) - 18px)}
+.row-arrow.prev .ic{transform:scaleX(-1)}
+@media (hover: none){ .row-arrow{display:none} }
 
 /* Fotky: každá je v súbore raz, ako pozadie */
 .ph{display:block;background:var(--brand-soft) center / cover no-repeat}
-.ph-hero{background-image:url(photos/hero.jpg)}
 .ph-kotol{background-image:url(photos/kotol.jpg)}
 .ph-malovanie{background-image:url(photos/malovanie.jpg)}
 .ph-upratovanie{background-image:url(photos/upratovanie.jpg)}
@@ -194,123 +222,68 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ph-zahrada{background-image:url(photos/zahrada.jpg)}
 .ph-elektro{background-image:url(photos/elektro.jpg)}
 
-/* Kategórie: pás s fotkami */
-.cat-sec{padding-block:clamp(8px, 2vw, 24px) clamp(56px, 7vw, 88px)}
-.cat-head{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px}
-.cat-head h2{font-weight:800;font-size:20px;letter-spacing:-.02em}
-.cat-row{position:relative}
-.cat-scroll{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;scrollbar-width:none;list-style:none;margin:0;padding:2px 0}
-.cat-scroll::-webkit-scrollbar{display:none}
-.cat-scroll > li{flex:none;scroll-snap-align:start}
-.ichip{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;gap:12px;height:64px;padding:0 22px 0 16px;border-radius:14px;border:0;background:var(--chip-dark);color:var(--on-photo);text-align:left;cursor:pointer;white-space:nowrap}
-.ichip .ph{position:absolute;inset:0;z-index:-2;transition:transform .4s}
-.ichip::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--photo-shade)}
-.ichip .ic{width:22px;height:22px;stroke-width:1.9}
-.ichip b{display:block;font-weight:700;font-size:15.5px;line-height:1.2}
-.ichip small{display:block;font-size:13px;font-weight:500;opacity:.88;font-variant-numeric:tabular-nums}
-@media (hover: hover){ .ichip:hover .ph{transform:scale(1.06)} }
-.row-arrow{position:absolute;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);box-shadow:var(--shadow);cursor:pointer;z-index:2}
-.row-arrow.prev{left:-14px}
-.row-arrow.next{right:-14px}
-.row-arrow.prev .ic{transform:scaleX(-1)}
-@media (hover: none){ .row-arrow{display:none} }
-
 /* Obľúbené práce */
-.projects{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:32px 22px;list-style:none;margin:0;padding:0}
+.projects{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:28px 20px;list-style:none;margin:0;padding:0}
 .proj{width:100%;display:grid;gap:10px;align-content:start;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
-.proj-img{position:relative;display:block;border-radius:12px;overflow:hidden;background:var(--brand-soft)}
+.proj-img{position:relative;display:block;border-radius:14px;overflow:hidden;background:var(--brand-soft)}
 .proj-img .ph{width:100%;aspect-ratio:4 / 3;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-.proj-go{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--surface);color:var(--ink);font-size:14px;font-weight:700;box-shadow:var(--shadow-sm);opacity:0;transform:translateY(6px);transition:opacity .2s, transform .2s}
-@media (hover: hover){
-  .proj:hover .proj-img .ph{transform:scale(1.04)}
-  .proj:hover .proj-go,.proj:focus-visible .proj-go{opacity:1;transform:none}
-}
+@media (hover: hover){ .proj:hover .proj-img .ph{transform:scale(1.04)} }
 .proj-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.proj-title{font-weight:700;font-size:16px;line-height:1.3}
-.proj-price{font-weight:700;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.proj-title{font-weight:600;font-size:16px;line-height:1.3}
+.proj-price{font-weight:600;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .proj-sub{display:block;font-size:14px;color:var(--muted);margin-top:-6px}
 .proj-cta .proj-img{aspect-ratio:4 / 3;background:var(--brand);color:var(--brand-ink)}
 .cta-in{position:absolute;inset:0;display:grid;align-content:center;justify-items:start;gap:6px;padding:22px}
-.cta-in .ic{width:36px;height:36px;padding:7px;border-radius:50%;background:color-mix(in srgb, var(--brand-ink) 18%, transparent);stroke-width:2.2}
-.cta-in b{font-size:22px;font-weight:800;letter-spacing:-.03em}
+.cta-in .ic{width:32px;height:32px;padding:6px;border-radius:50%;background:color-mix(in srgb, var(--brand-ink) 18%, transparent);stroke-width:2}
+.cta-in b{font-size:21px;font-weight:700;letter-spacing:-.02em}
 .cta-in span{font-size:14.5px;opacity:.92;max-width:24ch}
 @media (hover: hover){ .proj-cta:hover .proj-img{background:var(--brand-hover)} }
 
-/* Ako to funguje + ukážka ponúk */
-.how-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px, 6vw, 96px);align-items:center}
-.how{list-style:none;margin:0;padding:0;display:grid}
-.how li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:4px 16px;padding:20px 0;border-top:1px solid var(--line)}
-.how li:last-child{border-bottom:1px solid var(--line)}
-.how-n{grid-row:span 2;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-text);font-weight:800;font-size:16px}
-.how h3{font-weight:700;font-size:19px;letter-spacing:-.015em}
+/* Ako to funguje */
+.how{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0;counter-reset:k}
+.how li{display:grid;gap:10px;align-content:start;padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.how-k{font-size:13px;font-weight:600;color:var(--brand-text)}
+.how h3{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.015em}
+.how h3 .ic{width:22px;height:22px;color:var(--brand-text)}
 .how p{color:var(--muted)}
-.how-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:28px}
+.how-cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 20px;margin-top:32px}
 .how-cta p{color:var(--muted);font-size:15px}
 
-.sheet{background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px 24px 18px;min-width:0}
-.sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:16px;border-bottom:1px solid var(--line)}
-.sheet-kicker{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
-.sheet-title{font-weight:800;font-size:21px;line-height:1.25;letter-spacing:-.02em;margin-top:2px}
-.sheet-meta{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:14px;color:var(--muted)}
-.pill{display:inline-flex;align-items:center;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;background:var(--good-soft);color:var(--good)}
-.offers{list-style:none;margin:0;padding:0}
-.offer{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:4px 14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
-.offer:last-child{border-bottom:0}
-.ava{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-text);font-weight:800;font-size:14px;letter-spacing:.02em;flex:none}
-.o-who{min-width:0}
-.o-who strong{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-weight:700;font-size:15.5px}
-.o-who > span{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:13.5px;color:var(--muted);margin-top:2px}
-.flag{font-style:normal;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--flag-bg);color:var(--flag-ink)}
-.rate{display:inline-flex;align-items:center;gap:3px;color:var(--ink)}
-.star{width:14px;height:14px;fill:var(--star);stroke:none;flex:none}
-.o-price{text-align:right}
-.o-price strong{display:block;font-weight:800;font-size:22px;line-height:1.1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.o-price span{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap}
-.o-terms{grid-column:2 / -1;display:flex;flex-wrap:wrap;gap:4px 18px;margin:6px 0 0;font-size:13.5px}
-.o-terms div{display:flex;gap:6px}
-.o-terms dt{color:var(--muted)}
-.o-terms dd{margin:0;font-weight:600}
-.sheet-foot{display:flex;align-items:flex-start;gap:8px;padding-top:14px;border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
-.sheet-foot .ic{width:16px;height:16px;color:var(--good);margin-top:2px}
-
 /* Porovnanie */
-.cmp{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface)}
-.cmp-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.1fr)}
-.cmp-row + .cmp-row{border-top:1px solid var(--line)}
-.cmp-row > *{padding:16px 22px;display:flex;align-items:flex-start;gap:10px;min-width:0}
-.cmp-row > :last-child{background:var(--brand-soft)}
-.cmp-head > *{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-block:14px}
-.cmp-head > :last-child{color:var(--brand-text)}
-.cmp [role="rowheader"]{font-weight:700}
-.cmp .no{color:var(--muted)}
-.cmp .no .ic{color:var(--bad);width:18px;height:18px;margin-top:2px;stroke-width:2.2}
-.cmp .yes{color:var(--ink);font-weight:600}
-.cmp .yes .ic{color:var(--brand-text);width:18px;height:18px;margin-top:2px;stroke-width:2.4}
-.cmp-tag{display:none}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:980px;margin-inline:auto}
+.vs-card{display:grid;gap:18px;align-content:start;padding:28px;border-radius:20px;border:1px solid var(--line);background:var(--surface)}
+.vs-old{background:transparent}
+.vs-new{border-color:var(--brand);box-shadow:var(--shadow)}
+.vs-card h3{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.015em}
+.vs-old h3{color:var(--muted)}
+.vs-card ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.vs-card li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
+.vs-card li .ic{margin-top:2px;flex:none}
+.vs-old li{color:var(--muted)}
+.vs-old li .ic{color:var(--line-strong)}
+.vs-new li .ic{color:var(--brand-text);stroke-width:2.4}
 
 /* Majstri */
 .filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:14.5px;font-weight:600;cursor:pointer;white-space:nowrap;flex:none;transition:border-color .15s, background-color .15s, color .15s}
+.chip{display:inline-flex;align-items:center;min-height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:14.5px;font-weight:500;cursor:pointer;white-space:nowrap;flex:none;transition:border-color .15s, background-color .15s, color .15s}
 @media (hover: hover){ .chip:hover{border-color:var(--ink);color:var(--ink)} }
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 @media (pointer: coarse){ .chip{min-height:44px} }
 .pros{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
-.pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);min-width:0;transition:box-shadow .2s}
-@media (hover: hover){ .pro:hover{box-shadow:var(--shadow)} }
+.pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);min-width:0;transition:box-shadow .2s, border-color .2s}
+@media (hover: hover){ .pro:hover{box-shadow:var(--shadow);border-color:transparent} }
 .pro-top{display:flex;gap:12px;align-items:center;min-width:0}
 .pro-top > div{min-width:0}
-.pro .ava{width:54px;height:54px;font-size:17px}
-.pro h3{font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.01em}
+.pro .ava{width:48px;height:48px;font-size:15px}
+.pro h3{font-weight:700;font-size:16.5px;line-height:1.25;letter-spacing:-.01em}
+.vf{display:inline-block;width:17px;height:17px;margin-left:5px;vertical-align:-3px;color:var(--brand-text)}
 .trade{font-size:14px;color:var(--muted)}
 .rating{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
 .rating strong{color:var(--ink);font-size:15px}
-.rating .star{width:16px;height:16px}
-.badges{display:flex;flex-wrap:wrap;gap:6px}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--good-soft);color:var(--good);white-space:nowrap}
-.badge .ic{width:13px;height:13px;stroke-width:2.8}
-.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 12px;margin:0;font-size:14px;padding-top:12px;border-top:1px solid var(--line)}
-.facts dt{color:var(--muted)}
-.facts dd{margin:0;font-variant-numeric:tabular-nums}
+.rating .star{width:15px;height:15px}
+.pro-facts{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
+.pro-facts li{display:flex;gap:9px;align-items:flex-start;min-width:0}
+.pro-facts .ic{width:16px;height:16px;margin-top:3px;color:var(--muted)}
 .pro .btn{margin-top:auto;width:100%}
 .empty{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:24px;border:1px dashed var(--line-strong);border-radius:18px;color:var(--muted);background:var(--surface)}
 .empty p{max-width:60ch}
@@ -320,25 +293,25 @@ button,input,select,textarea{font:inherit;color:inherit}
 .prices-intro{display:grid;gap:18px;align-content:start}
 .controls{display:grid;gap:14px}
 .ctl{display:grid;gap:6px}
-.ctl > label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.ctl > label{font-size:14px;font-weight:600;color:var(--ink-2)}
 .seg{display:inline-grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin:0;background:var(--surface);min-width:0;max-width:320px}
 .seg legend{padding:0}
 .seg input{position:absolute;opacity:0;pointer-events:none}
-.seg label{display:grid;place-items:center;min-height:42px;padding:0 16px;border-radius:999px;font-weight:700;font-size:15px;cursor:pointer;color:var(--muted)}
+.seg label{display:grid;place-items:center;min-height:42px;padding:0 16px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;color:var(--muted)}
 .seg input:checked + label{background:var(--ink);color:var(--bg)}
 .seg input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
 .note{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
 .note .ic{width:16px;height:16px;margin-top:2px}
-.ptable-wrap{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow-x:auto;box-shadow:var(--shadow-sm)}
+.ptable-wrap{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow-x:auto}
 .ptable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.ptable caption{text-align:left;padding:18px 22px 8px;font-size:14px;font-weight:700;color:var(--ink-2)}
+.ptable caption{text-align:left;padding:18px 22px 8px;font-size:14px;font-weight:600;color:var(--ink-2)}
 .ptable th,.ptable td{padding:14px 22px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .ptable tr:last-child th,.ptable tr:last-child td{border-bottom:0}
-.ptable thead th{font-size:12.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-block:8px;background:var(--bg-alt)}
+.ptable thead th{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-block:8px;background:var(--bg-alt)}
 .ptable thead th:last-child{text-align:right}
-.ptable tbody th{font-weight:600}
+.ptable tbody th{font-weight:500}
 .ptable tbody th span{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:2px}
-.ptable td{text-align:right;white-space:nowrap;font-weight:800;font-size:16px}
+.ptable td{text-align:right;white-space:nowrap;font-weight:700;font-size:16px}
 
 /* Pre firmy */
 .band{background:var(--navy);color:var(--navy-ink)}
@@ -348,18 +321,18 @@ button,input,select,textarea{font:inherit;color:inherit}
 .points{list-style:none;margin:6px 0 0;padding:0;display:grid}
 .points li{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--navy-line)}
 .points li:last-child{border-bottom:1px solid var(--navy-line)}
-.points .ic{color:var(--navy-warn);margin-top:1px;stroke-width:2.2}
+.points .ic{color:var(--navy-warn);margin-top:2px;stroke-width:2.2}
 .band-side{display:grid;gap:16px}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .plan{display:grid;gap:10px;align-content:start;background:var(--navy-2);border:1px solid var(--navy-line);border-radius:18px;padding:22px}
-.plan h3{font-weight:700;font-size:18px}
-.plan-tag{justify-self:start;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--navy-warn);color:var(--warn-ink)}
-.amt{font-weight:800;font-size:38px;line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.plan h3{font-weight:600;font-size:17px}
+.plan-tag{justify-self:start;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--navy-warn);color:var(--warn-ink)}
+.amt{font-weight:700;font-size:36px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .amt small{font-weight:500;font-size:15px;letter-spacing:0;color:var(--navy-muted)}
 .vat{font-size:13px;color:var(--navy-muted)}
 .plan ul{margin:4px 0 0;padding:0 0 0 18px;display:grid;gap:4px;font-size:14.5px}
 .ico{background:var(--navy-2);border:1px solid var(--navy-line);border-radius:18px;padding:22px;display:grid;gap:10px}
-.ico label{font-weight:700}
+.ico label{font-weight:600}
 .ico-row{display:flex;gap:8px}
 .ico-row .input{flex:1;min-width:0;border-radius:999px;padding-inline:18px}
 .ico-msg{font-size:14px;color:var(--navy-muted);min-height:1.5em}
@@ -370,23 +343,23 @@ button,input,select,textarea{font:inherit;color:inherit}
 .faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px, 5vw, 72px);align-items:start}
 .faq{border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:62px;padding:14px 0;cursor:pointer;font-weight:700;font-size:17.5px;line-height:1.35;letter-spacing:-.01em}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:62px;padding:14px 0;cursor:pointer;font-weight:600;font-size:17px;line-height:1.35}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary .ic{color:var(--muted);transition:transform .2s}
 .faq details[open] summary .ic{transform:rotate(45deg)}
 .faq details p{padding:0 0 20px;color:var(--muted);max-width:66ch}
 
 /* Výzva */
-.cta{background:var(--brand);color:var(--brand-ink);border-radius:28px;padding:clamp(28px, 5vw, 60px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
-.cta h2{font-weight:800;font-size:clamp(28px, 3.4vw, 42px);line-height:1.08;letter-spacing:-.04em}
-.cta p{opacity:.92;margin-top:8px;max-width:52ch}
-.cta .btn{min-height:54px;padding:0 28px;font-size:16px}
+.cta{background:var(--navy);color:var(--navy-ink);border-radius:24px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.cta h2{font-weight:700;font-size:clamp(26px, 3vw, 36px);line-height:1.12;letter-spacing:-.025em}
+.cta p{color:var(--navy-muted);margin-top:8px;max-width:52ch}
+.cta .btn{min-height:52px;padding:0 26px;font-size:16px}
 
 /* Pätička */
 .foot{background:var(--bg-alt);border-top:1px solid var(--line);padding-block:52px 32px;font-size:14.5px}
 .foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3, minmax(0,1fr));gap:32px}
 .foot-brand{display:grid;gap:12px;align-content:start;max-width:34ch;color:var(--muted)}
-.foot h2{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.foot h2{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
 .foot li a,.foot li button{display:inline-flex;align-items:center;min-height:36px;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;font-size:14.5px}
 .foot li a:hover,.foot li button:hover{color:var(--ink);text-decoration:underline}
@@ -405,13 +378,13 @@ textarea.input{min-height:120px;resize:vertical;line-height:1.5}
 .input[aria-invalid="true"]{border-color:var(--danger)}
 
 /* Dialóg */
-dialog{border:0;padding:0;border-radius:24px;background:var(--surface);color:var(--ink);width:min(600px, calc(100% - 32px));max-height:calc(100% - 48px);box-shadow:var(--shadow)}
+dialog{border:0;padding:0;border-radius:24px;background:var(--surface);color:var(--ink);width:min(600px, calc(100% - 32px));max-height:calc(100% - 48px);box-shadow:var(--shadow-lg)}
 dialog[open]{display:flex;flex-direction:column}
 dialog::backdrop{background:var(--scrim)}
 .dlg-form{display:flex;flex-direction:column;min-height:0;flex:1}
 .dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}
-.dlg-head h2{font-weight:800;font-size:25px;letter-spacing:-.03em;margin-top:2px}
-.steplabel{font-size:13px;font-weight:700;color:var(--brand-text);font-variant-numeric:tabular-nums}
+.dlg-head h2{font-weight:700;font-size:24px;letter-spacing:-.025em;margin-top:2px}
+.steplabel{font-size:13px;font-weight:600;color:var(--brand-text);font-variant-numeric:tabular-nums}
 .x{width:44px;height:44px;margin:-8px -10px 0 0;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
 .x:hover{background:var(--bg-alt)}
 .progress{height:4px;background:var(--bg-alt);margin:16px 24px 0;border-radius:4px;overflow:hidden}
@@ -419,20 +392,20 @@ dialog::backdrop{background:var(--scrim)}
 .dlg-body{padding:20px 24px 24px;overflow-y:auto;min-height:0;flex:1}
 .step{display:grid;gap:18px;border:0;margin:0;padding:0;min-width:0}
 .f{display:grid;gap:6px}
-.f > label,.f > legend{font-weight:700;font-size:15px;padding:0}
+.f > label,.f > legend{font-weight:600;font-size:15px;padding:0}
 .f .hint{font-size:13.5px;color:var(--muted)}
-.err{font-size:13.5px;color:var(--danger);font-weight:600}
+.err{font-size:13.5px;color:var(--danger);font-weight:500}
 .opts{display:grid;gap:8px;border:0;padding:0;margin:0;min-width:0}
-.opt{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:14px;cursor:pointer}
+.f > label.opt,.opt{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:14px;cursor:pointer;font-weight:500}
 .opt:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
 .opt input{width:18px;height:18px;accent-color:var(--brand);margin:0;flex:none}
 .check{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;cursor:pointer;line-height:1.45}
 .check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--brand);flex:none}
-.pro-note{display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:14px;background:var(--brand-soft);color:var(--brand-text);font-size:14.5px;font-weight:700}
+.pro-note{display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:14px;background:var(--brand-soft);color:var(--brand-text);font-size:14.5px;font-weight:600}
 .done{display:grid;gap:16px}
 .okmark{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--good-soft);color:var(--good)}
-.okmark .ic{stroke-width:2.4}
-.done h3{font-weight:800;font-size:22px;letter-spacing:-.025em}
+.okmark .ic{width:24px;height:24px;stroke-width:2.4}
+.done h3{font-weight:700;font-size:22px;letter-spacing:-.02em}
 .done p{color:var(--muted)}
 .summary{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;padding:16px;border-radius:14px;background:var(--bg-alt);font-size:14.5px}
 .summary dt{color:var(--muted)}
@@ -440,8 +413,6 @@ dialog::backdrop{background:var(--scrim)}
 .dlg-foot{display:flex;justify-content:space-between;gap:12px;padding:16px 24px;border-top:1px solid var(--line);background:var(--surface)}
 .dlg-foot .spacer{flex:1}
 
-/* Desktop bez bočných fotiek */
-@media (max-width: 1179px){ .art{display:none} }
 /* Tablet */
 @media (max-width: 1080px){
   .projects,.pros{grid-template-columns:repeat(3, minmax(0,1fr))}
@@ -449,14 +420,16 @@ dialog::backdrop{background:var(--scrim)}
   .foot-brand{grid-column:1 / -1;max-width:none}
 }
 @media (max-width: 980px){
-  .prices,.band-grid,.faq-grid,.how-grid{grid-template-columns:minmax(0,1fr)}
-  .sheet{max-width:620px}
+  .hero-grid,.prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
+  .visual{padding-block:8px 0}
+  .how{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width: 919px){
-  .nav,.top-actions .btn-soft{display:none}
+  .nav,.top-actions .link{display:none}
+  .top-actions{margin-left:auto}
   body{padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px))}
   .tabbar{display:grid;grid-template-columns:repeat(5, minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:55;background:color-mix(in srgb, var(--surface) 94%, transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px))}
-  .tabbar a,.tabbar button{display:grid;justify-items:center;align-content:center;gap:3px;min-height:54px;border:0;background:none;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:700;cursor:pointer;border-radius:10px;padding:0}
+  .tabbar a,.tabbar button{display:grid;justify-items:center;align-content:center;gap:3px;min-height:54px;border:0;background:none;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:600;cursor:pointer;border-radius:10px;padding:0}
   .tabbar a[aria-current="true"]{color:var(--brand-text)}
   .tabbar .ic{width:22px;height:22px}
   .tabbar .tb-main{color:var(--ink)}
@@ -468,33 +441,21 @@ dialog::backdrop{background:var(--scrim)}
   .projects{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;padding-right:var(--gut-r);padding-bottom:4px;scroll-padding-inline:var(--gut)}
   .projects::-webkit-scrollbar{display:none}
   .projects > li{flex:0 0 min(78%, 300px);scroll-snap-align:start}
-  .cat-sec .wrap{padding-right:0}
-  .cat-scroll{padding-right:var(--gut-r);scroll-padding-inline:var(--gut)}
+  .cats .wrap{padding-inline:0}
+  .cat-scroll{padding-inline:calc(var(--gut) - 10px) calc(var(--gut-r) - 10px)}
+  .cat{min-width:84px}
   .pros{grid-template-columns:repeat(2, minmax(0,1fr))}
   .plans{grid-template-columns:minmax(0,1fr)}
   .foot-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .cmp-head{display:none}
-  .cmp-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-  .cmp-row > *{padding:12px 16px}
-  .cmp [role="rowheader"]{grid-column:1 / -1;padding-bottom:0;font-size:15px}
-  .cmp-tag{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
-  .cmp .yes .cmp-tag{color:var(--brand-text)}
-  .cmp .ic{display:none}
-  .cmp .no,.cmp .yes{display:block;font-size:14.5px}
+  .vs{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width: 640px){
-  .notice{font-size:13.5px}
-  .hero-center{gap:20px}
-  .search{flex-direction:column;align-items:stretch;border-radius:22px;padding:6px}
-  .sfield + .sfield{border-left:0;border-top:1px solid var(--line)}
-  .search .btn{margin-top:6px}
-  .sheet{padding:18px 16px 14px;border-radius:18px}
-  .sheet-head{flex-direction:column;gap:10px}
-  .offer{grid-template-columns:38px minmax(0,1fr);gap:4px 12px}
-  .offer .ava{width:38px;height:38px;font-size:13px}
-  .o-price{grid-column:2;text-align:left;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;margin-top:4px}
-  .o-price strong{font-size:20px}
-  .o-terms{grid-column:2;margin-top:2px}
+  .s-row{grid-template-columns:minmax(0,1fr)}
+  .stats{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px}
+  .stats dd{font-size:24px}
+  .phone{width:280px}
+  .f1{left:0;top:0}
+  .float{padding:10px 12px}
   .pros{grid-template-columns:minmax(0,1fr)}
   .filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding-inline:var(--gut) var(--gut-r);padding-block:2px;scroll-padding-inline:var(--gut)}
   .filter::-webkit-scrollbar{display:none}
@@ -502,7 +463,8 @@ dialog::backdrop{background:var(--scrim)}
   .ptable caption{padding:16px 16px 6px}
   .seg{max-width:none}
   .ico-row{flex-direction:column}
-  .cta{border-radius:22px}
+  .how li,.vs-card{padding:22px}
+  .cta{border-radius:20px}
   .cta .btn{width:100%}
   .top-actions .btn{padding:0 16px}
   dialog{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;margin:0}
@@ -515,7 +477,8 @@ dialog::backdrop{background:var(--scrim)}
 }
 @media (max-width: 380px){
   .foot-grid{grid-template-columns:minmax(0,1fr)}
-  .logo{font-size:22px}
+  .logo{font-size:20px}
+  .float{display:none}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -528,40 +491,42 @@ dialog::backdrop{background:var(--scrim)}
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12z"/></symbol>
-  <symbol id="i-faucet" viewBox="0 0 24 24"><path d="M3.5 8v6M3.5 11h8M11.5 11h3a4 4 0 0 1 4 4v1"/><path d="M12 11V7M9.5 7h5"/><path d="M18.5 18.6c.8 1 1.2 1.7 1.2 2.2a1.2 1.2 0 0 1-2.4 0c0-.5.4-1.2 1.2-2.2z"/></symbol>
-  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.8c1 3.6 5.2 5.6 5.2 10.4a5.2 5.2 0 0 1-10.4 0c0-2.6 1.5-4.2 2.6-5.2.3 1.9 1.2 2.9 2.3 3.3-.6-2.6-.8-5.6.3-8.5z"/></symbol>
-  <symbol id="i-chimney" viewBox="0 0 24 24"><path d="M3 11.5 12 4.5l9 7"/><path d="M5.5 9.7V20.5h13V9.7"/><path d="M15 6.8V3h2.8v6"/><path d="M10 20.5v-5h4v5"/></symbol>
-  <symbol id="i-roller" viewBox="0 0 24 24"><rect x="3.5" y="3" width="13.5" height="5.5" rx="1.5"/><path d="M17 5.7h2.8v5.6H11v3"/><rect x="9.5" y="14.3" width="3" height="7" rx="1"/></symbol>
-  <symbol id="i-tiles" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="1.2"/><path d="M3 9.5h18M3 14.5h18M9 4.5v5M15 4.5v5M6 9.5v5M12 9.5v5M18 9.5v5M9 14.5v5M15 14.5v5"/></symbol>
-  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M10.5 3l1.7 4.6L16.8 9.3l-4.6 1.7-1.7 4.6-1.7-4.6L4.2 9.3l4.6-1.7z"/><path d="M18 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></symbol>
-  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9M7.8 5.2l8.4 4.5"/></symbol>
-  <symbol id="i-chair" viewBox="0 0 24 24"><path d="M7 3.5h10v8.5H7z"/><path d="M5.5 12h13v3.2h-13z"/><path d="M7 15.2V21M17 15.2V21"/></symbol>
-  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19.5C5 10.5 10 5 20 4.5c0 10-5.5 15-14.5 15"/><path d="M5 19.5c3-4.2 6.2-7.2 10-9.2"/></symbol>
-  <symbol id="i-window" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="16" rx="1"/><path d="M12 3v16M5 11h14M3 21h18"/></symbol>
-  <symbol id="i-solar" viewBox="0 0 24 24"><path d="M3.5 21 6 12h12l2.5 9z"/><path d="M4.7 16.5h14.6M10.2 12l-.9 9M13.8 12l.9 9"/><circle cx="12" cy="5.5" r="2.2"/><path d="M12 1.5v.6M7.6 5.5h.6M15.8 5.5h.6"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5M12 14.5v2"/></symbol>
-  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.2"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
-  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
-  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14.8c1.8.8 3 2.6 3.5 5.2"/></symbol>
-  <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.2c0-.9.7-1.7 1.6-1.7h2.8c.9 0 1.6.8 1.6 1.7V7M3 12.5h18"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /><path d="M12 5v14" /></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1" /><rect width="7" height="7" x="14" y="3" rx="1" /><rect width="7" height="7" x="14" y="14" rx="1" /><rect width="7" height="7" x="3" y="14" rx="1" /></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" /><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" /><path d="M12 17.5v-11" /></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /><rect width="20" height="14" x="2" y="6" rx="2" /></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" /></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7.29 6.75 7 5.3c-.29 1.45-1.14 2.84-2.29 3.76S3 11.1 3 12.25c0 2.22 1.8 4.05 4 4.05z" /><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97" /></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" /></symbol>
+  <symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol>
+  <symbol id="i-roller" viewBox="0 0 24 24"><rect width="16" height="6" x="2" y="2" rx="2" /><path d="M10 16v-2a2 2 0 0 1 2-2h8a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" /><rect width="4" height="6" x="8" y="16" rx="1" /></symbol>
+  <symbol id="i-tiles" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M3 12h18" /><path d="M12 3v18" /></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z" /><path d="M20 3v4" /><path d="M22 5h-4" /><path d="M4 17v2" /><path d="M5 18H3" /></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /><path d="M15 18H9" /><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /><circle cx="17" cy="18" r="2" /><circle cx="7" cy="18" r="2" /></symbol>
+  <symbol id="i-chair" viewBox="0 0 24 24"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3" /><path d="M3 16a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" /><path d="M5 18v2" /><path d="M19 18v2" /></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><path d="M10 10v.2A3 3 0 0 1 8.9 16H5a3 3 0 0 1-1-5.8V10a3 3 0 0 1 6 0Z" /><path d="M7 16v6" /><path d="M13 19v3" /><path d="M12 19h8.3a1 1 0 0 0 .7-1.7L18 14h.3a1 1 0 0 0 .7-1.7L16 9h.2a1 1 0 0 0 .8-1.7L13 3l-1.4 1.5" /></symbol>
+  <symbol id="i-window" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M10 4v4" /><path d="M2 8h20" /><path d="M6 4v4" /></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /><path d="m9 12 2 2 4-4" /></symbol>
+  <symbol id="i-verified" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /><path d="m9 12 2 2 4-4" /></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></symbol>
+  <symbol id="i-euro" viewBox="0 0 24 24"><path d="M4 10h12" /><path d="M4 14h9" /><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2" /></symbol>
+  <symbol id="i-phoneoff" viewBox="0 0 24 24"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91" /><line x1="22" x2="2" y1="2" y2="22" /></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /><path d="M14 2v4a2 2 0 0 0 2 2h4" /><path d="M10 9H8" /><path d="M16 13H8" /><path d="M16 17H8" /></symbol>
+  <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9" /><path d="m18 15 4-4" /><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" /></symbol>
+  <symbol id="i-solar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></symbol>
 </svg>
-
-<div class="notice">
-  <div class="wrap">
-    <p><strong>November:</strong> kominári a servisní technici kotlov majú pred zimou plné kalendáre.</p>
-    <button type="button" data-open="kurenie" data-desc="Servis plynového kotla"><span class="nt-pre">Pred zimou:&nbsp;</span>Objednať servis kotla <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-  </div>
-</div>
 
 <header class="top" id="top">
   <div class="wrap">
@@ -573,10 +538,9 @@ dialog::backdrop{background:var(--scrim)}
       <a href="#sluzby">Služby</a>
       <a href="#ako">Ako to funguje</a>
       <a href="#ceny">Ceny</a>
-      <a href="#majstri">Majstri</a>
+      <a href="#pre-majstrov">Pre firmy</a>
     </nav>
     <div class="top-actions">
-      <a class="btn btn-soft" href="#pre-majstrov">Pre firmy</a>
       <button class="btn btn-primary" type="button" data-open="">Zadať zákazku</button>
     </div>
   </div>
@@ -585,73 +549,82 @@ dialog::backdrop{background:var(--scrim)}
 <main id="obsah">
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="art art-l" aria-hidden="true">
-    <span class="ph ph-malovanie a1"></span>
-    <span class="ph ph-hero a2"></span>
-    <span class="ph ph-obklad a3"></span>
-  </div>
-  <div class="art art-r" aria-hidden="true">
-    <span class="ph ph-kotol a4"></span>
-    <span class="ph ph-upratovanie a5"></span>
-    <span class="ph ph-zahrada a6"></span>
-  </div>
-  <div class="wrap">
-    <div class="hero-center">
-      <h1 id="hero-title"><span>Overení majstri</span> <span><em>s&nbsp;cenou vopred</em></span> <span>na každú prácu doma</span></h1>
-      <p class="lead">Opíšte, čo treba urobiť. Do 24 hodín porovnáte najviac tri ponuky od remeselníkov z okolia, každú s cenou vrátane DPH. Telefón dostane len ten, koho si vyberiete.</p>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1 id="hero-title">Overení majstri na všetko, čo treba doma urobiť</h1>
+      <p class="lead">Opíšte prácu a do 24 hodín porovnajte najviac tri ponuky od remeselníkov z okolia. Každú s cenou vrátane DPH, termínom a zárukou.</p>
 
       <form class="search" id="search" role="search" aria-label="Zadať zákazku">
-        <label class="sfield" for="q">
+        <label class="s-field" for="q">
           <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
           <span class="sr">Čo treba urobiť?</span>
           <input id="q" name="q" list="tasks" placeholder="Čo treba urobiť?" autocomplete="off" enterkeyhint="next">
         </label>
-        <label class="sfield" for="where">
-          <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>
-          <span class="sr">Kde</span>
-          <input id="where" name="where" placeholder="PSČ alebo obec" autocomplete="postal-code" enterkeyhint="go">
-        </label>
-        <button class="btn btn-primary" type="submit">Získať ponuky</button>
+        <div class="s-row">
+          <label class="s-field" for="where">
+            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>
+            <span class="sr">Kde</span>
+            <input id="where" name="where" placeholder="PSČ alebo obec" autocomplete="postal-code" enterkeyhint="go">
+          </label>
+          <button class="btn btn-primary" type="submit">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
       </form>
       <datalist id="tasks"></datalist>
 
-      <div class="trust">
-        <span><svg class="ic ic-s" aria-hidden="true"><use href="#i-check"/></svg>Zadarmo a bez registrácie</span>
-        <span><svg class="ic ic-s" aria-hidden="true"><use href="#i-check"/></svg>Najviac 3 ponuky</span>
-        <span><svg class="ic ic-s" aria-hidden="true"><use href="#i-check"/></svg>Overené IČO</span>
+      <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Telefón dostane len majster, ktorého si vyberiete.</p>
+
+      <dl class="stats">
+        <div><dt>ponuky najviac</dt><dd>3</dd></div>
+        <div><dt>na prvé ponuky</dt><dd>24 h</dd></div>
+        <div><dt>pre zákazníka</dt><dd>0 €</dd></div>
+      </dl>
+    </div>
+
+    <figure class="visual" aria-label="Ukážka: porovnanie troch ponúk v aplikácii">
+      <span class="blob" aria-hidden="true"></span>
+      <div class="phone">
+        <div class="phone-bar" aria-hidden="true"><span>9:41</span><span class="notch"></span><span class="sig"><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i><i style="height:11px"></i></span></div>
+        <div class="app">
+          <p class="app-back"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg>Moje zákazky</p>
+          <h3>Výmena bojlera 80 l</h3>
+          <p class="app-meta">Trnava · 3 ponuky z 3 · ukážka</p>
+          <ul class="app-offers">
+            <li class="sel"><span class="ava" aria-hidden="true">MK</span><span><b>Martin Kováč <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,9 · št 5. 11.</small></span><strong>240 €<span>s DPH</span></strong></li>
+            <li><span class="ava" aria-hidden="true">VT</span><span><b>VodoTerm <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,7 · po 9. 11.</small></span><strong>34 €/h<span>s DPH</span></strong></li>
+            <li><span class="ava" aria-hidden="true">JP</span><span><b>Ján Polák <svg class="ic" aria-hidden="true"><use href="#i-verified"/></svg></b><small><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,8 · ut 10. 11.</small></span><strong>228 €<span>konečná</span></strong></li>
+          </ul>
+          <span class="app-cta">Vybrať Martina</span>
+          <p class="app-note"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Kontakt pošleme až po výbere</p>
+        </div>
       </div>
-    </div>
+      <div class="float f1" aria-hidden="true"><span class="fi"><svg class="ic"><use href="#i-shield"/></svg></span><span><b>IČO overené</b><span>Elektrotechnik § 22</span></span></div>
+    </figure>
   </div>
 </section>
 
-<section class="cat-sec" id="sluzby" aria-labelledby="cats-title">
-  <div class="wrap">
-    <div class="cat-head">
-      <h2 id="cats-title">Služby</h2>
-      <button class="link" type="button" data-open="ine">Opísať inú prácu <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-    </div>
-    <div class="cat-row">
-      <button class="row-arrow prev" type="button" id="cat-prev" aria-label="Predchádzajúce služby" hidden><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
-      <ul class="cat-scroll" id="cat-scroll">
-        <li><button class="ichip" type="button" data-open="kurenie"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="elektro"><span class="ph ph-elektro"></span><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Elektrikár</b><small>od 28 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="voda"><span class="ph ph-kotol"></span><svg class="ic" aria-hidden="true"><use href="#i-faucet"/></svg><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="maliar"><span class="ph ph-malovanie"></span><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg><span><b>Maliar</b><small>od 6 €/m²</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="upratovanie"><span class="ph ph-upratovanie"></span><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span><b>Upratovanie</b><small>od 14 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="obklad"><span class="ph ph-obklad"></span><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="stahovanie"><span class="ph ph-stahovanie"></span><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg><span><b>Sťahovanie</b><small>od 45 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="zahrada"><span class="ph ph-zahrada"></span><svg class="ic" aria-hidden="true"><use href="#i-leaf"/></svg><span><b>Záhrada</b><small>od 20 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="montaz"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg><span><b>Montáž nábytku</b><small>od 25 €/h</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="komin"><svg class="ic" aria-hidden="true"><use href="#i-chimney"/></svg><span><b>Kominár</b><small>od 40 €</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="okna"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg><span><b>Okná a fasády</b><small>cena na ponuku</small></span></button></li>
-        <li><button class="ichip" type="button" data-open="solar"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg><span><b>Fotovoltika</b><small>cena na ponuku</small></span></button></li>
-      </ul>
-      <button class="row-arrow next" type="button" id="cat-next" aria-label="Ďalšie služby"><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
-    </div>
+<nav class="cats" id="sluzby" aria-label="Služby">
+  <div class="wrap cat-row">
+    <button class="row-arrow prev" type="button" id="cat-prev" aria-label="Predchádzajúce služby" hidden><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
+    <ul class="cat-scroll" id="cat-scroll">
+      <li><button class="cat" type="button" data-open="elektro"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg>Elektrikár</button></li>
+      <li><button class="cat" type="button" data-open="voda"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg>Vodoinštalatér</button></li>
+      <li><button class="cat" type="button" data-open="kurenie"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>Kúrenie a plyn</button></li>
+      <li><button class="cat" type="button" data-open="maliar"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg>Maliar</button></li>
+      <li><button class="cat" type="button" data-open="upratovanie"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Upratovanie</button></li>
+      <li><button class="cat" type="button" data-open="montaz"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg>Montáž nábytku</button></li>
+      <li><button class="cat" type="button" data-open="obklad"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg>Obklady</button></li>
+      <li><button class="cat" type="button" data-open="stahovanie"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg>Sťahovanie</button></li>
+      <li><button class="cat" type="button" data-open="zahrada"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg>Záhrada</button></li>
+      <li><button class="cat" type="button" data-open="komin"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>Kominár</button></li>
+      <li><button class="cat" type="button" data-open="okna"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg>Okná a fasády</button></li>
+      <li><button class="cat" type="button" data-open="solar"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg>Fotovoltika</button></li>
+      <li><button class="cat" type="button" data-open="ine"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg>Iná práca</button></li>
+    </ul>
+    <button class="row-arrow next" type="button" id="cat-next" aria-label="Ďalšie služby"><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
   </div>
-</section>
+</nav>
 
-<section class="section alt proj-sec" aria-labelledby="proj-title">
+<section class="section alt proj-sec" data-tab="sluzby" aria-labelledby="proj-title">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -661,88 +634,69 @@ dialog::backdrop{background:var(--scrim)}
       <a class="link" href="#ceny">Celý cenník <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
     <ul class="projects">
-      <li><button class="proj" type="button" data-open="voda" data-desc="Výmena elektrického bojlera"><span class="proj-img"><span class="ph ph-kotol"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Výmena bojlera</span><span class="proj-price">150 – 250 €</span></span><span class="proj-sub">Vodoinštalatér · montáž a odvoz starého</span></button></li>
-      <li><button class="proj" type="button" data-open="maliar" data-desc="Maľovanie izby"><span class="proj-img"><span class="ph ph-malovanie"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Maľovanie izby</span><span class="proj-price">190 – 320 €</span></span><span class="proj-sub">Maliar · do 20 m² podlahy</span></button></li>
-      <li><button class="proj" type="button" data-open="upratovanie" data-desc="Upratovanie po rekonštrukcii"><span class="proj-img"><span class="ph ph-upratovanie"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Upratovanie po rekonštrukcii</span><span class="proj-price">110 – 170 €</span></span><span class="proj-sub">Upratovanie · byt 2 + 1</span></button></li>
-      <li><button class="proj" type="button" data-open="obklad" data-desc="Obklad kúpeľne"><span class="proj-img"><span class="ph ph-obklad"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Obklad kúpeľne</span><span class="proj-price">28 – 45 €</span></span><span class="proj-sub">Obklady a dlažby · za m²</span></button></li>
-      <li><button class="proj" type="button" data-open="stahovanie" data-desc="Sťahovanie bytu"><span class="proj-img"><span class="ph ph-stahovanie"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Sťahovanie bytu</span><span class="proj-price">45 – 65 €</span></span><span class="proj-sub">Sťahovanie · 2 ľudia a dodávka, hodina</span></button></li>
-      <li><button class="proj" type="button" data-open="zahrada" data-desc="Kosenie trávnika"><span class="proj-img"><span class="ph ph-zahrada"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Kosenie a živý plot</span><span class="proj-price">20 – 30 €</span></span><span class="proj-sub">Záhrada · za hodinu</span></button></li>
-      <li><button class="proj" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek"><span class="proj-img"><span class="ph ph-elektro"></span><span class="proj-go">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></span></span><span class="proj-meta"><span class="proj-title">Ističe, zásuvky, revízie</span><span class="proj-price">28 – 42 €</span></span><span class="proj-sub">Elektrikár · za hodinu</span></button></li>
+      <li><button class="proj" type="button" data-open="voda" data-desc="Výmena elektrického bojlera"><span class="proj-img"><span class="ph ph-kotol"></span></span><span class="proj-meta"><span class="proj-title">Výmena bojlera</span><span class="proj-price">150 – 250 €</span></span><span class="proj-sub">Vodoinštalatér · montáž a odvoz starého</span></button></li>
+      <li><button class="proj" type="button" data-open="maliar" data-desc="Maľovanie izby"><span class="proj-img"><span class="ph ph-malovanie"></span></span><span class="proj-meta"><span class="proj-title">Maľovanie izby</span><span class="proj-price">190 – 320 €</span></span><span class="proj-sub">Maliar · do 20 m² podlahy</span></button></li>
+      <li><button class="proj" type="button" data-open="upratovanie" data-desc="Upratovanie po rekonštrukcii"><span class="proj-img"><span class="ph ph-upratovanie"></span></span><span class="proj-meta"><span class="proj-title">Upratovanie po rekonštrukcii</span><span class="proj-price">110 – 170 €</span></span><span class="proj-sub">Upratovanie · byt 2 + 1</span></button></li>
+      <li><button class="proj" type="button" data-open="obklad" data-desc="Obklad kúpeľne"><span class="proj-img"><span class="ph ph-obklad"></span></span><span class="proj-meta"><span class="proj-title">Obklad kúpeľne</span><span class="proj-price">28 – 45 €</span></span><span class="proj-sub">Obklady a dlažby · za m²</span></button></li>
+      <li><button class="proj" type="button" data-open="stahovanie" data-desc="Sťahovanie bytu"><span class="proj-img"><span class="ph ph-stahovanie"></span></span><span class="proj-meta"><span class="proj-title">Sťahovanie bytu</span><span class="proj-price">45 – 65 €</span></span><span class="proj-sub">Sťahovanie · 2 ľudia a dodávka, hodina</span></button></li>
+      <li><button class="proj" type="button" data-open="zahrada" data-desc="Kosenie trávnika"><span class="proj-img"><span class="ph ph-zahrada"></span></span><span class="proj-meta"><span class="proj-title">Kosenie a živý plot</span><span class="proj-price">20 – 30 €</span></span><span class="proj-sub">Záhrada · za hodinu</span></button></li>
+      <li><button class="proj" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek"><span class="proj-img"><span class="ph ph-elektro"></span></span><span class="proj-meta"><span class="proj-title">Ističe, zásuvky, revízie</span><span class="proj-price">28 – 42 €</span></span><span class="proj-sub">Elektrikár · za hodinu</span></button></li>
       <li><button class="proj proj-cta" type="button" data-open="ine"><span class="proj-img"><span class="cta-in"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg><b>Iná práca?</b><span>Opíšte ju vlastnými slovami, nájdeme majstra.</span></span></span><span class="proj-meta"><span class="proj-title">Montáž kuchyne, dvere, okná…</span></span><span class="proj-sub">Ponuky do 24 hodín</span></button></li>
     </ul>
   </div>
 </section>
 
 <section class="section" id="ako" aria-labelledby="ako-title">
-  <div class="wrap how-grid">
-    <div>
-      <div class="sec-head">
-        <div>
-          <h2 class="h2" id="ako-title">Ako to funguje</h2>
-          <p class="sub">Tri kroky, žiadne naháňanie po telefóne.</p>
-        </div>
-      </div>
-      <ol class="how">
-        <li><span class="how-n" aria-hidden="true">1</span><h3>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty.</p></li>
-        <li><span class="how-n" aria-hidden="true">2</span><h3>Porovnajte najviac tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach.</p></li>
-        <li><span class="how-n" aria-hidden="true">3</span><h3>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></li>
-      </ol>
-      <div class="how-cta">
-        <button class="btn btn-primary" type="button" data-open="">Zadať zákazku zadarmo</button>
-        <p>Bez registrácie, ponuky do 24 hodín.</p>
+  <div class="wrap">
+    <div class="sec-head center">
+      <div>
+        <h2 class="h2" id="ako-title">Ako to funguje</h2>
+        <p class="sub">Tri kroky, žiadne naháňanie po telefóne.</p>
       </div>
     </div>
-
-    <aside class="sheet" aria-labelledby="sheet-title">
-      <div class="sheet-head">
-        <div>
-          <p class="sheet-kicker">Ukážka žiadosti č. 2611-0482</p>
-          <h3 class="sheet-title" id="sheet-title">Výmena elektrického bojlera 80 l</h3>
-          <p class="sheet-meta"><svg class="ic ic-s" aria-hidden="true"><use href="#i-pin"/></svg>Trnava, 917 01 · hotovo do 10. 11.</p>
-        </div>
-        <span class="pill">3 ponuky z 3</span>
-      </div>
-      <ol class="offers">
-        <li class="offer">
-          <span class="ava" aria-hidden="true">MK</span>
-          <div class="o-who"><strong>Martin Kováč <em class="flag">Najskorší termín</em></strong><span>Elektro, § 22 <span class="rate"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,9 (86)</span></span></div>
-          <div class="o-price"><strong>240 €</strong><span>pevná cena s DPH</span></div>
-          <dl class="o-terms"><div><dt>Termín</dt><dd>št 5. 11.</dd></div><div><dt>Záruka</dt><dd>2 roky</dd></div><div><dt>Odvoz starého</dt><dd>v cene</dd></div></dl>
-        </li>
-        <li class="offer">
-          <span class="ava" aria-hidden="true">VT</span>
-          <div class="o-who"><strong>VodoTerm, s. r. o.</strong><span>Voda, kúrenie <span class="rate"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,7 (132)</span></span></div>
-          <div class="o-price"><strong>34 €/h</strong><span>odhad 6 – 7 h, s DPH</span></div>
-          <dl class="o-terms"><div><dt>Termín</dt><dd>po 9. 11.</dd></div><div><dt>Záruka</dt><dd>2 roky</dd></div><div><dt>Odvoz starého</dt><dd>+ 20 €</dd></div></dl>
-        </li>
-        <li class="offer">
-          <span class="ava" aria-hidden="true">JP</span>
-          <div class="o-who"><strong>Ján Polák <em class="flag">Najnižšia pevná cena</em></strong><span>Neplatiteľ DPH <span class="rate"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg>4,8 (41)</span></span></div>
-          <div class="o-price"><strong>228 €</strong><span>pevná cena, bez DPH</span></div>
-          <dl class="o-terms"><div><dt>Termín</dt><dd>ut 10. 11.</dd></div><div><dt>Záruka</dt><dd>3 roky</dd></div><div><dt>Odvoz starého</dt><dd>v cene</dd></div></dl>
-        </li>
-      </ol>
-      <p class="sheet-foot"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg>Telefón a presnú adresu dostane len majster, ktorého vyberiete.</p>
-    </aside>
+    <ol class="how">
+      <li><span class="how-k">Krok 1</span><h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty.</p></li>
+      <li><span class="how-k">Krok 2</span><h3><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>Porovnajte tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach.</p></li>
+      <li><span class="how-k">Krok 3</span><h3><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></li>
+    </ol>
+    <div class="how-cta">
+      <button class="btn btn-primary" type="button" data-open="">Zadať zákazku zadarmo</button>
+      <p>Bez registrácie, ponuky do 24 hodín.</p>
+    </div>
   </div>
 </section>
 
 <section class="section alt" aria-labelledby="cmp-title">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head center">
       <div>
         <h2 class="h2" id="cmp-title">Prečo nie bežný portál s kontaktmi</h2>
-        <p class="sub">Veľa portálov predáva vašu žiadosť každému, kto zaplatí. My to robíme inak.</p>
+        <p class="sub">Mnohé portály predávajú vašu žiadosť každému, kto zaplatí. My to robíme inak.</p>
       </div>
     </div>
-    <div class="cmp" role="table" aria-label="Porovnanie s bežným portálom">
-      <div class="cmp-row cmp-head" role="row"><span role="columnheader">Čo vás zaujíma</span><span role="columnheader">Bežný portál</span><span role="columnheader">Poruke</span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Kto dostane váš telefón</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Každá firma, ktorá si kontakt kúpi</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>Len majster, ktorého vyberiete</span></span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Koľko ponúk</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Telefonáty od desiatok firiem</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>Najviac tri, písomne a porovnateľne</span></span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Cena</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Často až po obhliadke, bez DPH</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>Vopred, vrátane DPH</span></span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Poradie vo výsledkoch</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Kto viac zaplatí, je vyššie</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>Vzdialenosť, termín a hodnotenia</span></span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Overenie firmy</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Stačí e-mail</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>IČO v registri, oprávnenia, poistenie</span></span></div>
-      <div class="cmp-row" role="row"><span role="rowheader">Hodnotenia</span><span class="no" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg><span><span class="cmp-tag">Bežne</span>Môže písať ktokoľvek</span></span><span class="yes" role="cell"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><span><span class="cmp-tag">Poruke</span>Len po dokončenej zákazke</span></span></div>
+    <div class="vs">
+      <div class="vs-card vs-old">
+        <h3>Bežný portál s kontaktmi</h3>
+        <ul>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Váš telefón si kúpi každá firma, ktorá zaplatí</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Telefonáty od desiatok firiem</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Cena často až po obhliadke, bez DPH</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Vyššie je ten, kto viac zaplatí</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Na registráciu firmy stačí e-mail</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Hodnotiť môže ktokoľvek</li>
+        </ul>
+      </div>
+      <div class="vs-card vs-new">
+        <h3><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>Poruke</h3>
+        <ul>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Kontakt dostane len majster, ktorého vyberiete</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Najviac tri písomné ponuky, ľahko porovnateľné</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Cena vopred, vrátane DPH</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Poradie podľa vzdialenosti, termínu a hodnotení</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO v registri, oprávnenia, poistenie</li>
+          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Hodnotenia len po dokončenej zákazke</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -772,60 +726,52 @@ dialog::backdrop{background:var(--scrim)}
         <button class="btn btn-primary" type="button" data-open="">Zadať zákazku</button>
       </div>
       <article class="pro" data-kraj="TT">
-        <div class="pro-top"><span class="ava" aria-hidden="true">MK</span><div><h3>Martin Kováč</h3><p class="trade">Elektroinštalácie · Trnava</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>86 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Elektrotechnik § 22</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 32 €/h s DPH</dd><dt>Jazyky</dt><dd>SK · EN</dd><dt>Odpovedá</dt><dd>zvyčajne do 2 h</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="elektro" data-pro="Martin Kováč">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">MK</span><div><h3>Martin Kováč<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Elektroinštalácie · Trnava</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(86 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 32 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Elektrotechnik § 22</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 2 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN</li></ul>
+        <button class="btn btn-outline" type="button" data-open="elektro" data-pro="Martin Kováč">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="BA">
-        <div class="pro-top"><span class="ava" aria-hidden="true">ZH</span><div><h3>Zuzana Horváthová</h3><p class="trade">Upratovanie · Bratislava-Petržalka</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>214 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Poistenie zodpovednosti</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 16 €/h, neplatiteľka DPH</dd><dt>Jazyky</dt><dd>SK · EN · DE</dd><dt>Odpovedá</dt><dd>zvyčajne do 4 h</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="upratovanie" data-pro="Zuzana Horváthová">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">ZH</span><div><h3>Zuzana Horváthová<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Upratovanie · Bratislava-Petržalka</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(214 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 16 €/h, neplatiteľka DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Poistenie zodpovednosti</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 4 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN · DE</li></ul>
+        <button class="btn btn-outline" type="button" data-open="upratovanie" data-pro="Zuzana Horváthová">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="TT">
-        <div class="pro-top"><span class="ava" aria-hidden="true">LN</span><div><h3>Ladislav Nagy</h3><p class="trade">Obklady a dlažby · Dunajská Streda</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>5,0</strong>41 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>18 realizácií s fotkami</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 30 €/m² s DPH</dd><dt>Jazyky</dt><dd>SK · HU</dd><dt>Odpovedá</dt><dd>zvyčajne do 1 dňa</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="obklad" data-pro="Ladislav Nagy">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">LN</span><div><h3>Ladislav Nagy<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Obklady a dlažby · Dunajská Streda</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>5,0</strong>(41 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 30 €/m² s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>18 realizácií s fotkami</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · HU</li></ul>
+        <button class="btn btn-outline" type="button" data-open="obklad" data-pro="Ladislav Nagy">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="ZA">
-        <div class="pro-top"><span class="ava" aria-hidden="true">PB</span><div><h3>Peter Baláž</h3><p class="trade">Voda a kúrenie · Žilina</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>97 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Oprávnenie na plyn</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 30 €/h s DPH</dd><dt>Jazyky</dt><dd>SK · PL</dd><dt>Odpovedá</dt><dd>zvyčajne do 3 h</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="kurenie" data-pro="Peter Baláž">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">PB</span><div><h3>Peter Baláž<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Voda a kúrenie · Žilina</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(97 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 30 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Oprávnenie na plyn</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 3 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · PL</li></ul>
+        <button class="btn btn-outline" type="button" data-open="kurenie" data-pro="Peter Baláž">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="BB">
-        <div class="pro-top"><span class="ava" aria-hidden="true">KŠ</span><div><h3>Kominárstvo Šimko</h3><p class="trade">Kominár · Banská Bystrica</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>158 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Kominársky majster</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>kontrola od 45 € s DPH</dd><dt>Jazyky</dt><dd>SK</dd><dt>Odpovedá</dt><dd>zvyčajne do 1 dňa</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="komin" data-pro="Kominárstvo Šimko">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">KŠ</span><div><h3>Kominárstvo Šimko<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Kominár · Banská Bystrica</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(158 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>kontrola od 45 € s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Kominársky majster</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK</li></ul>
+        <button class="btn btn-outline" type="button" data-open="komin" data-pro="Kominárstvo Šimko">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="KE">
-        <div class="pro-top"><span class="ava" aria-hidden="true">OM</span><div><h3>Oksana Melnyk</h3><p class="trade">Maľovanie interiérov · Košice</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>63 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Bezprašné brúsenie</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 6,50 €/m² s DPH</dd><dt>Jazyky</dt><dd>SK · UK · EN</dd><dt>Odpovedá</dt><dd>zvyčajne do 2 h</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="maliar" data-pro="Oksana Melnyk">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">OM</span><div><h3>Oksana Melnyk<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Maľovanie interiérov · Košice</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(63 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 6,50 €/m² s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Bezprašné brúsenie</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 2 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · UK · EN</li></ul>
+        <button class="btn btn-outline" type="button" data-open="maliar" data-pro="Oksana Melnyk">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="NR">
-        <div class="pro-top"><span class="ava" aria-hidden="true">JM</span><div><h3>Jozef Mráz</h3><p class="trade">Montáž nábytku a kuchýň · Nitra</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,7</strong>122 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Vlastné náradie a doprava</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>od 26 €/h s DPH</dd><dt>Jazyky</dt><dd>SK · HU</dd><dt>Odpovedá</dt><dd>zvyčajne do 5 h</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="montaz" data-pro="Jozef Mráz">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">JM</span><div><h3>Jozef Mráz<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Montáž nábytku a kuchýň · Nitra</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,7</strong>(122 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 26 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Vlastné náradie a doprava</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 5 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · HU</li></ul>
+        <button class="btn btn-outline" type="button" data-open="montaz" data-pro="Jozef Mráz">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="PO">
-        <div class="pro-top"><span class="ava" aria-hidden="true">ŠT</span><div><h3>Šarišské teplo, s. r. o.</h3><p class="trade">Fotovoltika a tepelné čerpadlá · Prešov</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>37 hodnotení</p>
-        <div class="badges"><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO overené</span><span class="badge"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Pomoc s dotáciou</span></div>
-        <dl class="facts"><dt>Cena</dt><dd>na ponuku, obhliadka zdarma</dd><dt>Jazyky</dt><dd>SK · EN</dd><dt>Odpovedá</dt><dd>zvyčajne do 1 dňa</dd></dl>
-        <button class="btn btn-soft" type="button" data-open="solar" data-pro="Šarišské teplo, s. r. o.">Požiadať o ponuku</button>
+        <div class="pro-top"><span class="ava" aria-hidden="true">ŠT</span><div><h3>Šarišské teplo, s. r. o.<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Fotovoltika a tepelné čerpadlá · Prešov</p></div></div>
+        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(37 hodnotení)</p>
+        <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>na ponuku, obhliadka zdarma</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Pomoc s dotáciou</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN</li></ul>
+        <button class="btn btn-outline" type="button" data-open="solar" data-pro="Šarišské teplo, s. r. o.">Požiadať o ponuku</button>
       </article>
     </div>
   </div>
@@ -882,7 +828,7 @@ dialog::backdrop{background:var(--scrim)}
 <section class="band section" id="pre-majstrov" aria-labelledby="band-title">
   <div class="wrap band-grid">
     <div class="band-copy">
-      <h2 class="h2" id="band-title">Pre remeselníkov a firmy: platíte za nástroj, nie za kontakty</h2>
+      <h2 class="h2" id="band-title">Pre firmy: platíte za nástroj, nie za kontakty</h2>
       <p class="sub">Zákazky z vášho okolia bez prihadzovania o pozície. Lepšie miesto vo výsledkoch si nemôže kúpiť nikto.</p>
       <ul class="points">
         <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Žiadne poplatky za kontakty ani za poslané ponuky</li>
@@ -986,7 +932,7 @@ dialog::backdrop{background:var(--scrim)}
       </nav>
     </div>
     <div class="foot-bottom">
-      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné.<!--credits--></p>
+      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné.<!--credits--> Ikony Lucide (ISC).</p>
       <p>Ceny sú v eurách vrátane 23 % DPH, ak nie je uvedené inak.</p>
     </div>
   </div>
@@ -1104,7 +1050,7 @@ dialog::backdrop{background:var(--scrim)}
 
     </div>
     <div class="dlg-foot">
-      <button class="btn btn-soft" type="button" id="back" hidden>Späť</button>
+      <button class="btn btn-outline" type="button" id="back" hidden>Späť</button>
       <span class="spacer"></span>
       <button class="btn btn-primary" type="submit" id="next">Pokračovať</button>
     </div>
@@ -1217,17 +1163,17 @@ dialog::backdrop{background:var(--scrim)}
   });
   openFaq();
 
-  /* Spodná lišta: aktívna sekcia */
+  /* Spodná lišta: aktívna sekcia (sekcia s data-tab patrí k inej záložke, napr. Obľúbené práce k Službám) */
   const tabs = $$('.tabbar a[data-sec]');
   if ('IntersectionObserver' in window) {
+    const inBand = new Set();
     const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        const tab = tabs.find(t => t.dataset.sec === en.target.id);
-        if (en.isIntersecting) tabs.forEach(t => t.setAttribute('aria-current', String(t === tab)));
-        else if (tab && tab.getAttribute('aria-current') === 'true') tab.setAttribute('aria-current', 'false');
-      });
+      entries.forEach(en => { if (en.isIntersecting) inBand.add(en.target); else inBand.delete(en.target); });
+      const s = [...inBand][0];
+      const sec = s ? s.dataset.tab || s.id : '';
+      tabs.forEach(t => t.setAttribute('aria-current', String(t.dataset.sec === sec)));
     }, { rootMargin: '-45% 0px -50% 0px' });
-    tabs.forEach(t => { const s = document.getElementById(t.dataset.sec); if (s) io.observe(s); });
+    [...tabs.map(t => document.getElementById(t.dataset.sec)), ...$$('section[data-tab]')].forEach(s => { if (s) io.observe(s); });
   }
 
   /* IČO */
@@ -1326,15 +1272,20 @@ dialog::backdrop{background:var(--scrim)}
     if (input) input.addEventListener('input', () => { el.hidden = true; input.removeAttribute('aria-invalid'); });
   });
 
+  let autoDesc = '';
   const openReq = ({ cat = '', desc = '', psc = '', proName = '' } = {}) => {
     if (step === 4) form.reset();
     pro = proName;
     const note = $('#pro-note');
     note.hidden = !pro;
     if (pro) note.querySelector('span').textContent = `Žiadosť dostane aj ${pro}.`;
-    if (cat) $('#f-cat').value = cat;
     if (psc) $('#f-psc').value = psc;
-    if (desc && !$('#f-desc').value) $('#f-desc').value = desc;
+    if (cat) {
+      $('#f-cat').value = cat;
+      // Predvyplnený opis patrí ku kategórii; vlastný text zákazníka sa neprepisuje.
+      const d = $('#f-desc');
+      if (!d.value || d.value === autoDesc) { d.value = desc; autoDesc = desc; }
+    }
     $$('.err', form).forEach(el => { el.hidden = true; });
     $$('[aria-invalid]', form).forEach(el => el.removeAttribute('aria-invalid'));
     show(1);
