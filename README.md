@@ -1,6 +1,6 @@
 # Poruke
 
-Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť, navrhnutý v európskom duchu namiesto amerického modelu predaja kontaktov.
+Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuálne v čistom modernom business štýle (inšpirácia Thumbtack a Behance), obsahom v európskom duchu namiesto amerického modelu predaja kontaktov.
 
 **Živá ukážka:** https://matuslenicky.github.io/poruke/
 
@@ -13,15 +13,26 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť, navrhnu
 - **Overené IČO a oprávnenia** (napr. elektrotechnik § 22), platba priamo majstrovi na faktúru alebo s dokladom z eKasy.
 - **Ochrana kontaktu (GDPR):** telefón a adresu dostane len vybraný majster; len nevyhnutné cookies, preto bez cookie lišty.
 - **Transparentné radenie** (nariadenie EÚ 2019/1150) a **nahlasovanie obsahu** podľa DSA.
-- Mobil ako appka: spodná lišta, formulár zákazky na celú obrazovku. Svetlý aj tmavý režim podľa systému.
+- Mobil ako appka: spodná lišta, vodorovné pásy kariet, formulár zákazky na celú obrazovku. Svetlý aj tmavý režim podľa systému.
 
-## Ako to funguje technicky
+## Štruktúra a build
 
-Jeden súbor `index.html` bez buildu a bez závislostí: HTML, CSS a vanilla JavaScript. Fonty sú vložené priamo v súbore, takže stránka funguje aj offline a dá sa poslať ako príloha.
+```
+src/index.html      zdroj stránky (HTML, CSS, vanilla JS)
+src/fonts/          písmo Figtree orezané na latinku strednej a západnej Európy (WOFF)
+src/photos/         fotky prác (JPEG) a credits.json
+build.js            zloží jednosúborový index.html: vloží fonty a fotky ako data: URI
+index.html          výsledok, ktorý servíruje GitHub Pages a dá sa poslať ako príloha (funguje offline)
+```
 
-Overené nástrojom na audit (Chrome, desktop 1400 px a telefón 390 px, svetlý aj tmavý režim, axe-core): bez chýb. Lighthouse na mobile: výkon 96, prístupnosť 100, osvedčené postupy 100, SEO 100.
+```
+node build.js
+```
 
-## Písma
+Bez závislostí, stačí Node.js.
 
-- [Familjen Grotesk](https://fonts.google.com/specimen/Familjen+Grotesk) a [Fira Sans](https://fonts.google.com/specimen/Fira+Sans), obe pod licenciou [SIL Open Font License 1.1](https://openfontlicense.org). V súbore sú orezané na znaky latinky strednej a západnej Európy.
+## Písmo a fotky
+
+- [Figtree](https://fonts.google.com/specimen/Figtree), licencia [SIL Open Font License 1.1](https://openfontlicense.org).
+- Fotky sú voľné diela nájdené cez [Openverse](https://openverse.org); autori, licencie a zdroje sú v `src/photos/credits.json`, fotky s licenciou CC BY sú uvedené aj v pätičke stránky.
 - Ikony sú vlastné SVG.
