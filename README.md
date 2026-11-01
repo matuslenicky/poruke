@@ -21,8 +21,9 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 src/index.html      zdroj stránky (HTML, CSS, vanilla JS)
 src/fonts/          písmo Figtree orezané na latinku strednej a západnej Európy (WOFF)
 src/photos/         fotky prác (JPEG) a credits.json
-build.js            zloží jednosúborový index.html: vloží fonty a fotky ako data: URI
-index.html          výsledok, ktorý servíruje GitHub Pages a dá sa poslať ako príloha (funguje offline)
+build.js            zloží index.html (web) a poruke.html (offline, jeden súbor)
+index.html          výsledok pre web (GitHub Pages): fonty vložené, fotky ako súbory zo src/photos
+poruke.html         rovnaká stránka na poslanie ako príloha: všetko vložené, funguje offline
 ```
 
 ```
