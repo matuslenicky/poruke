@@ -35,5 +35,5 @@ Bez závislostí, stačí Node.js.
 
 - [Figtree](https://fonts.google.com/specimen/Figtree), licencia [SIL Open Font License 1.1](https://openfontlicense.org).
 - Ikony [Lucide](https://lucide.dev), licencia ISC.
-- Fotky sú voľné diela nájdené cez [Openverse](https://openverse.org); autori, licencie a zdroje sú v `src/photos/credits.json`, fotky s licenciou CC BY sú uvedené aj v pätičke stránky.
+- Fotky sú voľné diela zo [StockSnap](https://stocksnap.io) (CC0) a [Wikimedia Commons](https://commons.wikimedia.org) (CC0, CC BY 2.0); autori, licencie a zdroje sú v `src/photos/credits.json`, fotky s licenciou CC BY sú uvedené aj v pätičke stránky.
 
