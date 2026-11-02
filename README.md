@@ -9,7 +9,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 ## Čo koncept ukazuje
 
 - **Najviac tri ponuky** na zákazku namiesto rozposielania žiadosti desiatkam firiem.
-- **Obchodný model:** zákazník neplatí nič. Remeselník platí za zákazku (ilustračne 3 / 7 / 15 € bez DPH podľa veľkosti), až keď na ňu pošle ponuku; zákazku dostanú najviac traja, za falošnú alebo zrušenú zákazku sa vracia kredit, žiadne predplatné ani platené pozície.
+- **Obchodný model:** zákazník neplatí nič. Remeselník platí za zákazku (predbežne 3 / 7 / 15 € bez DPH podľa veľkosti, konečné ceny po prieskume trhu), až keď na ňu pošle ponuku; zákazku dostanú najviac traja, za falošnú alebo zrušenú zákazku sa vracia kredit, žiadne predplatné ani platené pozície.
 - **Ceny vrátane DPH 23 %**, prepínač s/bez DPH a orientačné ceny podľa kraja.
 - **Overené IČO a oprávnenia** (napr. elektrotechnik § 22), platba priamo majstrovi na faktúru alebo s dokladom z eKasy.
 - **Ochrana kontaktu (GDPR):** telefón a adresu dostane len vybraný majster; len nevyhnutné cookies, preto bez cookie lišty.
@@ -20,7 +20,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 
 ```
 src/index.html      zdroj stránky (HTML, CSS, vanilla JS)
-src/fonts/          písmo Figtree orezané na latinku strednej a západnej Európy (WOFF)
+src/fonts/          písmo Manrope orezané na latinku strednej a západnej Európy (WOFF)
 src/photos/         fotky prác (JPEG) a credits.json
 build.js            zloží index.html (web) a poruke.html (offline, jeden súbor)
 index.html          výsledok pre web (GitHub Pages): fonty vložené, fotky ako súbory zo src/photos
@@ -33,9 +33,19 @@ node build.js
 
 Bez závislostí, stačí Node.js.
 
+## Testy
+
+```
+node tests/run.js                                         # koreňový index.html
+node tests/run.js poruke.html                             # offline súbor
+SHARED=https://matuslenicky.github.io/poruke/ node tests/run.js   # živá adresa
+```
+
+Playwright (globálne nainštalovaný), šírky 390, 820 a 1440 px: pretečenie, vyhľadávanie, všetky tlačidlá zákazky, dialóg s validáciou, filter krajov, ceny pre všetky kraje s DPH aj bez, IČO, odkazy na otázky, kotvy, chyby konzoly a siete.
+
 ## Písmo a fotky
 
-- [Figtree](https://fonts.google.com/specimen/Figtree), licencia [SIL Open Font License 1.1](https://openfontlicense.org).
+- [Manrope](https://fonts.google.com/specimen/Manrope), licencia [SIL Open Font License 1.1](https://openfontlicense.org).
 - Ikony [Lucide](https://lucide.dev), licencia ISC.
 - Fotky sú voľné diela zo [StockSnap](https://stocksnap.io) (CC0) a [Wikimedia Commons](https://commons.wikimedia.org) (CC0, CC BY 2.0); autori, licencie a zdroje sú v `src/photos/credits.json`, fotky s licenciou CC BY sú uvedené aj v pätičke stránky.
 

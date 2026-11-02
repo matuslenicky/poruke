@@ -1,7 +1,6 @@
-/* Figtree (SIL OFL 1.1), orezané na latinku strednej a západnej Európy */
-@font-face{font-family:'Figtree';font-style:normal;font-weight:400;font-display:block;src:url(figtree-400.woff) format("woff")}
-@font-face{font-family:'Figtree';font-style:normal;font-weight:500;font-display:block;src:url(figtree-500.woff) format("woff")}
-@font-face{font-family:'Figtree';font-style:normal;font-weight:600;font-display:block;src:url(figtree-600.woff) format("woff")}
-@font-face{font-family:'Figtree';font-style:normal;font-weight:700;font-display:block;src:url(figtree-700.woff) format("woff")}
-/* Instrument Serif (SIL OFL 1.1) */
-@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:block;src:url(instrument-serif-normal.woff) format("woff")}
+/* Manrope (SIL OFL 1.1), orezané na latinku strednej a západnej Európy */
+@font-face{font-family:'Manrope';font-style:normal;font-weight:300;font-display:block;src:url(manrope-300.woff) format("woff")}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400;font-display:block;src:url(manrope-400.woff) format("woff")}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:500;font-display:block;src:url(manrope-500.woff) format("woff")}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:600;font-display:block;src:url(manrope-600.woff) format("woff")}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:700;font-display:block;src:url(manrope-700.woff) format("woff")}
