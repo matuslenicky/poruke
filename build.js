@@ -32,7 +32,7 @@ html = html.replace(fontLink, () => `<style id="fonts">\n${fontCss}</style>`);
 // Kredity fotiek s licenciou CC BY do pätičky (CC0 a public domain kredit nevyžadujú)
 const creditsFile = path.join(SRC, 'photos', 'credits.json');
 if (fs.existsSync(creditsFile)) {
-  const LABEL = { hero: 'elektrikár', kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', elektro: 'rozvádzač' };
+  const LABEL = { kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', elektro: 'rozvádzač', kuchyna: 'kuchyňa', 's-instalater': 'inštalatér', 's-upratovanie': 'upratovanie 2', 's-zahrada': 'záhradník' };
   const by = JSON.parse(fs.readFileSync(creditsFile, 'utf8')).filter(c => !/cc0|pdm|public/i.test(c.license || ''));
   const groups = {};
   for (const c of by) (groups[`${c.creator}|${c.license}|${c.license_url}`] ||= []).push(c);
@@ -41,7 +41,7 @@ if (fs.existsSync(creditsFile)) {
     const links = list.map(c => `<a href="${esc(c.source_url)}" rel="noopener">${esc(LABEL[c.key] || c.key)}</a>`).join(', ');
     return `${esc(creator)}, <a href="${esc(url)}" rel="noopener">${esc(license)}</a> (${links})`;
   });
-  html = html.replace('<!--credits-->', parts.length ? ` Fotky: ${parts.join('; ')}; ostatné CC0 (StockSnap, Wikimedia Commons).` : ' Fotky sú voľné diela (CC0).');
+  html = html.replace('<!--credits-->', parts.length ? ` Fotky: ${parts.join('; ')}, upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons).` : ' Fotky sú voľné diela (CC0).');
 }
 
 // Fotky: src="photos/x.jpg" a url(photos/x.jpg)

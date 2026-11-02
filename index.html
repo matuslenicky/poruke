@@ -173,6 +173,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ph-stahovanie{background-image:url(src/photos/stahovanie.jpg)}
 .ph-zahrada{background-image:url(src/photos/zahrada.jpg)}
 .ph-elektro{background-image:url(src/photos/elektro.jpg)}
+.ph-kuchyna{background-image:url(src/photos/kuchyna.jpg)}
+.ph-s-obklad{background-image:url(src/photos/s-obklad.jpg)}
+.ph-s-malovanie{background-image:url(src/photos/s-malovanie.jpg)}
+.ph-s-instalater{background-image:url(src/photos/s-instalater.jpg)}
+.ph-s-elektro{background-image:url(src/photos/s-elektro.jpg)}
+.ph-s-upratovanie{background-image:url(src/photos/s-upratovanie.jpg)}
+.ph-s-zahrada{background-image:url(src/photos/s-zahrada.jpg)}
+.ph-s-stahovanie{background-image:url(src/photos/s-stahovanie.jpg)}
 
 /* Služby: zoznam (GAZU) */
 .dir{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;list-style:none;margin:0;padding:0}
@@ -206,6 +214,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .zig li.rev .zig-img{order:2}
 .zig-img{border-radius:22px;overflow:hidden;background:var(--surface)}
 .zig-img .ph{aspect-ratio:16 / 10}
+.zig li:nth-child(1) .ph{background-size:150%;background-position:40% 30%}
+.zig li:nth-child(2) .ph{background-size:140%;background-position:20% 60%}
+.zig li:nth-child(3) .ph{background-size:150%;background-position:30% 20%}
+.bento .b-photo .ph{background-size:130%}
+.bento .b-photo:first-child .ph{background-position:70% 30%}
 .zig-text{display:grid;gap:10px;align-content:center;max-width:440px}
 .zig-n{font-weight:400;font-size:56px;letter-spacing:-.05em;line-height:1;color:var(--ink)}
 .zig h3{font-weight:600;font-size:clamp(22px, 2.2vw, 28px);line-height:1.2;letter-spacing:-.025em}
@@ -592,13 +605,13 @@ dialog::backdrop{background:var(--scrim)}
 
   <div class="strip" aria-label="Služby">
     <ul class="strip-track">
-      <li><button class="tile t-3" type="button" data-open="obklad"><span class="ph ph-obklad"></span><span class="tile-label">Obklady a dlažby</span></button></li>
-      <li><button class="tile t-2" type="button" data-open="maliar"><span class="ph ph-malovanie"></span><span class="tile-label">Maliar</span></button></li>
-      <li><button class="tile t-1" type="button" data-open="voda"><span class="ph ph-kotol"></span><span class="tile-label">Vodoinštalatér</span></button></li>
-      <li><button class="tile t0" type="button" data-open="elektro"><span class="ph ph-elektro"></span><span class="tile-label">Elektrikár</span></button></li>
-      <li><button class="tile t1" type="button" data-open="upratovanie"><span class="ph ph-upratovanie"></span><span class="tile-label">Upratovanie</span></button></li>
-      <li><button class="tile t2" type="button" data-open="zahrada"><span class="ph ph-zahrada"></span><span class="tile-label">Záhrada</span></button></li>
-      <li><button class="tile t3" type="button" data-open="stahovanie"><span class="ph ph-stahovanie"></span><span class="tile-label">Sťahovanie</span></button></li>
+      <li><button class="tile t-3" type="button" data-open="obklad"><span class="ph ph-s-obklad"></span><span class="tile-label">Obklady a dlažby</span></button></li>
+      <li><button class="tile t-2" type="button" data-open="maliar"><span class="ph ph-s-malovanie"></span><span class="tile-label">Maliar</span></button></li>
+      <li><button class="tile t-1" type="button" data-open="voda"><span class="ph ph-s-instalater"></span><span class="tile-label">Vodoinštalatér</span></button></li>
+      <li><button class="tile t0" type="button" data-open="elektro"><span class="ph ph-s-elektro"></span><span class="tile-label">Elektrikár</span></button></li>
+      <li><button class="tile t1" type="button" data-open="upratovanie"><span class="ph ph-s-upratovanie"></span><span class="tile-label">Upratovanie</span></button></li>
+      <li><button class="tile t2" type="button" data-open="zahrada"><span class="ph ph-s-zahrada"></span><span class="tile-label">Záhrada</span></button></li>
+      <li><button class="tile t3" type="button" data-open="stahovanie"><span class="ph ph-s-stahovanie"></span><span class="tile-label">Sťahovanie</span></button></li>
     </ul>
   </div>
 
@@ -678,7 +691,7 @@ dialog::backdrop{background:var(--scrim)}
       <li><button class="proj" type="button" data-open="obklad" data-desc="Obklad kúpeľne"><span class="proj-img"><span class="ph ph-obklad"></span></span><span class="proj-title">Obklad kúpeľne</span><span class="proj-price">28 – 45 € za m²</span></button></li>
       <li><button class="proj" type="button" data-open="stahovanie" data-desc="Sťahovanie bytu"><span class="proj-img"><span class="ph ph-stahovanie"></span></span><span class="proj-title">Sťahovanie bytu</span><span class="proj-price">45 – 65 € za hodinu</span></button></li>
       <li><button class="proj" type="button" data-open="zahrada" data-desc="Kosenie trávnika"><span class="proj-img"><span class="ph ph-zahrada"></span></span><span class="proj-title">Kosenie a živý plot</span><span class="proj-price">20 – 30 € za hodinu</span></button></li>
-      <li><button class="proj" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek"><span class="proj-img"><span class="ph ph-elektro"></span></span><span class="proj-title">Ističe, zásuvky, revízie</span><span class="proj-price">28 – 42 € za hodinu</span></button></li>
+      <li><button class="proj" type="button" data-open="montaz" data-desc="Montáž kuchynskej linky"><span class="proj-img"><span class="ph ph-kuchyna"></span></span><span class="proj-title">Montáž kuchyne</span><span class="proj-price">45 – 70 € za meter</span></button></li>
       <li><button class="proj proj-cta" type="button" data-open="ine"><span class="proj-img"><span class="cta-in"><b>Iná práca?</b><span>Opíšte ju vlastnými slovami, nájdeme majstra.</span></span></span><span class="proj-title">Montáž kuchyne, dvere, okná…</span><span class="proj-price">ponuky do 24 hodín</span></button></li>
     </ul>
   </div>
@@ -920,7 +933,7 @@ dialog::backdrop{background:var(--scrim)}
       </nav>
     </div>
     <div class="foot-bottom">
-      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>); ostatné CC0 (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
+      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>, <a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">inštalatér</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_stove_with_spray_cleaner_and_cloth_in_bright_kitchen_setting.jpg" rel="noopener">upratovanie 2</a>, <a href="https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg" rel="noopener">záhradník</a>), upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
       <p>Ceny sú v eurách vrátane 23 % DPH, ak nie je uvedené inak.</p>
     </div>
   </div>
@@ -1099,22 +1112,22 @@ dialog::backdrop{background:var(--scrim)}
     ['Murár', 'murar'], ['Podlahár', 'podlahy'], ['Pokrývač', 'strecha'], ['Klampiar', 'strecha'], ['Stolár', 'stolar']
   ];
   const KEYS = {
-    elektro: ['elektr', 'istic', 'zasuv', 'svetl', 'kabel', 'reviz'],
-    voda: ['bojler', 'bater', 'odpad', 'voda', 'vodo', 'kohut', 'wc', 'zachod', 'sprch'],
-    kurenie: ['kotol', 'kotl', 'plyn', 'radiat', 'kuren', 'podlahov'],
     komin: ['komin'],
+    kurenie: ['kotol', 'kotl', 'plyn', 'radiat', 'kuren', 'podlahov'],
+    upratovanie: ['uprat', 'umyv', 'umyt', 'cisten', 'tepov'],
+    okna: ['okn', 'okien', 'zatepl', 'fasad', 'dver'],
+    voda: ['bojler', 'bater', 'odpad', 'voda', 'vodo', 'kohut', 'wc', 'zachod', 'sprch'],
     maliar: ['malov', 'maliar', 'stierk', 'tapet', 'farb'],
     obklad: ['obklad', 'dlazb', 'kupeln', 'plock'],
-    upratovanie: ['uprat', 'okien', 'cisten', 'tepov'],
     stahovanie: ['stahov', 'vyprat', 'odvoz'],
+    stolar: ['stolar', 'na mieru', 'vstavan'],
     montaz: ['montaz', 'nabyt', 'kuchyn', 'skrin', 'postel'],
     zahrada: ['zahrad', 'kosen', 'trav', 'plot', 'strom'],
-    okna: ['okn', 'zatepl', 'fasad', 'dver'],
     solar: ['fotovolt', 'solar', 'panel', 'cerpad'],
     murar: ['murar', 'murov', 'omiet', 'sadrokart', 'priec', 'beton', 'stavb'],
     podlahy: ['podlah', 'parket', 'lamin', 'vinyl'],
     strecha: ['strech', 'pokryv', 'klamp', 'odkvap', 'zlab'],
-    stolar: ['stolar', 'na mieru', 'vstavan']
+    elektro: ['elektr', 'istic', 'zasuv', 'svetl', 'kabel', 'reviz']
   };
   const guessCat = text => {
     const t = norm(text);

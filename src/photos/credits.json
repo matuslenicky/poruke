@@ -1,13 +1,5 @@
 [
   {
-    "key": "hero",
-    "title": "Electrician working on a distribution board",
-    "creator": "StockSnap (autor neuvedený)",
-    "license": "CC0 1.0",
-    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "source_url": "https://stocksnap.io/photo/5OFPE51CY7"
-  },
-  {
     "key": "kotol",
     "title": "Plumber with pliers fix wires of water heater closeup",
     "creator": "Shixart1985",
@@ -62,5 +54,69 @@
     "license": "CC0 1.0",
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "source_url": "https://stocksnap.io/photo/81EG7NOR4G"
+  },
+  {
+    "key": "s-obklad",
+    "title": "Einschlämmen eines Fugenmörtels (grouting a tiled floor)",
+    "creator": "Frank Winkelmann",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Einschl%C3%A4mmen_eines_Fugenm%C3%B6rtels.jpg"
+  },
+  {
+    "key": "s-malovanie",
+    "title": "Painting a wall with a paint roller (US Navy 090416-F-7522G-006)",
+    "creator": "U.S. Air Force photo by Airman 1st Class Ashley Garcia",
+    "license": "Public domain (dielo vlády USA)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:US_Navy_090416-F-7522G-006_Aerographer%27s_Mate_Gina_Hegg,_embarked_aboard_the_Military_Sealift_Command_hospital_ship_USNS_Comfort_(T-AH_20)_paints_the_wall_of_a_pediatric_medical_facility_at_Emmanuel_Christian_School.jpg"
+  },
+  {
+    "key": "s-instalater",
+    "title": "Plumber with pliers fix wires of water heater closeup",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg"
+  },
+  {
+    "key": "s-elektro",
+    "title": "Electrician installing a wall socket",
+    "creator": "StockSnap (autor neuvedený)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://stocksnap.io/photo/QJ55PI34SY"
+  },
+  {
+    "key": "s-upratovanie",
+    "title": "Woman cleaning kitchen stove with spray cleaner and cloth in bright kitchen setting",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_stove_with_spray_cleaner_and_cloth_in_bright_kitchen_setting.jpg"
+  },
+  {
+    "key": "s-zahrada",
+    "title": "Gardening activity in a lush backyard with a man tending to plants",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg"
+  },
+  {
+    "key": "s-stahovanie",
+    "title": "Man taping a cardboard box",
+    "creator": "StockSnap (autor neuvedený)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://stocksnap.io/photo/WP1KHDXGOY"
+  },
+  {
+    "key": "kuchyna",
+    "title": "Kitchen Fitting (6)",
+    "creator": "Kokotai",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Kitchen_Fitting_(6).JPG"
   }
 ]

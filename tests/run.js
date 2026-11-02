@@ -244,9 +244,19 @@ async function runViewport(browser, target, vp, out) {
     let s = await dialogState(page);
     check(r, s.open && s.label === 'Krok 1 z 3' && s.title === 'Nová zákazka', `začiatok: ${s.label} / ${s.title}`);
     check(r, s.backHidden && s.next === 'Pokračovať', 'v kroku 1 nemá byť „Späť“ a hlavné tlačidlo má byť „Pokračovať“');
+    check(r, s.cat === '', `bez predvoľby má byť druh práce prázdny, je „${s.cat}“`);
+
+    // Krok 1: druh práce je povinný a kontroluje sa pred miestom
+    await page.fill('#f-psc', '');
+    await page.click('#next');
+    check(r, await shown(page, '#e-cat'), 'prázdny druh práce: chyba sa nezobrazila');
+    check(r, (await page.getAttribute('#f-cat', 'aria-invalid')) === 'true', 'prázdny druh práce: chýba aria-invalid');
+    check(r, (await activeId(page)) === 'f-cat', 'prázdny druh práce: fokus nie je na výbere');
+    check(r, !(await shown(page, '#e-psc')), 'chyba PSČ sa má ukázať až po vybraní druhu práce');
+    await page.selectOption('#f-cat', 'elektro');
+    check(r, !(await shown(page, '#e-cat')), 'výber druhu práce neskryl chybu');
 
     // Krok 1: miesto
-    await page.fill('#f-psc', '');
     await page.click('#next');
     check(r, await shown(page, '#e-psc'), 'prázdne PSČ: chyba sa nezobrazila');
     check(r, (await page.getAttribute('#f-psc', 'aria-invalid')) === 'true', 'prázdne PSČ: chýba aria-invalid');
@@ -291,6 +301,23 @@ async function runViewport(browser, target, vp, out) {
     check(r, !(await shown(page, '#e-name')), 'chyba mena ostala aj po vyplnení');
     check(r, (await activeId(page)) === 'f-email', 'zlý e-mail: fokus má byť na e-maile');
     await page.fill('#f-email', 'jan@example.sk');
+
+    // Faktúra na firmu: pole IČO sa ukáže len so zaškrtnutím a musí mať 8 číslic
+    check(r, !(await shown(page, '#firm-box')), 'pole IČO má byť skryté, kým nie je zaškrtnutá faktúra');
+    await page.check('#f-firm');
+    check(r, await shown(page, '#firm-box'), 'zaškrtnutie faktúry neodkrylo pole IČO');
+    check(r, (await activeId(page)) === 'f-ico', 'po zaškrtnutí faktúry má byť fokus na IČO');
+    await page.uncheck('#f-firm');
+    check(r, !(await shown(page, '#firm-box')), 'odškrtnutie faktúry neskrylo pole IČO');
+    await page.check('#f-firm');
+    await page.fill('#f-ico', '123');
+    await page.selectOption('#f-lang', { label: 'Čeština' });
+    await page.click('#next');
+    check(r, (await txt(page, '#steplabel')) === 'Krok 3 z 3', 'IČO „123“ nemalo prejsť');
+    check(r, await shown(page, '#e-ico'), 'zlé IČO: chyba sa nezobrazila');
+    check(r, !(await shown(page, '#e-email')), 'chyba e-mailu ostala aj po oprave');
+    check(r, (await activeId(page)) === 'f-ico', 'zlé IČO: fokus má byť na IČO');
+    await page.fill('#f-ico', '12 345 678');
     await page.click('#next');
 
     // Krok 4: súhrn
@@ -303,8 +330,11 @@ async function runViewport(browser, target, vp, out) {
       dl.querySelectorAll('dt').forEach(dt => { map[dt.textContent.trim()] = dt.nextElementSibling ? dt.nextElementSibling.textContent.trim() : ''; });
       return { map, injected: !!dl.querySelector('b'), done: document.getElementById('done-text').textContent };
     });
-    for (const k of ['Práca', 'Miesto', 'Termín', 'Opis', 'Fotky', 'Rozpočet']) check(r, k in sum.map, `v súhrne chýba „${k}“`);
+    for (const k of ['Práca', 'Miesto', 'Termín', 'Opis', 'Fotky', 'Rozpočet', 'Jazyk', 'Faktúra na IČO']) check(r, k in sum.map, `v súhrne chýba „${k}“`);
+    check(r, sum.map['Práca'] === 'Elektrikár', `súhrn Práca: ${sum.map['Práca']}`);
     check(r, sum.map['Miesto'] === 'Trnava', `súhrn Miesto: ${sum.map['Miesto']}`);
+    check(r, sum.map['Jazyk'] === 'Čeština', `súhrn Jazyk: ${sum.map['Jazyk']}`);
+    check(r, sum.map['Faktúra na IČO'] === '12345678', `súhrn Faktúra na IČO: ${sum.map['Faktúra na IČO']}`);
     check(r, sum.map['Opis'] === desc, `súhrn Opis: ${sum.map['Opis']}`);
     check(r, !sum.injected, 'súhrn vložil HTML z opisu (chýba escapovanie)');
     check(r, sum.done.includes('jan@example.sk'), 'text po odoslaní neobsahuje e-mail');
@@ -315,8 +345,67 @@ async function runViewport(browser, target, vp, out) {
     // Nové otvorenie po odoslaní začne od začiatku s prázdnym formulárom
     await page.locator('[data-open=""]').filter({ visible: true }).first().click();
     s = await dialogState(page);
-    check(r, s.label === 'Krok 1 z 3' && s.name === '' && s.desc === '', 'po odoslaní sa formulár pri ďalšom otvorení nevyprázdnil');
+    check(r, s.label === 'Krok 1 z 3' && s.name === '' && s.desc === '' && s.cat === '', 'po odoslaní sa formulár pri ďalšom otvorení nevyprázdnil');
+    check(r, !(await page.isChecked('#f-firm')) && !(await shown(page, '#firm-box')), 'po odoslaní ostala zaškrtnutá faktúra alebo viditeľné pole IČO');
     await closeDialog(page);
+  });
+
+  await test(ctx, 'druhy práce: formulár, adresár a vyhľadávanie', async r => {
+    await fresh(page);
+    const d = await page.evaluate(() => ({
+      options: [...document.querySelectorAll('#f-cat option')].map(o => o.value).filter(Boolean),
+      opens: [...new Set([...document.querySelectorAll('[data-open]')].map(e => e.dataset.open).filter(Boolean))],
+      dir: [...document.querySelectorAll('.dir-item[data-open]')].map(e => e.dataset.open),
+    }));
+    const missing = d.opens.filter(c => !d.options.includes(c));
+    check(r, missing.length === 0, `tlačidlá otvárajú druh práce, ktorý vo formulári nie je: ${missing.join(', ')}`);
+    const noDir = d.options.filter(c => c !== 'ine' && !d.dir.includes(c));
+    check(r, noDir.length === 0, `druh práce bez položky v adresári služieb: ${noDir.join(', ')}`);
+    for (const c of ['murar', 'podlahy', 'strecha', 'stolar']) check(r, d.options.includes(c) && d.dir.includes(c), `chýba nový druh práce ${c}`);
+    // Vyhľadávanie rozpozná aj nové druhy práce
+    const cases = [['Oprava strechy', 'strecha'], ['Pokládka laminátu', 'podlahy'], ['Sadrokartónová priečka', 'murar'], ['Stolár', 'stolar']];
+    for (const [q, want] of cases) {
+      await fresh(page);
+      await page.fill('#q', q);
+      await page.click('#search [type="submit"]');
+      const s = await dialogState(page);
+      check(r, s.open && s.cat === want, `„${q}“ → ${s.cat || 'nič'}, čakal som ${want}`);
+      await closeDialog(page);
+    }
+    r.info = `${d.options.length} druhov, ${d.dir.length} v adresári`;
+  });
+
+  await test(ctx, 'miesto: obec alebo PSČ nastaví kraj', async r => {
+    await fresh(page);
+    const obce = await page.$$eval('#obce option', o => o.length).catch(() => 0);
+    check(r, obce > 50, `našepkávač obcí #obce má len ${obce} položiek`);
+    const counts = await page.$$eval('#pros .pro', ps => ps.reduce((m, p) => (m[p.dataset.kraj] = (m[p.dataset.kraj] || 0) + 1, m), {}));
+    const found = [];
+    for (const [where, k, name] of [['Trnava', 'TT', 'Trnavský kraj'], ['040 01', 'KE', 'Košický kraj']]) {
+      await page.fill('#where', where);
+      const ok = await page.waitForFunction(n => document.getElementById('where-hint').textContent.includes(n), name, { timeout: 2000 }).then(() => true, () => false);
+      if (!check(r, ok, `„${where}“: nápoveda pod poľom nespomína ${name}`)) continue;
+      const st = await page.evaluate(() => {
+        const sel = document.getElementById('kraj');
+        return {
+          k: sel.options[sel.selectedIndex].dataset.k || '',
+          cap: document.getElementById('pcap').textContent.trim(),
+          pressed: [...document.querySelectorAll('#filter button[aria-pressed="true"]')].map(b => b.dataset.kraj),
+          visible: [...document.querySelectorAll('#pros .pro')].filter(p => !p.hidden && getComputedStyle(p).display !== 'none').map(p => p.dataset.kraj),
+        };
+      });
+      const want = counts[k] || 0;
+      check(r, st.k === k, `„${where}“: ceny sú pre ${st.k || 'celé Slovensko'}, čakal som ${k}`);
+      check(r, st.cap.startsWith(name), `„${where}“: popis cien „${st.cap}“`);
+      check(r, st.pressed.length === 1 && st.pressed[0] === k, `„${where}“: filter majstrov je ${st.pressed.join(',') || 'žiadny'}, čakal som ${k}`);
+      check(r, st.visible.length === want && st.visible.every(p => p === k), `„${where}“: zobrazených majstrov ${st.visible.length}, čakal som ${want}`);
+      const n = st.visible.length;
+      found.push(`${where} → ${k} (${n} ${n === 1 ? 'majster' : n > 1 && n < 5 ? 'majstri' : 'majstrov'})`);
+    }
+    await page.fill('#where', 'Xyzabc');
+    const cleared = await page.waitForFunction(() => document.getElementById('where-hint').textContent.trim() === '', null, { timeout: 2000 }).then(() => true, () => false);
+    check(r, cleared, 'neznáma obec: nápoveda ostala zobrazená');
+    r.info = found.join(', ');
   });
 
   await test(ctx, 'dialóg: zatvorenie (×, Esc, pozadie)', async r => {
