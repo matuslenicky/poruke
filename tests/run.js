@@ -363,7 +363,12 @@ async function runViewport(browser, target, vp, out) {
     check(r, noDir.length === 0, `druh práce bez položky v adresári služieb: ${noDir.join(', ')}`);
     for (const c of ['murar', 'podlahy', 'strecha', 'stolar']) check(r, d.options.includes(c) && d.dir.includes(c), `chýba nový druh práce ${c}`);
     // Vyhľadávanie rozpozná aj nové druhy práce
-    const cases = [['Oprava strechy', 'strecha'], ['Pokládka laminátu', 'podlahy'], ['Sadrokartónová priečka', 'murar'], ['Stolár', 'stolar']];
+    const cases = [
+      ['Oprava strechy', 'strecha'], ['Pokládka laminátu', 'podlahy'], ['Sadrokartónová priečka', 'murar'], ['Stolár', 'stolar'],
+      // Zadania, pri ktorých kedysi vyhralo nesprávne kľúčové slovo (okien, reviz, skrin)
+      ['Výmena okien v byte', 'okna'], ['Umývanie okien', 'upratovanie'], ['Revízia kotla', 'kurenie'], ['Revízia komína', 'komin'],
+      ['Revízia plynu', 'kurenie'], ['Podlahové kúrenie', 'kurenie'], ['Vstavaná skriňa na mieru', 'stolar'], ['Čistenie komína', 'komin'],
+    ];
     for (const [q, want] of cases) {
       await fresh(page);
       await page.fill('#q', q);
