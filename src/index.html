@@ -8,45 +8,50 @@
 <meta name="description" content="Overení remeselníci a služby pre domácnosť na Slovensku. Najviac tri ponuky s cenou vrátane DPH, kontakt dostane len majster, ktorého vyberiete.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="only light">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D5BD6'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23141414'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
-/* Layout: produktový business štýl. Biele plochy, mriežka do 1200 px, hero = text a vyhľadávacia karta vľavo,
-   mobil s ukážkou troch ponúk vpravo; pás služieb s ikonami; karty s jemným okrajom, jeden modrý akcent. */
+/* Layout: pokojný biely web kombinujúci tri referencie (Flowblox, GAZU, produktový web so slúchadlami).
+   Logo v strede hlavičky, nadpis pätkové + bezpätkové písmo, oblúk fotiek prác, mozaika výhod,
+   kroky 01–03 striedavo, karty prác na teplej sivej, riadok záruk, jednoduchá pätička. */
 :root{
   --bg:#FFFFFF;
-  --bg-alt:#F6F7F9;
+  --bg-alt:#F5F5F2;
   --surface:#FFFFFF;
-  --ink:#0E1525;
-  --ink-2:#2B3445;
-  --muted:#5E6878;
-  --line:#E4E7EC;
-  --line-strong:#8A94A3;
-  --brand:#1D5BD6;
-  --brand-hover:#1749B3;
+  --ink:#141414;
+  --ink-2:#34342F;
+  --muted:#62625D;
+  --line:#E7E6E1;
+  --line-strong:#8F8F89;
+  --brand:#141414;
+  --brand-hover:#000000;
   --brand-ink:#FFFFFF;
-  --brand-soft:#EEF3FD;
-  --brand-text:#1A4FC2;
-  --blob:#E6EEFC;
-  --device:#0E1525;
-  --star:#E8A21A;
-  --good:#0F7A55;
-  --good-soft:#E4F4EC;
+  --brand-soft:#F1F0EC;
+  --brand-text:#141414;
+  --sand:#EFE8DC;
+  --sage:#E3E9DA;
+  --sage-ink:#3D4B35;
+  --star:#E0A21B;
+  --good:#3B6E4F;
+  --good-soft:#E6EFE6;
   --danger:#C5221F;
-  --focus:#1D5BD6;
-  --band-bg:#F1F5FD;
+  --focus:#2F6FDB;
+  --on-photo:#FFFFFF;
+  --photo-shade:rgba(15,15,12,.62);
+  --band-bg:#F5F5F2;
   --band-card:#FFFFFF;
-  --band-ink:#0E1525;
-  --band-muted:#4F5B6E;
-  --band-line:#D6E0F3;
-  --band-accent:#1D5BD6;
+  --band-ink:#141414;
+  --band-muted:#62625D;
+  --band-line:#E2E1DB;
+  --band-accent:#141414;
   --band-accent-ink:#FFFFFF;
   --band-edge:transparent;
-  --scrim:rgba(10,14,22,.55);
-  --shadow-sm:0 1px 2px rgba(14,21,37,.06);
-  --shadow:0 1px 3px rgba(14,21,37,.06), 0 10px 30px rgba(14,21,37,.08);
-  --shadow-lg:0 2px 6px rgba(14,21,37,.06), 0 24px 60px rgba(14,21,37,.16);
+  --scrim:rgba(20,20,20,.5);
+  --shadow-sm:0 1px 2px rgba(20,20,20,.05);
+  --shadow:0 1px 3px rgba(20,20,20,.05), 0 14px 36px rgba(20,20,20,.08);
+  --shadow-lg:0 2px 6px rgba(20,20,20,.06), 0 24px 60px rgba(20,20,20,.14);
 
   --f:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
   --wrap:1200px;
   --gut:max(20px, env(safe-area-inset-left, 0px));
   --gut-r:max(20px, env(safe-area-inset-right, 0px));
@@ -63,7 +68,7 @@ body:has(dialog[open]){overflow:hidden}
 img,svg{max-width:100%}
 h1,h2,h3{text-wrap:balance;margin:0}
 p{margin:0}
-a{color:var(--brand-text);text-underline-offset:3px}
+a{color:var(--ink);text-underline-offset:3px}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:8px}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -71,100 +76,97 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ic-s{width:16px;height:16px}
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
-.section{padding-block:clamp(64px, 8vw, 104px)}
+.section{padding-block:clamp(72px, 9vw, 120px)}
 .alt{background:var(--bg-alt)}
-.h2{font-weight:700;font-size:clamp(28px, 3.2vw, 40px);line-height:1.12;letter-spacing:-.025em}
-.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px;margin-bottom:clamp(28px, 3.5vw, 44px)}
-.sec-head > div{display:grid;gap:10px;max-width:640px}
+.kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.h2{font-weight:600;font-size:clamp(30px, 3.4vw, 44px);line-height:1.1;letter-spacing:-.03em}
+.h2 .gray,.cta h2 .gray{color:var(--muted)}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px;margin-bottom:clamp(32px, 4vw, 52px)}
+.sec-head > div{display:grid;gap:12px;max-width:640px}
 .sec-head.center{justify-content:center;text-align:center}
 .sec-head.center > div{justify-items:center}
-.sub{color:var(--muted);font-size:17px;line-height:1.6;max-width:60ch}
+.sub{color:var(--muted);font-size:17px;line-height:1.6;max-width:58ch;text-wrap:pretty}
 
-/* Tlačidlá */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:600;font-size:15.5px;line-height:1.2;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s, border-color .15s, color .15s, box-shadow .15s}
+/* Tlačidlá: tabletky, hlavné s bielym krúžkom a šípkou */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:600;font-size:15.5px;line-height:1.2;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s, border-color .15s, color .15s, transform .15s}
 .btn-primary{background:var(--brand);color:var(--brand-ink)}
 .btn-primary:hover{background:var(--brand-hover)}
+.btn-circ{padding-right:6px}
+.circ{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--brand-ink);color:var(--brand);flex:none;transition:transform .2s}
+.circ .ic{width:16px;height:16px;stroke-width:2}
+.btn-circ:hover .circ{transform:translateX(2px)}
+.btn-white{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-white:hover{border-color:var(--ink)}
+.btn-white .ic{width:16px;height:16px}
 .btn-outline{background:var(--surface);border-color:var(--line-strong);color:var(--ink)}
 .btn-outline:hover{border-color:var(--ink)}
 .btn-warn{background:var(--band-accent);color:var(--band-accent-ink)}
-.btn-warn:hover{filter:brightness(1.05)}
-.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--brand-text);font-weight:600;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
-.link:hover{text-decoration:underline}
+.btn-warn:hover{background:var(--brand-hover)}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px;background:none;border:0;padding:0;cursor:pointer}
+.link:hover{text-decoration-thickness:2px}
 
-/* Hlavička */
+/* Hlavička: odkazy vľavo, logo v strede, akcie vpravo */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
 .top.scrolled{border-bottom-color:var(--line)}
-.top .wrap{display:flex;align-items:center;gap:32px;height:var(--header)}
-.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:22px;letter-spacing:-.03em;min-height:44px}
-.mark{width:30px;height:30px;flex:none}
-.mark rect{fill:var(--brand)}
-.mark path{fill:none;stroke:var(--brand-ink);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-.nav{display:flex;gap:4px;margin-left:auto}
+.top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;height:var(--header)}
+.nav{display:flex;gap:2px}
 .nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:999px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:15px}
 .nav a:hover{color:var(--ink);background:var(--bg-alt)}
-.top-actions{display:flex;align-items:center;gap:8px}
-.top-actions .btn{min-height:42px;padding:0 18px;font-size:15px}
-@media (pointer: coarse){ .top-actions .btn{min-height:44px} }
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:700;font-size:22px;letter-spacing:-.035em;min-height:44px;justify-self:center}
+.mark{width:30px;height:30px;flex:none}
+.mark rect{fill:var(--ink)}
+.mark path{fill:none;stroke:var(--bg);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.top-actions{display:flex;justify-content:flex-end;align-items:center;gap:6px}
+.top-actions .btn{min-height:44px;font-size:15px}
+.top-actions .btn-circ .circ{width:32px;height:32px}
 
 /* Hero */
-.hero{position:relative;overflow:hidden;padding-block:clamp(48px, 8vw, 112px) clamp(56px, 7vw, 96px);background:linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 100%)}
-.hero-grid{display:block}
-.hero-copy{display:grid;justify-items:center;gap:24px;min-width:0;max-width:760px;margin-inline:auto;text-align:center}
-.hero h1{font-weight:700;font-size:clamp(40px, 5.2vw, 64px);line-height:1.04;letter-spacing:-.035em}
-.hero h1 em{font-style:normal;color:var(--brand-text)}
-.lead{font-size:clamp(17px, 1.45vw, 19px);color:var(--muted);max-width:50ch;text-wrap:pretty}
-.search{width:100%;display:grid;gap:10px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:10px;max-width:600px;transition:border-color .15s}
-.search:focus-within{border-color:var(--brand)}
-.s-field{display:flex;align-items:center;gap:12px;padding:0 14px;border-radius:12px;min-width:0;cursor:text}
+.hero{padding-block:clamp(48px, 7vw, 96px) clamp(56px, 7vw, 88px);overflow:hidden}
+.hero-in{display:grid;justify-items:center;gap:22px;max-width:820px;margin-inline:auto;text-align:center}
+.hero h1{display:grid;gap:4px;line-height:1}
+.hero h1 .serif{font-family:var(--serif);font-weight:400;font-size:clamp(46px, 6.6vw, 88px);letter-spacing:-.01em;line-height:1}
+.hero h1 .sans{font-weight:700;font-size:clamp(36px, 5vw, 66px);letter-spacing:-.04em;line-height:1.05}
+.lead{font-size:clamp(17px, 1.45vw, 19px);color:var(--muted);max-width:52ch;text-wrap:pretty}
+.search{width:100%;max-width:700px;display:flex;align-items:stretch;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);padding:6px;text-align:left;transition:border-color .15s;margin-top:6px}
+.search:focus-within{border-color:var(--ink)}
+.s-field{flex:1 1 0;display:flex;align-items:center;gap:10px;padding:0 16px;min-width:0;cursor:text;border-radius:999px}
+.s-field:first-of-type{flex-grow:1.5}
+.s-field + .s-field{border-left:1px solid var(--line);border-radius:0}
 .s-field .ic{color:var(--muted)}
 .s-field input{border:0;background:transparent;font-size:16.5px;width:100%;min-width:0;height:52px;padding:0}
 .s-field input::placeholder{color:var(--muted)}
 .s-field input:focus{outline:none}
-.s-field:focus-within{background:var(--bg-alt)}
-.s-field:focus-within .ic{color:var(--brand-text)}
-.s-row{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:10px}
-.search .s-field{border:1px solid var(--line);border-radius:999px}
-.s-row .s-field input{height:48px}
-.s-row .btn{min-height:50px}
-.privacy{display:block;text-align:center;text-wrap:balance;font-size:14.5px;color:var(--ink-2)}
+.s-field:focus-within .ic{color:var(--ink)}
+.search .btn{min-height:52px}
+.privacy{text-align:center;text-wrap:balance;font-size:14.5px;color:var(--ink-2)}
 .privacy .ic{display:inline-block;vertical-align:-3px;margin-right:6px;color:var(--good)}
-.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 48px;margin:4px 0 0;padding:0}
-.stats div{display:grid;gap:2px}
-.stats dt{order:2;font-size:14px;color:var(--muted)}
-.stats dd{order:1;margin:0;font-weight:700;font-size:28px;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 
+/* Oblúk fotiek prác (Flowblox) */
+.strip{perspective:1500px;margin-top:clamp(40px, 6vw, 72px)}
+.strip-track{display:flex;justify-content:center;align-items:center;gap:14px;list-style:none;margin:0;padding:12px 0;transform-style:preserve-3d}
+.strip-track > li{flex:none}
+.tile{position:relative;isolation:isolate;display:block;width:var(--w);height:var(--h);border:0;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:var(--bg-alt);transform:rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.tile .ph{position:absolute;inset:0;z-index:-2}
+.tile::after{content:"";position:absolute;inset:45% 0 0;z-index:-1;background:linear-gradient(transparent, var(--photo-shade))}
+.tile-label{position:absolute;left:14px;right:14px;bottom:12px;color:var(--on-photo);font-weight:600;font-size:14.5px;text-align:left}
+@media (hover: hover){ .tile:hover{transform:rotateY(var(--ry)) translateY(-6px)} }
+.t-3{--w:190px;--h:262px;--ry:30deg}
+.t-2{--w:162px;--h:220px;--ry:18deg}
+.t-1{--w:142px;--h:188px;--ry:8deg}
+.t0{--w:132px;--h:172px;--ry:0deg}
+.t1{--w:142px;--h:188px;--ry:-8deg}
+.t2{--w:162px;--h:220px;--ry:-18deg}
+.t3{--w:190px;--h:262px;--ry:-30deg}
 
-/* Avatary a hviezdičky (karty majstrov) */
-.ava{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-text);font-weight:700;font-size:12px;letter-spacing:.02em;flex:none}
-.star{width:12px;height:12px;fill:var(--star);stroke:var(--star)}
-
-/* Pás služieb */
-.cats{border-block:1px solid var(--line);background:var(--bg)}
-.cat-row{position:relative}
-.cat-scroll{display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;list-style:none;margin:0;padding:0}
-.cat-scroll::-webkit-scrollbar{display:none}
-.cat-scroll > li{flex:none}
-.cat{position:relative;display:grid;justify-items:center;gap:8px;min-width:96px;padding:18px 10px 16px;border:0;background:none;color:var(--muted);font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:color .15s}
-.cat .ic{width:26px;height:26px;stroke-width:1.6}
-.cat::after{content:"";position:absolute;left:14px;right:14px;bottom:0;height:2px;border-radius:2px;background:var(--ink);transform:scaleX(0);transition:transform .2s}
-.cat:hover{color:var(--ink)}
-.cat:hover::after{transform:none}
-.row-arrow{position:absolute;top:50%;width:36px;height:36px;margin-top:-18px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);box-shadow:var(--shadow-sm);cursor:pointer;z-index:2}
-.row-arrow .ic{width:16px;height:16px}
-.row-arrow.prev{left:calc(var(--gut) - 18px)}
-.row-arrow.next{right:calc(var(--gut-r) - 18px)}
-.row-arrow.prev .ic{transform:scaleX(-1)}
-@media (hover: none){ .row-arrow{display:none} }
-/* Prechod pod šípkou, aby šípka neležala na texte poslednej služby */
-@media (hover: hover){
-  .cat-row::before,.cat-row::after{content:"";position:absolute;top:0;bottom:0;width:72px;pointer-events:none;z-index:1;opacity:0;transition:opacity .2s}
-  .cat-row::before{left:var(--gut);background:linear-gradient(90deg, var(--bg) 40%, transparent)}
-  .cat-row::after{right:var(--gut-r);background:linear-gradient(270deg, var(--bg) 40%, transparent)}
-  .cat-row:has(#cat-prev:not([hidden]))::before,.cat-row:has(#cat-next:not([hidden]))::after{opacity:1}
-}
+/* Tri piliere s deliacimi čiarami */
+.pillars{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));list-style:none;margin:clamp(36px, 5vw, 56px) auto 0;padding:0;max-width:980px}
+.pillars li{display:grid;gap:8px;align-content:start;text-align:center;padding:4px clamp(16px, 3vw, 36px)}
+.pillars li + li{border-left:1px solid var(--line)}
+.pillars h3{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.pillars p{color:var(--muted);font-size:14.5px}
 
 /* Fotky: každá je v súbore raz, ako pozadie */
-.ph{display:block;background:var(--brand-soft) center / cover no-repeat}
+.ph{display:block;background:var(--bg-alt) center / cover no-repeat}
 .ph-kotol{background-image:url(photos/kotol.jpg)}
 .ph-malovanie{background-image:url(photos/malovanie.jpg)}
 .ph-upratovanie{background-image:url(photos/upratovanie.jpg)}
@@ -173,46 +175,58 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ph-zahrada{background-image:url(photos/zahrada.jpg)}
 .ph-elektro{background-image:url(photos/elektro.jpg)}
 
-/* Obľúbené práce */
-.projects{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:28px 20px;list-style:none;margin:0;padding:0}
-.proj{width:100%;display:grid;gap:10px;align-content:start;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
-.proj-img{position:relative;display:block;border-radius:14px;overflow:hidden;background:var(--brand-soft)}
+/* Služby: zoznam (GAZU) */
+.dir{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;list-style:none;margin:0;padding:0}
+.dir-item{width:100%;height:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:22px 20px;border:0;background:var(--surface);text-align:left;cursor:pointer;transition:background-color .15s}
+.dir-item:hover{background:var(--bg-alt)}
+.dir-item > .ic{width:24px;height:24px;stroke-width:1.5;color:var(--ink)}
+.dir-item b{display:block;font-weight:600;font-size:15.5px;line-height:1.3}
+.dir-item small{display:block;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dir-item .go{width:16px;height:16px;color:var(--muted);transition:transform .2s, color .2s}
+.dir-item:hover .go{color:var(--ink);transform:translate(2px, -2px)}
+
+/* Obľúbené práce: produktové karty */
+.projects{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.proj{width:100%;height:100%;display:grid;gap:12px;align-content:start;text-align:center;background:var(--bg-alt);border:0;border-radius:20px;padding:10px 10px 18px;cursor:pointer;color:var(--ink);transition:background-color .2s}
+.proj-img{position:relative;display:block;border-radius:14px;overflow:hidden}
 .proj-img .ph{width:100%;aspect-ratio:4 / 3;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
-@media (hover: hover){ .proj:hover .proj-img .ph{transform:scale(1.04)} }
-.proj-meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.proj-title{font-weight:600;font-size:16px;line-height:1.3}
-.proj-price{font-weight:600;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.proj-sub{display:block;font-size:14px;color:var(--muted);margin-top:-6px}
-.proj-cta .proj-img{aspect-ratio:4 / 3;background:var(--brand);color:var(--brand-ink)}
-.cta-in{position:absolute;inset:0;display:grid;align-content:center;justify-items:start;gap:6px;padding:22px}
-.cta-in .ic{width:32px;height:32px;padding:6px;border-radius:50%;background:color-mix(in srgb, var(--brand-ink) 18%, transparent);stroke-width:2}
-.cta-in b{font-size:21px;font-weight:700;letter-spacing:-.02em}
-.cta-in span{font-size:14.5px;opacity:.92;max-width:24ch}
-@media (hover: hover){ .proj-cta:hover .proj-img{background:var(--brand-hover)} }
+@media (hover: hover){ .proj:hover .proj-img .ph{transform:scale(1.04)} .proj:hover{background:#EFEFEB} }
+.proj-title{display:block;font-weight:600;font-size:15.5px;line-height:1.3;padding-inline:6px}
+.proj-price{display:block;font-size:14.5px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:-8px}
+.proj-cta{background:var(--sand)}
+.proj-cta .proj-img{aspect-ratio:4 / 3;display:grid;place-items:center;background:transparent}
+.cta-in{display:grid;justify-items:center;gap:8px;padding:12px}
+.cta-in b{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1}
+.cta-in span{font-size:14px;color:var(--ink-2);max-width:22ch}
+@media (hover: hover){ .proj-cta:hover{background:#E8E0D1} }
 
-/* Ako to funguje */
-.how{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:20px;list-style:none;margin:0;padding:0;counter-reset:k}
-.how li{display:grid;gap:10px;align-content:start;padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
-.how-k{font-size:13px;font-weight:600;color:var(--brand-text)}
-.how h3{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.015em}
-.how h3 .ic{width:22px;height:22px;color:var(--brand-text)}
-.how p{color:var(--muted)}
-.how-cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 20px;margin-top:32px}
-.how-cta p{color:var(--muted);font-size:15px}
+/* Ako to funguje: 01–03 striedavo */
+.zig{list-style:none;margin:0;padding:0;display:grid;gap:clamp(20px, 3vw, 28px)}
+.zig li{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px, 5vw, 72px);align-items:center}
+.zig li.rev{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+.zig li.rev .zig-img{order:2}
+.zig-img{border-radius:22px;overflow:hidden;background:var(--surface)}
+.zig-img .ph{aspect-ratio:16 / 10}
+.zig-text{display:grid;gap:10px;align-content:center;max-width:440px}
+.zig-n{font-family:var(--serif);font-size:56px;line-height:1;color:var(--ink)}
+.zig h3{font-weight:600;font-size:clamp(22px, 2.2vw, 28px);line-height:1.2;letter-spacing:-.025em}
+.zig p{color:var(--muted)}
+.zig-cta{display:flex;justify-content:center;margin-top:clamp(36px, 5vw, 56px)}
 
-/* Porovnanie */
-.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;max-width:980px;margin-inline:auto}
-.vs-card{display:grid;gap:18px;align-content:start;padding:28px;border-radius:20px;border:1px solid var(--line);background:var(--surface)}
-.vs-old{background:transparent}
-.vs-new{border-color:var(--brand);box-shadow:var(--shadow)}
-.vs-card h3{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-.015em}
-.vs-old h3{color:var(--muted)}
-.vs-card ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.vs-card li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px}
-.vs-card li .ic{margin-top:2px;flex:none}
-.vs-old li{color:var(--muted)}
-.vs-old li .ic{color:var(--line-strong)}
-.vs-new li .ic{color:var(--brand-text);stroke-width:2.4}
+/* Prečo Poruke: mozaika (Flowblox) */
+.bento{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));grid-auto-rows:minmax(300px, auto);gap:16px}
+.b{position:relative;isolation:isolate;overflow:hidden;display:grid;align-content:space-between;gap:16px;padding:28px;border-radius:24px;background:var(--bg-alt)}
+.b-2{grid-column:span 2}
+.b h3{font-weight:600;font-size:22px;line-height:1.2;letter-spacing:-.02em}
+.b p{font-size:15px;color:var(--ink-2);max-width:42ch;margin-top:8px}
+.b > .ic{width:28px;height:28px;stroke-width:1.5}
+.b-sand{background:var(--sand)}
+.b-sage{background:var(--sage)}
+.b-sage > .ic{color:var(--sage-ink)}
+.b-photo{align-content:end;color:var(--on-photo)}
+.b-photo .ph{position:absolute;inset:0;z-index:-2}
+.b-photo::after{content:"";position:absolute;inset:25% 0 0;z-index:-1;background:linear-gradient(transparent, var(--photo-shade) 55%, var(--photo-shade))}
+.b-photo p{color:var(--on-photo);opacity:.92}
 
 /* Majstri */
 .filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
@@ -221,27 +235,25 @@ button,input,select,textarea{font:inherit;color:inherit}
 .chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
 @media (pointer: coarse){ .chip{min-height:44px} }
 .pros{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
-.pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);min-width:0;transition:box-shadow .2s, border-color .2s}
-@media (hover: hover){ .pro:hover{box-shadow:var(--shadow);border-color:transparent} }
+.pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;background:var(--surface);min-width:0}
 .pro-top{display:flex;gap:12px;align-items:center;min-width:0}
 .pro-top > div{min-width:0}
-.pro .ava{width:48px;height:48px;font-size:15px}
-.pro h3{font-weight:700;font-size:16.5px;line-height:1.25;letter-spacing:-.01em}
-.vf{display:inline-block;width:17px;height:17px;margin-left:5px;vertical-align:-3px;color:var(--brand-text)}
+.ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg-alt);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:.02em;flex:none}
+.pro h3{font-weight:600;font-size:16.5px;line-height:1.25;letter-spacing:-.01em}
+.vf{display:inline-block;width:17px;height:17px;margin-left:5px;vertical-align:-3px;color:var(--good)}
 .trade{font-size:14px;color:var(--muted)}
 .rating{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
 .rating strong{color:var(--ink);font-size:15px}
-.rating .star{width:15px;height:15px}
+.star{width:15px;height:15px;fill:var(--star);stroke:var(--star)}
 .pro-facts{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
 .pro-facts li{display:flex;gap:9px;align-items:flex-start;min-width:0}
 .pro-facts .ic{width:16px;height:16px;margin-top:3px;color:var(--muted)}
 .pro .btn{margin-top:auto;width:100%}
-/* Riadky kariet v jednom rade zarovnané: hlavička, hodnotenie, fakty, tlačidlo */
 @supports (grid-template-rows: subgrid){
   .pro{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:14px;align-content:start}
   .pro-top{align-self:start}
 }
-.empty{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:24px;border:1px dashed var(--line-strong);border-radius:18px;color:var(--muted);background:var(--surface)}
+.empty{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:24px;border:1px dashed var(--line-strong);border-radius:20px;color:var(--muted)}
 .empty p{max-width:60ch}
 
 /* Ceny */
@@ -250,7 +262,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .controls{display:grid;gap:14px}
 .ctl{display:grid;gap:6px}
 .ctl > label{font-size:14px;font-weight:600;color:var(--ink-2)}
-.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin:0;background:var(--surface);min-width:0;max-width:none}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-strong);border-radius:999px;padding:4px;margin:0;background:var(--surface);min-width:0}
 .seg legend{padding:0}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{display:grid;place-items:center;min-height:42px;padding:0 16px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;color:var(--muted)}
@@ -258,16 +270,16 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
 .note{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
 .note .ic{width:16px;height:16px;margin-top:2px}
-.ptable-wrap{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow-x:auto}
+.ptable-wrap{background:var(--surface);border-radius:20px;overflow-x:auto}
 .ptable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 .ptable caption{text-align:left;padding:18px 22px 8px;font-size:14px;font-weight:600;color:var(--ink-2)}
-.ptable th,.ptable td{padding:14px 22px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ptable th,.ptable td{padding:15px 22px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 .ptable tr:last-child th,.ptable tr:last-child td{border-bottom:0}
-.ptable thead th{font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding-block:8px;background:var(--bg-alt)}
+.ptable thead th{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding-block:8px}
 .ptable thead th:last-child{text-align:right}
 .ptable tbody th{font-weight:500}
 .ptable tbody th span{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:2px}
-.ptable td{text-align:right;white-space:nowrap;font-weight:700;font-size:16px}
+.ptable td{text-align:right;white-space:nowrap;font-weight:600;font-size:16px}
 
 /* Pre firmy */
 .band{background:var(--band-bg);color:var(--band-ink)}
@@ -280,15 +292,14 @@ button,input,select,textarea{font:inherit;color:inherit}
 .points .ic{color:var(--band-accent);margin-top:2px;stroke-width:2.2}
 .band-side{display:grid;gap:16px}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.plan{display:grid;gap:10px;align-content:start;background:var(--band-card);border:1px solid var(--band-line);border-radius:18px;padding:22px}
+.plan{position:relative;display:grid;gap:10px;align-content:start;background:var(--band-card);border:1px solid var(--band-line);border-radius:20px;padding:22px}
 .plan h3{font-weight:600;font-size:17px}
-.plan{position:relative}
 .plan-tag{position:absolute;top:0;left:22px;transform:translateY(-50%);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--band-accent);color:var(--band-accent-ink)}
-.amt{font-weight:700;font-size:36px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.amt small{font-weight:500;font-size:15px;letter-spacing:0;color:var(--band-muted)}
+.amt{font-family:var(--serif);font-weight:400;font-size:46px;line-height:1;font-variant-numeric:tabular-nums}
+.amt small{font-family:var(--f);font-weight:500;font-size:15px;color:var(--band-muted)}
 .vat{font-size:13px;color:var(--band-muted)}
 .plan ul{margin:4px 0 0;padding:0 0 0 18px;display:grid;gap:4px;font-size:14.5px}
-.ico{background:var(--band-card);border:1px solid var(--band-line);border-radius:18px;padding:22px;display:grid;gap:10px}
+.ico{background:var(--band-card);border:1px solid var(--band-line);border-radius:20px;padding:22px;display:grid;gap:10px}
 .ico label{font-weight:600}
 .ico-row{display:flex;gap:8px}
 .ico-row .input{flex:1;min-width:0;border-radius:999px;padding-inline:18px}
@@ -306,22 +317,29 @@ button,input,select,textarea{font:inherit;color:inherit}
 .faq details[open] summary .ic{transform:rotate(45deg)}
 .faq details p{padding:0 0 20px;color:var(--muted);max-width:66ch}
 
-/* Výzva */
-.cta{background:var(--band-bg);color:var(--band-ink);border:1px solid var(--band-edge);border-radius:24px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
-.cta h2{font-weight:700;font-size:clamp(26px, 3vw, 36px);line-height:1.12;letter-spacing:-.025em}
-.cta p{color:var(--band-muted);margin-top:8px;max-width:52ch}
-.cta .btn{min-height:52px;padding:0 26px;font-size:16px}
+/* Záruky (GAZU) */
+.guar{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:24px;list-style:none;margin:0;padding:clamp(28px, 4vw, 40px) 0;border-block:1px solid var(--line)}
+.guar li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 14px;align-items:center}
+.guar .ic{grid-row:span 2;width:28px;height:28px;stroke-width:1.5}
+.guar b{font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.guar span{font-size:14px;color:var(--muted)}
+
+/* Výzva (slúchadlá) */
+.cta{background:var(--bg-alt);border-radius:28px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px}
+.cta h2{font-weight:600;font-size:clamp(28px, 3.4vw, 44px);line-height:1.1;letter-spacing:-.03em}
+.cta h2 span{display:block}
+.cta p{color:var(--muted);margin-top:12px;max-width:50ch}
+.cta .btn{min-height:52px;padding:0 24px;font-size:16px}
 
 /* Pätička */
-.foot{background:var(--bg-alt);border-top:1px solid var(--line);padding-block:52px 32px;font-size:14.5px}
-.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3, minmax(0,1fr));gap:32px}
-.foot-brand{display:grid;gap:12px;align-content:start;max-width:34ch;color:var(--muted)}
-.foot h2{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:8px}
-.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-.foot li a,.foot li button{display:inline-flex;align-items:center;min-height:36px;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;font-size:14.5px}
-.foot li a:hover,.foot li button:hover{color:var(--ink);text-decoration:underline}
+.foot{padding-block:40px 28px;font-size:14px}
+.foot-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:0 22px}
+.foot .foot-r ul{justify-content:flex-end}
+.foot li a,.foot li button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;min-width:44px;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;font-size:13.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.foot li a:hover,.foot li button:hover{color:var(--ink)}
 @media (pointer: coarse){ .foot li a,.foot li button{min-height:44px} }
-.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .foot-bottom a{color:inherit}
 
 /* Spodná lišta (mobil) */
@@ -329,7 +347,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* Formuláre */
 .input{width:100%;min-height:48px;padding:11px 14px;border:1px solid var(--line-strong);border-radius:12px;background:var(--surface);color:var(--ink);font-size:16px}
-.input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px color-mix(in srgb, var(--brand) 22%, transparent)}
+.input:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px color-mix(in srgb, var(--ink) 12%, transparent)}
 select.input{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);background-position:calc(100% - 20px) 52%, calc(100% - 15px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:40px}
 textarea.input{min-height:120px;resize:vertical;line-height:1.5}
 .input[aria-invalid="true"]{border-color:var(--danger)}
@@ -340,12 +358,12 @@ dialog[open]{display:flex;flex-direction:column}
 dialog::backdrop{background:var(--scrim)}
 .dlg-form{display:flex;flex-direction:column;min-height:0;flex:1}
 .dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}
-.dlg-head h2{font-weight:700;font-size:24px;letter-spacing:-.025em;margin-top:2px}
-.steplabel{font-size:13px;font-weight:600;color:var(--brand-text);font-variant-numeric:tabular-nums}
+.dlg-head h2{font-weight:600;font-size:24px;letter-spacing:-.025em;margin-top:2px}
+.steplabel{font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
 .x{width:44px;height:44px;margin:-8px -10px 0 0;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
 .x:hover{background:var(--bg-alt)}
 .progress{height:4px;background:var(--bg-alt);margin:16px 24px 0;border-radius:4px;overflow:hidden}
-.progress span{display:block;height:100%;width:33.4%;background:var(--brand);border-radius:4px;transition:width .3s}
+.progress span{display:block;height:100%;width:33.4%;background:var(--ink);border-radius:4px;transition:width .3s}
 .dlg-body{padding:20px 24px 24px;overflow-y:auto;min-height:0;flex:1}
 .step{display:grid;gap:18px;border:0;margin:0;padding:0;min-width:0}
 .f{display:grid;gap:6px}
@@ -354,15 +372,15 @@ dialog::backdrop{background:var(--scrim)}
 .err{font-size:13.5px;color:var(--danger);font-weight:500}
 .opts{display:grid;gap:8px;border:0;padding:0;margin:0;min-width:0}
 .f > label.opt,.opt{display:flex;align-items:center;gap:12px;min-height:50px;padding:10px 16px;border:1px solid var(--line-strong);border-radius:14px;cursor:pointer;font-weight:500}
-.opt:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
-.opt input{width:18px;height:18px;accent-color:var(--brand);margin:0;flex:none}
+.opt:has(input:checked){border-color:var(--ink);background:var(--brand-soft)}
+.opt input{width:18px;height:18px;accent-color:var(--ink);margin:0;flex:none}
 .check{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;cursor:pointer;line-height:1.45}
-.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--brand);flex:none}
-.pro-note{display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:14px;background:var(--brand-soft);color:var(--brand-text);font-size:14.5px;font-weight:600}
+.check input{width:20px;height:20px;margin:1px 0 0;accent-color:var(--ink);flex:none}
+.pro-note{display:flex;gap:10px;align-items:center;padding:12px 16px;border-radius:14px;background:var(--sage);color:var(--sage-ink);font-size:14.5px;font-weight:600}
 .done{display:grid;gap:16px}
 .okmark{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--good-soft);color:var(--good)}
 .okmark .ic{width:24px;height:24px;stroke-width:2.4}
-.done h3{font-weight:700;font-size:22px;letter-spacing:-.02em}
+.done h3{font-weight:600;font-size:22px;letter-spacing:-.02em}
 .done p{color:var(--muted)}
 .summary{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;padding:16px;border-radius:14px;background:var(--bg-alt);font-size:14.5px}
 .summary dt{color:var(--muted)}
@@ -373,65 +391,72 @@ dialog::backdrop{background:var(--scrim)}
 /* Tablet */
 @media (max-width: 1080px){
   .pros{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .foot-grid{grid-template-columns:repeat(3, minmax(0,1fr))}
-  .foot-brand{grid-column:1 / -1;max-width:none}
-}
-@media (max-width: 900px){
-  .projects{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .dir{grid-template-columns:repeat(3, minmax(0,1fr))}
 }
 @media (max-width: 980px){
   .prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
-  .how{grid-template-columns:minmax(0,1fr)}
+  .bento{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .bento .b-2{grid-column:span 2}
 }
 @media (max-width: 919px){
+  .top .wrap{display:flex;justify-content:space-between}
   .nav,.top-actions .link{display:none}
-  .top-actions{margin-left:auto}
+  .logo{justify-self:auto}
   body{padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px))}
   .tabbar{display:grid;grid-template-columns:repeat(5, minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:55;background:color-mix(in srgb, var(--surface) 94%, transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px))}
   .tabbar a,.tabbar button{display:grid;justify-items:center;align-content:center;gap:3px;min-height:54px;border:0;background:none;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:600;cursor:pointer;border-radius:10px;padding:0}
-  .tabbar a[aria-current="true"]{color:var(--brand-text)}
+  .tabbar a[aria-current="true"]{color:var(--ink)}
   .tabbar .ic{width:22px;height:22px}
-  .tabbar a .ic{margin-block:5px} /* 32 px ako .plus, popisky na jednej línii */
+  .tabbar a .ic{margin-block:5px}
   .tabbar .tb-main{color:var(--ink)}
-  .tabbar .tb-main .plus{width:44px;height:32px;border-radius:999px;display:grid;place-items:center;background:var(--brand);color:var(--brand-ink)}
+  .tabbar .tb-main .plus{width:44px;height:32px;border-radius:999px;display:grid;place-items:center;background:var(--ink);color:var(--brand-ink)}
   .tabbar .tb-main .plus .ic{width:20px;height:20px;stroke-width:2.4}
+  .projects{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .guar{grid-template-columns:repeat(2, minmax(0,1fr))}
+  .foot-row{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
+  .foot ul,.foot .foot-r ul{justify-content:center}
+  .foot .logo{order:-1}
 }
 @media (max-width: 760px){
-  .proj-sec .wrap{padding-right:0}
-  .projects{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;padding-right:var(--gut-r);padding-bottom:4px;scroll-padding-inline:var(--gut)}
-  .projects::-webkit-scrollbar{display:none}
-  .projects > li{flex:0 0 min(78%, 300px);scroll-snap-align:start}
-  .cats .wrap{padding-inline:0}
-  .cat-row::before{left:0}
-  .cat-row::after{right:0}
-  .cat-scroll{padding-inline:calc(var(--gut) - 10px) calc(var(--gut-r) - 10px)}
-  .cat{min-width:84px}
-  .pros{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .plans{grid-template-columns:minmax(0,1fr)}
-  .foot-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .vs{grid-template-columns:minmax(0,1fr)}
+  .strip{perspective:none}
+  .strip-track{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px var(--gut-r) 8px var(--gut);scroll-padding-inline:var(--gut)}
+  .strip-track::-webkit-scrollbar{display:none}
+  .strip-track > li{scroll-snap-align:start}
+  .tile{--w:150px!important;--h:200px!important;--ry:0deg!important;border-radius:16px}
+  .pillars{grid-template-columns:minmax(0,1fr);gap:0}
+  .pillars li{padding:18px 4px}
+  .pillars li + li{border-left:0;border-top:1px solid var(--line)}
+  .dir{grid-template-columns:minmax(0,1fr)}
+  .dir-item{padding:16px 18px}
+  .zig li,.zig li.rev{grid-template-columns:minmax(0,1fr)}
+  .zig li.rev .zig-img{order:0}
+  .zig-n{font-size:44px}
+  .bento{grid-template-columns:minmax(0,1fr);grid-auto-rows:minmax(240px, auto)}
+  .bento .b-2{grid-column:auto}
+  .plans{grid-template-columns:minmax(0,1fr);row-gap:24px}
 }
 @media (max-width: 640px){
-  .s-row{grid-template-columns:minmax(0,1fr)}
-  .stats{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px}
-  .stats dd{font-size:24px}
+  .search{flex-direction:column;border-radius:24px;padding:8px}
+  .s-field{border:1px solid var(--line);border-radius:999px}
+  .s-field + .s-field{border-left:1px solid var(--line);border-radius:999px}
+  .s-field input{height:50px}
+  .search .btn{justify-content:space-between;padding-left:22px}
+  .projects{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:12px;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:2px var(--gut-r) 6px var(--gut);scroll-padding-inline:var(--gut)}
+  .projects::-webkit-scrollbar{display:none}
+  .projects > li{flex:0 0 min(70%, 260px);scroll-snap-align:start}
   .pros{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:14px;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:2px var(--gut-r) 6px var(--gut);scroll-padding-inline:var(--gut)}
   .pros::-webkit-scrollbar{display:none}
   .pros > .pro{flex:0 0 min(84%, 320px);scroll-snap-align:start}
   .pros > .empty{flex:1 0 100%}
-  .plans{row-gap:24px}
-  .foot-grid{grid-template-columns:minmax(0,1fr);gap:24px}
-  .foot ul{display:flex;flex-wrap:wrap;gap:0 20px}
   .filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding-inline:var(--gut) var(--gut-r);padding-block:2px;scroll-padding-inline:var(--gut)}
   .filter::-webkit-scrollbar{display:none}
   .ptable th,.ptable td{padding:12px 16px}
   .ptable caption{padding:16px 16px 6px}
-  .seg{max-width:none}
   .ico-row{flex-direction:column}
-  .how li,.vs-card{padding:22px}
-  .cta{border-radius:20px}
+  .guar{grid-template-columns:minmax(0,1fr);gap:18px}
+  .cta{border-radius:22px}
   .cta .btn{width:100%}
-  .top-actions .btn{padding:0 16px}
+  .top-actions .btn{padding-left:16px}
   dialog{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;margin:0}
   .dlg-head{padding:calc(16px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) 0 max(18px, env(safe-area-inset-left, 0px))}
   .progress{margin-inline:18px}
@@ -441,12 +466,12 @@ dialog::backdrop{background:var(--scrim)}
   .dlg-foot .spacer{display:none}
 }
 @media (max-width: 380px){
-  .foot-grid{grid-template-columns:minmax(0,1fr)}
   .logo{font-size:20px}
+  .top-actions .btn-circ .circ{display:none}
+  .top-actions .btn-circ{padding-right:16px}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  .cat-scroll{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
 </style>
@@ -490,22 +515,24 @@ dialog::backdrop{background:var(--scrim)}
   <symbol id="i-hammer" viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9" /><path d="m18 15 4-4" /><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.96l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /></symbol>
   <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" /></symbol>
   <symbol id="i-solar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" /></symbol>
+  <symbol id="i-upright" viewBox="0 0 24 24"><path d="M7 7h10v10" /><path d="M7 17 17 7" /></symbol>
 </svg>
 
 <header class="top" id="top">
   <div class="wrap">
-    <a class="logo" href="#obsah" aria-label="Poruke, na začiatok stránky">
-      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>
-      poruke
-    </a>
     <nav class="nav" aria-label="Hlavná navigácia">
       <a href="#sluzby">Služby</a>
       <a href="#ako">Ako to funguje</a>
       <a href="#ceny">Ceny</a>
       <a href="#pre-majstrov">Pre firmy</a>
     </nav>
+    <a class="logo" href="#obsah" aria-label="Poruke, na začiatok stránky">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>
+      poruke
+    </a>
     <div class="top-actions">
-      <button class="btn btn-primary" type="button" data-open="">Zadať zákazku</button>
+      <a class="link" href="#majstri">Majstri</a>
+      <button class="btn btn-primary btn-circ" type="button" data-open="">Zadať zákazku <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
     </div>
   </div>
 </header>
@@ -513,142 +540,137 @@ dialog::backdrop{background:var(--scrim)}
 <main id="obsah">
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <h1 id="hero-title">Overení majstri na všetko, čo treba doma urobiť</h1>
-      <p class="lead">Opíšte prácu a do 24 hodín porovnajte najviac tri ponuky od remeselníkov z okolia. Každú s cenou vrátane DPH, termínom a zárukou.</p>
+  <div class="wrap hero-in">
+    <h1 id="hero-title"><span class="serif">Každá práca doma,</span> <span class="sans">s overeným majstrom.</span></h1>
+    <p class="lead">Opíšte, čo treba urobiť. Do 24 hodín porovnáte najviac tri ponuky od remeselníkov z okolia, každú s cenou vrátane DPH, termínom a zárukou.</p>
 
-      <form class="search" id="search" role="search" aria-label="Zadať zákazku">
-        <label class="s-field" for="q">
-          <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
-          <span class="sr">Čo treba urobiť?</span>
-          <input id="q" name="q" list="tasks" placeholder="Čo treba urobiť?" autocomplete="off" enterkeyhint="next">
-        </label>
-        <div class="s-row">
-          <label class="s-field" for="where">
-            <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>
-            <span class="sr">Kde</span>
-            <input id="where" name="where" placeholder="PSČ alebo obec" autocomplete="postal-code" enterkeyhint="go">
-          </label>
-          <button class="btn btn-primary" type="submit">Získať ponuky <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-        </div>
-      </form>
-      <datalist id="tasks"></datalist>
+    <form class="search" id="search" role="search" aria-label="Zadať zákazku">
+      <label class="s-field" for="q">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="sr">Čo treba urobiť?</span>
+        <input id="q" name="q" list="tasks" placeholder="Čo treba urobiť?" autocomplete="off" enterkeyhint="next">
+      </label>
+      <label class="s-field" for="where">
+        <svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>
+        <span class="sr">Kde</span>
+        <input id="where" name="where" placeholder="PSČ alebo obec" autocomplete="postal-code" enterkeyhint="go">
+      </label>
+      <button class="btn btn-primary btn-circ" type="submit">Získať ponuky <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+    </form>
+    <datalist id="tasks"></datalist>
 
-      <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Telefón dostane len majster, ktorého si vyberiete.</p>
+    <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Telefón dostane len majster, ktorého si vyberiete.</p>
+  </div>
 
-      <dl class="stats">
-        <div><dt>ponuky najviac</dt><dd>3</dd></div>
-        <div><dt>na prvé ponuky</dt><dd>24 h</dd></div>
-        <div><dt>pre zákazníka</dt><dd>0 €</dd></div>
-      </dl>
-    </div>
+  <div class="strip" aria-label="Služby">
+    <ul class="strip-track">
+      <li><button class="tile t-3" type="button" data-open="obklad"><span class="ph ph-obklad"></span><span class="tile-label">Obklady a dlažby</span></button></li>
+      <li><button class="tile t-2" type="button" data-open="maliar"><span class="ph ph-malovanie"></span><span class="tile-label">Maliar</span></button></li>
+      <li><button class="tile t-1" type="button" data-open="voda"><span class="ph ph-kotol"></span><span class="tile-label">Vodoinštalatér</span></button></li>
+      <li><button class="tile t0" type="button" data-open="elektro"><span class="ph ph-elektro"></span><span class="tile-label">Elektrikár</span></button></li>
+      <li><button class="tile t1" type="button" data-open="upratovanie"><span class="ph ph-upratovanie"></span><span class="tile-label">Upratovanie</span></button></li>
+      <li><button class="tile t2" type="button" data-open="zahrada"><span class="ph ph-zahrada"></span><span class="tile-label">Záhrada</span></button></li>
+      <li><button class="tile t3" type="button" data-open="stahovanie"><span class="ph ph-stahovanie"></span><span class="tile-label">Sťahovanie</span></button></li>
+    </ul>
+  </div>
+
+  <div class="wrap">
+    <ul class="pillars">
+      <li><h3>Najviac tri ponuky</h3><p>Žiadne desiatky telefonátov. Žiadosť uvidia len vhodní majstri z okolia.</p></li>
+      <li><h3>Cena s DPH vopred</h3><p>V každej ponuke cena, termín a záruka, aby sa dali porovnať.</p></li>
+      <li><h3>Kontakt len pre vybraného</h3><p>Telefón a adresu pošleme iba majstrovi, ktorého si vyberiete.</p></li>
+    </ul>
   </div>
 </section>
 
-<nav class="cats" id="sluzby" aria-label="Služby">
-  <div class="wrap cat-row">
-    <button class="row-arrow prev" type="button" id="cat-prev" aria-label="Predchádzajúce služby" hidden><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
-    <ul class="cat-scroll" id="cat-scroll">
-      <li><button class="cat" type="button" data-open="elektro"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg>Elektrikár</button></li>
-      <li><button class="cat" type="button" data-open="voda"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg>Vodoinštalatér</button></li>
-      <li><button class="cat" type="button" data-open="kurenie"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg>Kúrenie a plyn</button></li>
-      <li><button class="cat" type="button" data-open="maliar"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg>Maliar</button></li>
-      <li><button class="cat" type="button" data-open="upratovanie"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg>Upratovanie</button></li>
-      <li><button class="cat" type="button" data-open="montaz"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg>Montáž nábytku</button></li>
-      <li><button class="cat" type="button" data-open="obklad"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg>Obklady</button></li>
-      <li><button class="cat" type="button" data-open="stahovanie"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg>Sťahovanie</button></li>
-      <li><button class="cat" type="button" data-open="zahrada"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg>Záhrada</button></li>
-      <li><button class="cat" type="button" data-open="komin"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg>Kominár</button></li>
-      <li><button class="cat" type="button" data-open="okna"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg>Okná a fasády</button></li>
-      <li><button class="cat" type="button" data-open="solar"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg>Fotovoltika</button></li>
-      <li><button class="cat" type="button" data-open="ine"><svg class="ic" aria-hidden="true"><use href="#i-hammer"/></svg>Iná práca</button></li>
-    </ul>
-    <button class="row-arrow next" type="button" id="cat-next" aria-label="Ďalšie služby"><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
-  </div>
-</nav>
-
-<section class="section alt proj-sec" data-tab="sluzby" aria-labelledby="proj-title">
+<section class="section alt" id="sluzby" aria-labelledby="cats-title">
   <div class="wrap">
     <div class="sec-head">
       <div>
-        <h2 class="h2" id="proj-title">Obľúbené práce v okolí</h2>
-        <p class="sub">Bežné ceny práce vrátane DPH, aby ste vedeli, čo čakať ešte pred prvou ponukou.</p>
+        <p class="kicker">Služby</p>
+        <h2 class="h2" id="cats-title">S čím vám pomôžu</h2>
       </div>
-      <a class="link" href="#ceny">Celý cenník <svg class="ic ic-s" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <button class="link" type="button" data-open="ine">Opísať inú prácu</button>
     </div>
-    <ul class="projects">
-      <li><button class="proj" type="button" data-open="voda" data-desc="Výmena elektrického bojlera"><span class="proj-img"><span class="ph ph-kotol"></span></span><span class="proj-meta"><span class="proj-title">Výmena bojlera</span><span class="proj-price">150 – 250 €</span></span><span class="proj-sub">Vodoinštalatér · montáž a odvoz starého</span></button></li>
-      <li><button class="proj" type="button" data-open="maliar" data-desc="Maľovanie izby"><span class="proj-img"><span class="ph ph-malovanie"></span></span><span class="proj-meta"><span class="proj-title">Maľovanie izby</span><span class="proj-price">190 – 320 €</span></span><span class="proj-sub">Maliar · do 20 m² podlahy</span></button></li>
-      <li><button class="proj" type="button" data-open="upratovanie" data-desc="Upratovanie po rekonštrukcii"><span class="proj-img"><span class="ph ph-upratovanie"></span></span><span class="proj-meta"><span class="proj-title">Upratovanie po rekonštrukcii</span><span class="proj-price">110 – 170 €</span></span><span class="proj-sub">Upratovanie · byt 2 + 1</span></button></li>
-      <li><button class="proj" type="button" data-open="obklad" data-desc="Obklad kúpeľne"><span class="proj-img"><span class="ph ph-obklad"></span></span><span class="proj-meta"><span class="proj-title">Obklad kúpeľne</span><span class="proj-price">28 – 45 €</span></span><span class="proj-sub">Obklady a dlažby · za m²</span></button></li>
-      <li><button class="proj" type="button" data-open="stahovanie" data-desc="Sťahovanie bytu"><span class="proj-img"><span class="ph ph-stahovanie"></span></span><span class="proj-meta"><span class="proj-title">Sťahovanie bytu</span><span class="proj-price">45 – 65 €</span></span><span class="proj-sub">Sťahovanie · 2 ľudia a dodávka, hodina</span></button></li>
-      <li><button class="proj" type="button" data-open="zahrada" data-desc="Kosenie trávnika"><span class="proj-img"><span class="ph ph-zahrada"></span></span><span class="proj-meta"><span class="proj-title">Kosenie a živý plot</span><span class="proj-price">20 – 30 €</span></span><span class="proj-sub">Záhrada · za hodinu</span></button></li>
-      <li><button class="proj" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek"><span class="proj-img"><span class="ph ph-elektro"></span></span><span class="proj-meta"><span class="proj-title">Ističe, zásuvky, revízie</span><span class="proj-price">28 – 42 €</span></span><span class="proj-sub">Elektrikár · za hodinu</span></button></li>
-      <li><button class="proj proj-cta" type="button" data-open="ine"><span class="proj-img"><span class="cta-in"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg><b>Iná práca?</b><span>Opíšte ju vlastnými slovami, nájdeme majstra.</span></span></span><span class="proj-meta"><span class="proj-title">Montáž kuchyne, dvere, okná…</span></span><span class="proj-sub">Ponuky do 24 hodín</span></button></li>
+    <ul class="dir">
+      <li><button class="dir-item" type="button" data-open="elektro"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Elektrikár</b><small>od 28 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="voda"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="kurenie"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="maliar"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg><span><b>Maliar</b><small>od 6 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="upratovanie"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span><b>Upratovanie</b><small>od 14 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="montaz"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg><span><b>Montáž nábytku</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="obklad"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="stahovanie"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg><span><b>Sťahovanie</b><small>od 45 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="zahrada"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg><span><b>Záhrada</b><small>od 20 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="komin"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg><span><b>Kominár</b><small>od 40 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="okna"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg><span><b>Okná a fasády</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item" type="button" data-open="solar"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg><span><b>Fotovoltika</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
     </ul>
   </div>
 </section>
 
-<section class="section" id="ako" aria-labelledby="ako-title">
+<section class="section proj-sec" data-tab="sluzby" aria-labelledby="proj-title">
   <div class="wrap">
-    <div class="sec-head center">
+    <div class="sec-head">
       <div>
-        <h2 class="h2" id="ako-title">Ako to funguje</h2>
-        <p class="sub">Tri kroky, žiadne naháňanie po telefóne.</p>
+        <p class="kicker">Obľúbené práce</p>
+        <h2 class="h2" id="proj-title">Čo ľudia v okolí riešia najčastejšie</h2>
       </div>
+      <a class="link" href="#ceny">Celý cenník</a>
     </div>
-    <ol class="how">
-      <li><span class="how-k">Krok 1</span><h3><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty.</p></li>
-      <li><span class="how-k">Krok 2</span><h3><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>Porovnajte tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach.</p></li>
-      <li><span class="how-k">Krok 3</span><h3><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></li>
-    </ol>
-    <div class="how-cta">
-      <button class="btn btn-primary" type="button" data-open="">Zadať zákazku zadarmo</button>
-      <p>Bez registrácie, ponuky do 24 hodín.</p>
-    </div>
+    <ul class="projects">
+      <li><button class="proj" type="button" data-open="voda" data-desc="Výmena elektrického bojlera"><span class="proj-img"><span class="ph ph-kotol"></span></span><span class="proj-title">Výmena bojlera</span><span class="proj-price">150 – 250 € s DPH</span></button></li>
+      <li><button class="proj" type="button" data-open="maliar" data-desc="Maľovanie izby"><span class="proj-img"><span class="ph ph-malovanie"></span></span><span class="proj-title">Maľovanie izby</span><span class="proj-price">190 – 320 € s DPH</span></button></li>
+      <li><button class="proj" type="button" data-open="upratovanie" data-desc="Upratovanie po rekonštrukcii"><span class="proj-img"><span class="ph ph-upratovanie"></span></span><span class="proj-title">Upratovanie po rekonštrukcii</span><span class="proj-price">110 – 170 € s DPH</span></button></li>
+      <li><button class="proj" type="button" data-open="obklad" data-desc="Obklad kúpeľne"><span class="proj-img"><span class="ph ph-obklad"></span></span><span class="proj-title">Obklad kúpeľne</span><span class="proj-price">28 – 45 € za m²</span></button></li>
+      <li><button class="proj" type="button" data-open="stahovanie" data-desc="Sťahovanie bytu"><span class="proj-img"><span class="ph ph-stahovanie"></span></span><span class="proj-title">Sťahovanie bytu</span><span class="proj-price">45 – 65 € za hodinu</span></button></li>
+      <li><button class="proj" type="button" data-open="zahrada" data-desc="Kosenie trávnika"><span class="proj-img"><span class="ph ph-zahrada"></span></span><span class="proj-title">Kosenie a živý plot</span><span class="proj-price">20 – 30 € za hodinu</span></button></li>
+      <li><button class="proj" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek"><span class="proj-img"><span class="ph ph-elektro"></span></span><span class="proj-title">Ističe, zásuvky, revízie</span><span class="proj-price">28 – 42 € za hodinu</span></button></li>
+      <li><button class="proj proj-cta" type="button" data-open="ine"><span class="proj-img"><span class="cta-in"><b>Iná práca?</b><span>Opíšte ju vlastnými slovami, nájdeme majstra.</span></span></span><span class="proj-title">Montáž kuchyne, dvere, okná…</span><span class="proj-price">ponuky do 24 hodín</span></button></li>
+    </ul>
   </div>
 </section>
 
-<section class="section alt" aria-labelledby="cmp-title">
+<section class="section alt" id="ako" aria-labelledby="ako-title">
   <div class="wrap">
     <div class="sec-head center">
       <div>
-        <h2 class="h2" id="cmp-title">Prečo nie bežný portál s kontaktmi</h2>
+        <p class="kicker">Postup</p>
+        <h2 class="h2" id="ako-title">Ako to funguje. <span class="gray">Tri kroky.</span></h2>
+      </div>
+    </div>
+    <ol class="zig">
+      <li><span class="zig-img"><span class="ph ph-malovanie"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">01</span><h3>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty a je to zadarmo.</p></div></li>
+      <li class="rev"><span class="zig-img"><span class="ph ph-elektro"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">02</span><h3>Porovnajte najviac tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach, bez telefonovania.</p></div></li>
+      <li><span class="zig-img"><span class="ph ph-obklad"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">03</span><h3>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></div></li>
+    </ol>
+    <div class="zig-cta"><button class="btn btn-primary btn-circ" type="button" data-open="">Zadať zákazku zadarmo <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div>
+        <p class="kicker">Prečo Poruke</p>
+        <h2 class="h2" id="why-title">Žiadny predaj kontaktov. <span class="gray">Len férové ponuky.</span></h2>
         <p class="sub">Mnohé portály predávajú vašu žiadosť každému, kto zaplatí. My to robíme inak.</p>
       </div>
     </div>
-    <div class="vs">
-      <div class="vs-card vs-old">
-        <h3>Bežný portál s kontaktmi</h3>
-        <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Váš telefón si kúpi každá firma, ktorá zaplatí</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Telefonáty od desiatok firiem</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Cena často až po obhliadke, bez DPH</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Vyššie je ten, kto viac zaplatí</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Na registráciu firmy stačí e-mail</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-minus"/></svg>Hodnotiť môže ktokoľvek</li>
-        </ul>
-      </div>
-      <div class="vs-card vs-new">
-        <h3><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>Poruke</h3>
-        <ul>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Kontakt dostane len majster, ktorého vyberiete</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Najviac tri písomné ponuky, ľahko porovnateľné</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Cena vopred, vrátane DPH</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Poradie podľa vzdialenosti, termínu a hodnotení</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>IČO v registri, oprávnenia, poistenie</li>
-          <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Hodnotenia len po dokončenej zákazke</li>
-        </ul>
-      </div>
+    <div class="bento">
+      <article class="b b-photo b-2"><span class="ph ph-upratovanie"></span><div><h3>Kontakt len pre vybraného</h3><p>Váš telefón si nekúpi žiadna firma. Dostane ho iba majster, ktorého si vyberiete.</p></div></article>
+      <article class="b b-sand"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><div><h3>Cena vopred, s DPH</h3><p>Pevná cena alebo hodinová sadzba s odhadom. Vždy vidíte, či je majster platiteľ DPH.</p></div></article>
+      <article class="b b-sage"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div><h3>Overené IČO a oprávnenia</h3><p>Firmy overujeme v registri, elektrikári a plynári dokladajú osvedčenie.</p></div></article>
+      <article class="b b-photo b-2"><span class="ph ph-zahrada"></span><div><h3>Hodnotenia len po dokončení</h3><p>Hodnotiť môže iba zákazník, ktorému majster prácu dokončil. Lepšie miesto vo výsledkoch si nikto nekúpi.</p></div></article>
     </div>
   </div>
 </section>
 
-<section class="section" id="majstri" aria-labelledby="majstri-title">
+<section class="section alt" id="majstri" aria-labelledby="majstri-title">
   <div class="wrap">
     <div class="sec-head">
       <div>
+        <p class="kicker">Majstri</p>
         <h2 class="h2" id="majstri-title">Najlepšie hodnotení majstri</h2>
         <p class="sub">Ukážkové profily. Hodnotiť môže len zákazník, ktorému majster prácu dokončil, a poradie nezávisí od platieb.</p>
       </div>
@@ -721,9 +743,10 @@ dialog::backdrop{background:var(--scrim)}
   </div>
 </section>
 
-<section class="section alt" id="ceny" aria-labelledby="ceny-title">
+<section class="section" id="ceny" aria-labelledby="ceny-title">
   <div class="wrap prices">
     <div class="prices-intro">
+      <p class="kicker">Ceny</p>
       <h2 class="h2" id="ceny-title">Koľko to bežne stojí</h2>
       <p class="sub">Orientačné ceny práce podľa kraja. Materiál sa účtuje zvlášť, ak nie je uvedené inak.</p>
       <div class="controls">
@@ -749,7 +772,7 @@ dialog::backdrop{background:var(--scrim)}
       </div>
       <p class="note"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Ilustračné údaje konceptu. Skutočná cena závisí od rozsahu práce, prístupu a dopravy.</p>
     </div>
-    <div class="ptable-wrap">
+    <div class="ptable-wrap alt">
       <table class="ptable" id="ptable">
         <caption id="pcap">Celé Slovensko · ceny s DPH 23 %</caption>
         <thead><tr><th scope="col">Práca</th><th scope="col">Bežne</th></tr></thead>
@@ -772,7 +795,8 @@ dialog::backdrop{background:var(--scrim)}
 <section class="band section" id="pre-majstrov" aria-labelledby="band-title">
   <div class="wrap band-grid">
     <div class="band-copy">
-      <h2 class="h2" id="band-title">Pre firmy: platíte za nástroj, nie za kontakty</h2>
+      <p class="kicker">Pre firmy</p>
+      <h2 class="h2" id="band-title">Platíte za nástroj, <span class="gray">nie za kontakty.</span></h2>
       <p class="sub">Zákazky z vášho okolia bez prihadzovania o pozície. Lepšie miesto vo výsledkoch si nemôže kúpiť nikto.</p>
       <ul class="points">
         <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Žiadne poplatky za kontakty ani za poslané ponuky</li>
@@ -812,6 +836,7 @@ dialog::backdrop{background:var(--scrim)}
   <div class="wrap faq-grid">
     <div class="sec-head">
       <div>
+        <p class="kicker">Otázky</p>
         <h2 class="h2" id="faq-title">Časté otázky</h2>
         <p class="sub">Čo zaujíma zákazníkov aj remeselníkov ešte pred prvou zákazkou.</p>
       </div>
@@ -828,14 +853,25 @@ dialog::backdrop{background:var(--scrim)}
   </div>
 </section>
 
-<section class="section" aria-labelledby="cta-title" style="padding-top:0">
+<section aria-label="Naše záruky">
+  <div class="wrap">
+    <ul class="guar">
+      <li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><b>Overené IČO</b><span>Každá firma v registri</span></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><b>Ceny s DPH</b><span>Vopred, bez prekvapení</span></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><b>Ochrana údajov</b><span>Podľa GDPR, bez cookie lišty</span></li>
+      <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg><b>Platba po práci</b><span>Na faktúru alebo s eKasou</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="cta-title">
   <div class="wrap">
     <div class="cta">
       <div>
-        <h2 id="cta-title">Máte prácu, ktorá čaká?</h2>
+        <h2 id="cta-title"><span>Máte prácu, ktorá čaká?</span><span class="gray">Majster je po ruke.</span></h2>
         <p>Opíšte ju za dve minúty. Do 24 hodín máte najviac tri ponuky s cenou vrátane DPH.</p>
       </div>
-      <button class="btn btn-primary" type="button" data-open="">Zadať zákazku zadarmo</button>
+      <button class="btn btn-white" type="button" data-open="">Zadať zákazku <svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></button>
     </div>
   </div>
 </section>
@@ -844,34 +880,21 @@ dialog::backdrop{background:var(--scrim)}
 
 <footer class="foot">
   <div class="wrap">
-    <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="logo" href="#obsah" aria-label="Poruke, na začiatok stránky"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>poruke</a>
-        <p>Overení remeselníci a služby pre domácnosť na Slovensku. Najviac tri ponuky, ceny vrátane DPH.</p>
-      </div>
-      <nav aria-labelledby="fz">
-        <h2 id="fz">Zákazníci</h2>
+    <div class="foot-row">
+      <nav class="foot-l" aria-label="Pre zákazníkov">
         <ul>
           <li><a href="#sluzby">Služby</a></li>
           <li><a href="#ako">Ako to funguje</a></li>
-          <li><a href="#ceny">Orientačné ceny</a></li>
-          <li><button type="button" data-open="">Zadať zákazku</button></li>
+          <li><a href="#ceny">Ceny</a></li>
+          <li><a href="#pre-majstrov">Pre firmy</a></li>
         </ul>
       </nav>
-      <nav aria-labelledby="fr">
-        <h2 id="fr">Remeselníci</h2>
+      <a class="logo" href="#obsah" aria-label="Poruke, na začiatok stránky"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5"/></svg>poruke</a>
+      <nav class="foot-r" aria-label="Pravidlá">
         <ul>
-          <li><a href="#pre-majstrov">Pre remeselníkov a firmy</a></li>
-          <li><a href="#faq-poradie">Ako radíme výsledky</a></li>
-          <li><a href="#faq-overenie">Overovanie remeselníkov</a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="fp">
-        <h2 id="fp">Pravidlá</h2>
-        <ul>
-          <li><a href="#faq-udaje">Ochrana údajov a cookies</a></li>
-          <li><a href="#faq-reklamacia">Reklamácie a spory</a></li>
-          <li><a href="#faq-nahlasit">Nahlásiť obsah (DSA)</a></li>
+          <li><a href="#faq-udaje">Ochrana údajov</a></li>
+          <li><a href="#faq-reklamacia">Reklamácie</a></li>
+          <li><a href="#faq-nahlasit">Nahlásiť obsah</a></li>
         </ul>
       </nav>
     </div>
@@ -1047,6 +1070,7 @@ dialog::backdrop{background:var(--scrim)}
   $('#tasks').innerHTML = TASKS.map(([n]) => `<option value="${n}"></option>`).join('');
 
   /* Pás služieb: šípky len keď je kam rolovať */
+  if (document.getElementById('cat-scroll')) {
   const row = $('#cat-scroll');
   const prev = $('#cat-prev');
   const nextArrow = $('#cat-next');
@@ -1060,6 +1084,7 @@ dialog::backdrop{background:var(--scrim)}
   row.addEventListener('scroll', syncArrows, { passive: true });
   window.addEventListener('resize', syncArrows);
   requestAnimationFrame(syncArrows);
+  }
 
   /* Hlavička pri rolovaní */
   const top = $('#top');
