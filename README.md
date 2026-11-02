@@ -10,6 +10,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 
 - **Najviac tri ponuky** na zákazku namiesto rozposielania žiadosti desiatkam firiem.
 - **Obchodný model:** zákazník neplatí nič. Remeselník platí za zákazku (predbežne 3 / 7 / 15 € bez DPH podľa veľkosti, konečné ceny po prieskume trhu), až keď na ňu pošle ponuku; zákazku dostanú najviac traja, za falošnú alebo zrušenú zákazku sa vracia kredit, žiadne predplatné ani platené pozície.
+- **Slovenské vyhľadávanie:** remeslo alebo práca (16 remesiel vrátane murára, podlahára, pokrývača a stolára) a obec alebo PSČ z 71 slovenských obcí; podľa obce sa kraj prenesie do cien aj do výberu majstrov. Vo formulári jazyk komunikácie (SK, CZ, HU, EN, DE, PL, UA) a faktúra na IČO.
 - **Ceny vrátane DPH 23 %**, prepínač s/bez DPH a orientačné ceny podľa kraja.
 - **Overené IČO a oprávnenia** (napr. elektrotechnik § 22), platba priamo majstrovi na faktúru alebo s dokladom z eKasy.
 - **Ochrana kontaktu (GDPR):** telefón a adresu dostane len vybraný majster; len nevyhnutné cookies, preto bez cookie lišty.
