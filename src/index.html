@@ -37,6 +37,7 @@
   --focus:#2F6FDB;
   --on-photo:#FFFFFF;
   --photo-shade:rgba(15,15,12,.62);
+  --photo-fallback:#46463F;
   --band-bg:#F5F5F2;
   --band-card:#FFFFFF;
   --band-ink:#141414;
@@ -144,7 +145,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .strip{perspective:1500px;margin-top:clamp(40px, 6vw, 72px)}
 .strip-track{display:flex;justify-content:center;align-items:center;gap:14px;list-style:none;margin:0;padding:12px 0;transform-style:preserve-3d}
 .strip-track > li{flex:none}
-.tile{position:relative;isolation:isolate;display:block;width:var(--w);height:var(--h);border:0;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:var(--bg-alt);transform:rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.tile{position:relative;isolation:isolate;display:block;width:var(--w);height:var(--h);border:0;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:var(--photo-fallback);transform:rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
 .tile .ph{position:absolute;inset:0;z-index:-2}
 .tile::after{content:"";position:absolute;inset:45% 0 0;z-index:-1;background:linear-gradient(transparent, var(--photo-shade))}
 .tile-label{position:absolute;left:14px;right:14px;bottom:12px;color:var(--on-photo);font-weight:600;font-size:14.5px;text-align:left}
@@ -161,7 +162,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .pillars{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));list-style:none;margin:clamp(36px, 5vw, 56px) auto 0;padding:0;max-width:980px}
 .pillars li{display:grid;gap:8px;align-content:start;text-align:center;padding:4px clamp(16px, 3vw, 36px)}
 .pillars li + li{border-left:1px solid var(--line)}
-.pillars h3{font-weight:600;font-size:17px;letter-spacing:-.01em}
+.pillars h2{font-weight:600;font-size:17px;letter-spacing:-.01em}
 .pillars p{color:var(--muted);font-size:14.5px}
 
 /* Fotky: každá je v súbore raz, ako pozadie */
@@ -222,7 +223,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .b-sand{background:var(--sand)}
 .b-sage{background:var(--sage)}
 .b-sage > .ic{color:var(--sage-ink)}
-.b-photo{align-content:end;color:var(--on-photo)}
+.b-photo{align-content:end;color:var(--on-photo);background:var(--photo-fallback)}
+.tile .ph,.b-photo .ph{background-color:var(--photo-fallback)}
 .b-photo .ph{position:absolute;inset:0;z-index:-2}
 .b-photo::after{content:"";position:absolute;inset:25% 0 0;z-index:-1;background:linear-gradient(transparent, var(--photo-shade) 55%, var(--photo-shade))}
 .b-photo p{color:var(--on-photo);opacity:.92}
@@ -592,9 +594,9 @@ dialog::backdrop{background:var(--scrim)}
 
   <div class="wrap">
     <ul class="pillars">
-      <li><h3>Najviac tri ponuky</h3><p>Žiadne desiatky telefonátov. Žiadosť uvidia len vhodní majstri z okolia.</p></li>
-      <li><h3>Cena s DPH vopred</h3><p>V každej ponuke cena, termín a záruka, aby sa dali porovnať.</p></li>
-      <li><h3>Kontakt len pre vybraného</h3><p>Telefón a adresu pošleme iba majstrovi, ktorého si vyberiete.</p></li>
+      <li><h2>Najviac tri ponuky</h2><p>Žiadne desiatky telefonátov. Žiadosť uvidia len vhodní majstri z okolia.</p></li>
+      <li><h2>Cena s DPH vopred</h2><p>V každej ponuke cena, termín a záruka, aby sa dali porovnať.</p></li>
+      <li><h2>Kontakt len pre vybraného</h2><p>Telefón a adresu pošleme iba majstrovi, ktorého si vyberiete.</p></li>
     </ul>
   </div>
 </section>
