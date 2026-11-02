@@ -208,6 +208,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 }
 .dir-item b{display:block;font-weight:600;font-size:16px;line-height:1.3}
 .dir-item small{display:block;margin-top:2px;font-size:13.5px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.nw{white-space:nowrap}
 .dir-item .go{width:16px;height:16px;color:var(--muted);transition:transform .2s, color .2s}
 @media (hover: hover){ .dir-item:hover .go{color:var(--ink);transform:translate(2px, -2px)} }
 
@@ -493,6 +494,10 @@ dialog::backdrop{background:var(--scrim)}
   .bento .b-2{grid-column:span 2}
 }
 @media (max-width: 919px){
+  .dir-item{grid-template-columns:auto minmax(0,1fr);gap:12px}
+  .dir-item .go{display:none}
+  .dir-item small .nw{display:block}
+  .dir-item small .dot{display:none}
   .top .wrap{display:flex;justify-content:space-between}
   .nav,.top-actions .link{display:none}
   .logo{justify-self:auto}
@@ -738,7 +743,8 @@ dialog::backdrop{background:var(--scrim)}
         </select>
       </div>
     </form>
-    <div class="dx-meta"><p id="dx-count" aria-live="polite"></p><span class="dx-acts"><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button><button class="btn btn-primary btn-circ" type="button" id="dx-ask" data-open="" hidden>Získať ponuky <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></span></div>
+    <p class="sr" id="dx-live" aria-live="polite"></p>
+    <div class="dx-meta"><p id="dx-count"></p><span class="dx-acts"><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button><button class="btn btn-primary btn-circ" type="button" id="dx-ask" data-open="" hidden>Získať ponuky <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></span></div>
     <ol class="dx-list" id="dx-list"></ol>
     <div class="dx-more"><button class="btn btn-outline" type="button" id="dx-more" hidden>Zobraziť ďalších</button></div>
     <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
@@ -1477,6 +1483,9 @@ dialog::backdrop{background:var(--scrim)}
       `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><span class="empty-acts">${kraj ? '<button class="link" type="button" data-dx-all>Všetky kraje</button>' : ''}<button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></span></li>`;
     dx.ask.hidden = !cat;
     dx.ask.dataset.open = cat;
+    // čítačke ohlásiť počet až po pauze v písaní, nie po každom písmene
+    clearTimeout(dx.liveTimer);
+    dx.liveTimer = setTimeout(() => { $('#dx-live').textContent = dx.count.textContent; }, 600);
     const rest = hits.length - shown.length;
     dx.more.hidden = rest <= 0;
     const k = Math.min(PAGE, rest);
@@ -1512,7 +1521,8 @@ dialog::backdrop{background:var(--scrim)}
   $$('.dir-item[data-dx]').forEach(b => {
     const n = PROS.filter(p => p.cat === b.dataset.dx).length;
     const s = b.querySelector('small');
-    if (s && n) s.textContent += ` · ${n} ${plural(n, 'majster', 'majstri', 'majstrov')}`;
+    // cena a počet sa nezalomia vnútri, len medzi sebou
+    if (s && n) s.innerHTML = `<span class="nw">${esc(s.textContent)}</span><span class="dot"> · </span><span class="nw">${n} ${plural(n, 'majster', 'majstri', 'majstrov')}</span>`;
   });
   renderDir();
 
