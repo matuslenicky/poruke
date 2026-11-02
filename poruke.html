@@ -124,7 +124,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (hover: hover){ .top-actions .link:hover{color:var(--ink);background:var(--bg-alt)} }
 
 /* Hero: fotka interiéru v zaoblenom paneli, biely závoj pod textom */
-.hero{padding:8px max(12px, env(safe-area-inset-right, 0px)) clamp(48px, 6vw, 80px) max(12px, env(safe-area-inset-left, 0px))}
+.hero{padding:8px max(12px, env(safe-area-inset-right, 0px)) 0 max(12px, env(safe-area-inset-left, 0px))}
 .hero-panel{position:relative;isolation:isolate;overflow:hidden;max-width:1400px;margin-inline:auto;border-radius:32px;background:var(--bg-alt);padding-block:clamp(64px, 8.5vw, 124px) clamp(72px, 8vw, 116px)}
 .hero-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
 .hero-panel::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 54% 66% at 50% 47%, rgba(255,255,255,.93) 0%, rgba(255,255,255,.84) 48%, rgba(255,255,255,.5) 78%, rgba(255,255,255,.28) 100%)}
@@ -151,7 +151,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .privacy .ic{display:inline-block;vertical-align:-3px;margin-right:6px;color:var(--good)}
 
 /* Kategórie pod úvodom: rovný rad rovnakých kariet */
-.strip{margin-top:clamp(20px, 2.6vw, 32px)}
+.strip{margin-bottom:clamp(16px, 2vw, 24px)}
+#zoznam{padding-top:clamp(48px, 6vw, 80px)}
 .strip-track{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
 .tile{display:grid;gap:10px;width:100%;border:0;padding:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:16px}
 .tile-img{display:block;border-radius:16px;overflow:hidden;background:var(--bg-alt)}
@@ -301,6 +302,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .dx-bar .input:focus{background-color:var(--surface)}
 .dx-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;margin:0 0 12px;font-size:14.5px;color:var(--muted);min-height:44px}
 .dx-meta b{color:var(--ink);font-weight:700}
+.dx-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+#zoznam-title:focus{outline:none}
 .dx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;gap:10px 0}
 .biz{position:relative;grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;align-items:center;gap:12px 24px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .15s, box-shadow .2s}
 @supports (grid-template-columns: subgrid){
@@ -655,7 +658,7 @@ dialog::backdrop{background:var(--scrim)}
       poruke
     </a>
     <div class="top-actions">
-      <a class="link" href="#majstri">Majstri</a>
+      <a class="link" href="#zoznam">Majstri</a>
       <button class="btn btn-primary btn-circ" type="button" data-open="">Zadať zákazku <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
     </div>
   </div>
@@ -691,18 +694,55 @@ dialog::backdrop{background:var(--scrim)}
   </div>
   </div>
 
-  <div class="wrap strip">
-    <ul class="strip-track" aria-label="Obľúbené služby">
-      <li><button class="tile" type="button" data-open="elektro"><span class="tile-img"><span class="ph ph-s-elektro"></span></span><span class="tile-label">Elektrikár<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="voda"><span class="tile-img"><span class="ph ph-s-instalater"></span></span><span class="tile-label">Vodoinštalatér<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="maliar"><span class="tile-img"><span class="ph ph-s-malovanie"></span></span><span class="tile-label">Maliar<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="obklad"><span class="tile-img"><span class="ph ph-s-obklad"></span></span><span class="tile-label">Obklady<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="upratovanie"><span class="tile-img"><span class="ph ph-s-upratovanie"></span></span><span class="tile-label">Upratovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="zahrada"><span class="tile-img"><span class="ph ph-s-zahrada"></span></span><span class="tile-label">Záhrada<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-      <li><button class="tile" type="button" data-open="stahovanie"><span class="tile-img"><span class="ph ph-s-stahovanie"></span></span><span class="tile-label">Sťahovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-    </ul>
-  </div>
+</section>
 
+<section class="section" id="zoznam" data-tab="majstri" aria-labelledby="zoznam-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Zoznam majstrov a firiem</p>
+        <h2 class="h2" id="zoznam-title" tabindex="-1">Vyberte si majstra sami</h2>
+        <p class="sub">Prejdite si overených remeselníkov a firmy z vášho kraja. Žiadosť pošlete priamo tomu, koho si vyberiete.</p>
+      </div>
+    </div>
+    <form class="dx-bar" id="dx-form" role="search" aria-label="Hľadať v zozname majstrov" novalidate>
+      <div class="dx-f dx-q">
+        <label for="dx-q">Hľadať</label>
+        <div class="dx-in"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input class="input" id="dx-q" type="search" placeholder="Meno, firma alebo obec" autocomplete="off" enterkeyhint="search"></div>
+      </div>
+      <div class="dx-f">
+        <label for="dx-cat">Remeslo</label>
+        <select class="input" id="dx-cat"><option value="">Všetky remeslá</option></select>
+      </div>
+      <div class="dx-f">
+        <label for="dx-kraj">Kraj</label>
+        <select class="input" id="dx-kraj">
+          <option value="">Všetky kraje</option>
+          <option value="BA">Bratislavský</option>
+          <option value="TT">Trnavský</option>
+          <option value="TN">Trenčiansky</option>
+          <option value="NR">Nitriansky</option>
+          <option value="ZA">Žilinský</option>
+          <option value="BB">Banskobystrický</option>
+          <option value="PO">Prešovský</option>
+          <option value="KE">Košický</option>
+        </select>
+      </div>
+      <div class="dx-f dx-sort">
+        <label for="dx-sort">Zoradiť</label>
+        <select class="input" id="dx-sort">
+          <option value="rating">Najlepšie hodnotení</option>
+          <option value="count">Najviac hodnotení</option>
+          <option value="resp">Najrýchlejšia odpoveď</option>
+          <option value="name">Podľa abecedy</option>
+        </select>
+      </div>
+    </form>
+    <div class="dx-meta"><p id="dx-count" aria-live="polite"></p><span class="dx-acts"><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button><button class="btn btn-primary btn-circ" type="button" id="dx-ask" data-open="" hidden>Získať ponuky <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></span></div>
+    <ol class="dx-list" id="dx-list"></ol>
+    <div class="dx-more"><button class="btn btn-outline" type="button" id="dx-more" hidden>Zobraziť ďalších</button></div>
+    <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
+  </div>
 </section>
 
 <section aria-label="Naše záruky">
@@ -725,23 +765,34 @@ dialog::backdrop{background:var(--scrim)}
       </div>
       <button class="link" type="button" data-open="ine">Opísať inú prácu</button>
     </div>
+    <div class="strip">
+      <ul class="strip-track" aria-label="Obľúbené služby">
+        <li><button class="tile" type="button" data-dx="elektro" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-elektro"></span></span><span class="tile-label">Elektrikár<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="voda" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-instalater"></span></span><span class="tile-label">Vodoinštalatér<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="maliar" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-malovanie"></span></span><span class="tile-label">Maliar<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="obklad" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-obklad"></span></span><span class="tile-label">Obklady<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="upratovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-upratovanie"></span></span><span class="tile-label">Upratovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="zahrada" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-zahrada"></span></span><span class="tile-label">Záhrada<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="stahovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-stahovanie"></span></span><span class="tile-label">Sťahovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      </ul>
+    </div>
     <ul class="dir">
-      <li><button class="dir-item tc-amber" type="button" data-open="elektro"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><span><b>Elektrikár</b><small>od 28 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-blue" type="button" data-open="voda"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-clay" type="button" data-open="kurenie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-lilac" type="button" data-open="maliar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg></span><span><b>Maliar</b><small>od 6 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-teal" type="button" data-open="upratovanie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span><b>Upratovanie</b><small>od 14 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-sand" type="button" data-open="montaz"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg></span><span><b>Montáž nábytku</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-blue" type="button" data-open="obklad"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg></span><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-sage" type="button" data-open="stahovanie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><span><b>Sťahovanie</b><small>od 45 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-sage" type="button" data-open="zahrada"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><span><b>Záhrada</b><small>od 20 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-clay" type="button" data-open="komin"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg></span><span><b>Kominár</b><small>od 40 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-lilac" type="button" data-open="okna"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg></span><span><b>Okná a fasády</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-amber" type="button" data-open="solar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg></span><span><b>Fotovoltika</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-clay" type="button" data-open="murar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg></span><span><b>Murár a stavebné úpravy</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-sand" type="button" data-open="podlahy"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg></span><span><b>Podlahár</b><small>od 12 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-blue" type="button" data-open="strecha"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg></span><span><b>Pokrývač a klampiar</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item tc-sand" type="button" data-open="stolar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-ruler2"/></svg></span><span><b>Stolár</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-amber" type="button" data-dx="elektro" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><span><b>Elektrikár</b><small>od 28 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-dx="voda" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-dx="kurenie" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-lilac" type="button" data-dx="maliar" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg></span><span><b>Maliar</b><small>od 6 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-teal" type="button" data-dx="upratovanie" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span><b>Upratovanie</b><small>od 14 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-dx="montaz" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg></span><span><b>Montáž nábytku</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-dx="obklad" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg></span><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sage" type="button" data-dx="stahovanie" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><span><b>Sťahovanie</b><small>od 45 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sage" type="button" data-dx="zahrada" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><span><b>Záhrada</b><small>od 20 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-dx="komin" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg></span><span><b>Kominár</b><small>od 40 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-lilac" type="button" data-dx="okna" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg></span><span><b>Okná a fasády</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-amber" type="button" data-dx="solar" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg></span><span><b>Fotovoltika</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-dx="murar" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg></span><span><b>Murár a stavebné úpravy</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-dx="podlahy" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg></span><span><b>Podlahár</b><small>od 12 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-dx="strecha" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg></span><span><b>Pokrývač a klampiar</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-dx="stolar" aria-controls="dx-list"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-ruler2"/></svg></span><span><b>Stolár</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
     </ul>
   </div>
 </section>
@@ -920,55 +971,6 @@ dialog::backdrop{background:var(--scrim)}
   </div>
 </section>
 
-<section class="section" id="zoznam" data-tab="majstri" aria-labelledby="zoznam-title">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <p class="kicker">Zoznam majstrov a firiem</p>
-        <h2 class="h2" id="zoznam-title">Vyberte si majstra sami</h2>
-        <p class="sub">Prejdite si overených remeselníkov a firmy z vášho kraja. Žiadosť pošlete priamo tomu, koho si vyberiete.</p>
-      </div>
-    </div>
-    <form class="dx-bar" id="dx-form" role="search" aria-label="Hľadať v zozname majstrov" novalidate>
-      <div class="dx-f dx-q">
-        <label for="dx-q">Hľadať</label>
-        <div class="dx-in"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input class="input" id="dx-q" type="search" placeholder="Meno, firma alebo obec" autocomplete="off" enterkeyhint="search"></div>
-      </div>
-      <div class="dx-f">
-        <label for="dx-cat">Remeslo</label>
-        <select class="input" id="dx-cat"><option value="">Všetky remeslá</option></select>
-      </div>
-      <div class="dx-f">
-        <label for="dx-kraj">Kraj</label>
-        <select class="input" id="dx-kraj">
-          <option value="">Všetky kraje</option>
-          <option value="BA">Bratislavský</option>
-          <option value="TT">Trnavský</option>
-          <option value="TN">Trenčiansky</option>
-          <option value="NR">Nitriansky</option>
-          <option value="ZA">Žilinský</option>
-          <option value="BB">Banskobystrický</option>
-          <option value="PO">Prešovský</option>
-          <option value="KE">Košický</option>
-        </select>
-      </div>
-      <div class="dx-f dx-sort">
-        <label for="dx-sort">Zoradiť</label>
-        <select class="input" id="dx-sort">
-          <option value="rating">Najlepšie hodnotení</option>
-          <option value="count">Najviac hodnotení</option>
-          <option value="resp">Najrýchlejšia odpoveď</option>
-          <option value="name">Podľa abecedy</option>
-        </select>
-      </div>
-    </form>
-    <div class="dx-meta"><p id="dx-count" aria-live="polite"></p><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button></div>
-    <ol class="dx-list" id="dx-list"></ol>
-    <div class="dx-more"><button class="btn btn-outline" type="button" id="dx-more" hidden>Zobraziť ďalších</button></div>
-    <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
-  </div>
-</section>
-
 <section class="section" aria-labelledby="why-title">
   <div class="wrap">
     <div class="sec-head center">
@@ -1090,7 +1092,7 @@ dialog::backdrop{background:var(--scrim)}
   <a href="#sluzby" data-sec="sluzby"><svg class="ic" aria-hidden="true"><use href="#i-grid"/></svg>Služby</a>
   <a href="#ceny" data-sec="ceny"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg>Ceny</a>
   <button class="tb-main" type="button" data-open=""><span class="plus"><svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></span>Zadať</button>
-  <a href="#majstri" data-sec="majstri"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Majstri</a>
+  <a href="#zoznam" data-sec="majstri"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Majstri</a>
   <a href="#pre-majstrov" data-sec="pre-majstrov"><svg class="ic" aria-hidden="true"><use href="#i-case"/></svg>Pre firmy</a>
 </nav>
 
@@ -1397,11 +1399,34 @@ dialog::backdrop{background:var(--scrim)}
     ['Stolárstvo Spiš', 1, 'stolar', 'Spišská Nová Ves', 'KE', 4.7, 25, 60, 'na ponuku, zameranie zdarma', 24, 'SK', 'Kuchyne na mieru'],
     ['Rastislav Varga', 0, 'elektro', 'Michalovce', 'KE', 4.9, 51, 99, 'od 28 €/h s DPH', 2, 'SK · HU', 'Elektrotechnik § 22'],
     ['Zateplenie Východ, s. r. o.', 1, 'okna', 'Trebišov', 'KE', 4.6, 34, 140, 'na ponuku, obhliadka zdarma', 48, 'SK · HU', 'Okná aj fasády'],
-    ['Ondrej Kiss', 0, 'podlahy', 'Rožňava', 'KE', 4.8, 23, 38, 'od 11 €/m², neplatiteľ DPH', 6, 'SK · HU', 'Vinylové podlahy']
+    ['Ondrej Kiss', 0, 'podlahy', 'Rožňava', 'KE', 4.8, 23, 38, 'od 11 €/m², neplatiteľ DPH', 6, 'SK · HU', 'Vinylové podlahy'],
+    ['Vodoservis Hronec', 1, 'voda', 'Banská Bystrica', 'BB', 4.7, 88, 260, 'od 29 €/h s DPH', 2, 'SK', 'Pohotovosť 24/7'],
+    ['Patrik Horňák', 0, 'podlahy', 'Trenčín', 'TN', 4.9, 27, 45, 'od 12 €/m², neplatiteľ DPH', 5, 'SK · CZ', 'Laminát a vinyl'],
+    ['Drevo Ponitrie', 1, 'stolar', 'Topoľčany', 'NR', 4.8, 31, 70, 'na ponuku, zameranie zdarma', 24, 'SK · HU', 'Schody a zábradlia'],
+    ['Obklady Kubiš', 1, 'obklad', 'Žilina', 'ZA', 4.8, 54, 120, 'od 29 €/m² s DPH', 24, 'SK · PL', 'Kúpeľne na kľúč'],
+    ['Viktor Lacko', 0, 'obklad', 'Prešov', 'PO', 4.7, 36, 61, 'od 26 €/m², neplatiteľ DPH', 5, 'SK · UK', 'Mozaiky a sprchy'],
+    ['Zelená záhrada, s. r. o.', 1, 'zahrada', 'Senec', 'BA', 4.8, 77, 290, 'od 22 €/h s DPH', 4, 'SK · EN', 'Zakladanie trávnika'],
+    ['Štefan Ondrejka', 0, 'zahrada', 'Košice', 'KE', 4.6, 24, 58, 'od 17 €/h, neplatiteľ DPH', 6, 'SK · HU', 'Strihanie živých plotov'],
+    ['Sťahovanie Express BA', 1, 'stahovanie', 'Bratislava-Nové Mesto', 'BA', 4.8, 203, 760, 'od 48 €/h s DPH', 2, 'SK · EN · DE', 'Sťahovanie firiem'],
+    ['Ján Kuruc', 0, 'stahovanie', 'Michalovce', 'KE', 4.7, 39, 110, 'od 35 €/h, neplatiteľ DPH', 3, 'SK · UK', 'Vypratávanie a odvoz'],
+    ['Stavby Trnka, s. r. o.', 1, 'murar', 'Nitra', 'NR', 4.7, 46, 150, 'od 26 €/h s DPH', 24, 'SK · HU', 'Prístavby a garáže'],
+    ['Lukáš Matis', 0, 'murar', 'Poprad', 'PO', 4.9, 30, 52, 'od 23 €/h, neplatiteľ DPH', 6, 'SK · PL', 'Omietky a stierky'],
+    ['Kominár Ďurovič', 0, 'komin', 'Trnava', 'TT', 4.9, 112, 430, 'kontrola od 42 € s DPH', 24, 'SK', 'Správa pre poisťovňu'],
+    ['Kominárstvo Spiš', 1, 'komin', 'Spišská Nová Ves', 'KE', 4.8, 64, 280, 'kontrola od 38 € s DPH', 24, 'SK · PL', 'Kamerová kontrola'],
+    ['Klampiarstvo Vörös', 1, 'strecha', 'Komárno', 'NR', 4.8, 41, 120, 'na ponuku, obhliadka zdarma', 24, 'SK · HU', 'Odkvapy a žľaby'],
+    ['Peter Vlček', 0, 'strecha', 'Martin', 'ZA', 4.7, 26, 48, 'od 28 €/h s DPH', 48, 'SK', 'Opravy po búrke'],
+    ['Montáže Bratislava', 1, 'montaz', 'Bratislava-Dúbravka', 'BA', 4.8, 95, 340, 'od 28 €/h s DPH', 3, 'SK · EN', 'Kuchyne a šatníky'],
+    ['Milan Bartoš', 0, 'montaz', 'Banská Bystrica', 'BB', 4.9, 44, 96, 'od 22 €/h, neplatiteľ DPH', 4, 'SK', 'Montáž za jeden deň'],
+    ['Slnko Bratislava, s. r. o.', 1, 'solar', 'Pezinok', 'BA', 4.6, 52, 180, 'na ponuku, obhliadka zdarma', 24, 'SK · EN', 'Batérie a wallboxy'],
+    ['Energia Liptov', 1, 'solar', 'Liptovský Mikuláš', 'ZA', 4.8, 33, 90, 'na ponuku, obhliadka zdarma', 24, 'SK · PL', 'Tepelné čerpadlá'],
+    ['Teplo Trnava, s. r. o.', 1, 'kurenie', 'Piešťany', 'TT', 4.7, 68, 240, 'servis od 79 € s DPH', 4, 'SK · CZ', 'Oprávnenie na plyn'],
+    ['Radoslav Kmeť', 0, 'kurenie', 'Prievidza', 'TN', 4.9, 49, 120, 'servis od 70 €, neplatiteľ DPH', 3, 'SK', 'Podlahové kúrenie'],
+    ['Okná Bratislava, s. r. o.', 1, 'okna', 'Malacky', 'BA', 4.7, 81, 410, 'na ponuku, zameranie zdarma', 24, 'SK · EN · DE', 'Montáž podľa RAL'],
+    ['Fasády Nitra', 1, 'okna', 'Nové Zámky', 'NR', 4.6, 29, 110, 'na ponuku, obhliadka zdarma', 48, 'SK · HU', 'Zateplenie a omietky']
   ].map(([name, firm, cat, town, kraj, rating, count, jobs, price, resp, langs, tag], i) => ({ name, firm, cat, town, kraj, rating, count, jobs, price, resp, langs, tag, i }));
 
   const PAGE = 8;
-  const dx = { list: $('#dx-list'), count: $('#dx-count'), more: $('#dx-more'), reset: $('#dx-reset'), limit: PAGE };
+  const dx = { list: $('#dx-list'), count: $('#dx-count'), more: $('#dx-more'), reset: $('#dx-reset'), ask: $('#dx-ask'), limit: PAGE };
   const plural = (n, one, few, many) => n === 1 ? one : n > 1 && n < 5 ? few : many;
   const initials = s => s.replace(/,?\s*s\.\s*r\.\s*o\.$/, '').split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
   const respText = h => h < 24 ? `do ${h} h` : h === 24 ? 'do 1 dňa' : `do ${h / 24} dní`;
@@ -1444,12 +1469,14 @@ dialog::backdrop{background:var(--scrim)}
     const hits = PROS.filter(p => (!cat || p.cat === cat) && (!kraj || p.kraj === kraj) &&
       (!q || norm(`${p.name} ${p.town} ${CAT[p.cat][0]} ${KRAJ[p.kraj]}`).includes(q))).sort(sort);
     const shown = hits.slice(0, dx.limit);
-    const where = kraj ? ` · ${KRAJ[kraj]}` : '';
+    const where = (cat ? ` · ${CAT[cat][0]}` : '') + (kraj ? ` · ${KRAJ[kraj]}` : '');
     dx.count.innerHTML = hits.length
       ? `<b>${hits.length}</b> ${plural(hits.length, 'majster alebo firma', 'majstri a firmy', 'majstrov a firiem')}${where}${shown.length < hits.length ? ` · zobrazených ${shown.length}` : ''}`
       : `Žiadny výsledok${where}`;
     dx.list.innerHTML = shown.length ? shown.map(bizHTML).join('') :
-      `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></li>`;
+      `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><span class="empty-acts">${kraj ? '<button class="link" type="button" data-dx-all>Všetky kraje</button>' : ''}<button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></span></li>`;
+    dx.ask.hidden = !cat;
+    dx.ask.dataset.open = cat;
     const rest = hits.length - shown.length;
     dx.more.hidden = rest <= 0;
     const k = Math.min(PAGE, rest);
@@ -1468,6 +1495,24 @@ dialog::backdrop{background:var(--scrim)}
   $('#pros-empty a[href="#zoznam"]').addEventListener('click', () => {
     const b = $('#filter button[aria-pressed="true"]');
     setDirKraj(b ? b.dataset.kraj : '');
+  });
+  // Klik na kategóriu (služby, karty pod vyhľadávaním): zoznam majstrov s týmto remeslom
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-dx], [data-dx-all]');
+    if (!b) return;
+    if (b.hasAttribute('data-dx-all')) { $('#dx-kraj').value = ''; refreshDir(); return; }
+    $('#dx-q').value = '';
+    $('#dx-cat').value = b.dataset.dx;
+    refreshDir();
+    $('#zoznam .sec-head').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    $('#zoznam-title').focus({ preventScroll: true });
+  });
+  // Počet majstrov pri každej službe
+  $$('.dir-item[data-dx]').forEach(b => {
+    const n = PROS.filter(p => p.cat === b.dataset.dx).length;
+    const s = b.querySelector('small');
+    if (s && n) s.textContent += ` · ${n} ${plural(n, 'majster', 'majstri', 'majstrov')}`;
   });
   renderDir();
 

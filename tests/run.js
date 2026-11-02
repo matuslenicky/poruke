@@ -350,18 +350,28 @@ async function runViewport(browser, target, vp, out) {
     await closeDialog(page);
   });
 
-  await test(ctx, 'druhy práce: formulár, adresár a vyhľadávanie', async r => {
+  await test(ctx, 'druhy práce: formulár, služby a vyhľadávanie', async r => {
     await fresh(page);
     const d = await page.evaluate(() => ({
       options: [...document.querySelectorAll('#f-cat option')].map(o => o.value).filter(Boolean),
+      dxCat: [...document.querySelectorAll('#dx-cat option')].map(o => o.value).filter(Boolean),
       opens: [...new Set([...document.querySelectorAll('[data-open]')].map(e => e.dataset.open).filter(Boolean))],
-      dir: [...document.querySelectorAll('.dir-item[data-open]')].map(e => e.dataset.open),
+      dir: [...document.querySelectorAll('.dir-item[data-dx]')].map(e => {
+        const m = ((e.querySelector('small') || {}).textContent || '').match(/·\s*(\d+)\s+majst/);
+        return { cat: e.dataset.dx, n: m ? +m[1] : NaN };
+      }),
+      tiles: [...document.querySelectorAll('.tile[data-dx]')].map(e => e.dataset.dx),
     }));
+    const dirCats = d.dir.map(x => x.cat);
     const missing = d.opens.filter(c => !d.options.includes(c));
     check(r, missing.length === 0, `tlačidlá otvárajú druh práce, ktorý vo formulári nie je: ${missing.join(', ')}`);
-    const noDir = d.options.filter(c => c !== 'ine' && !d.dir.includes(c));
-    check(r, noDir.length === 0, `druh práce bez položky v adresári služieb: ${noDir.join(', ')}`);
-    for (const c of ['murar', 'podlahy', 'strecha', 'stolar']) check(r, d.options.includes(c) && d.dir.includes(c), `chýba nový druh práce ${c}`);
+    const noDir = d.options.filter(c => c !== 'ine' && !dirCats.includes(c));
+    check(r, noDir.length === 0, `druh práce bez položky v službách (.dir-item[data-dx]): ${noDir.join(', ')}`);
+    const notInDx = [...new Set([...dirCats, ...d.tiles])].filter(c => !d.dxCat.includes(c) || !d.options.includes(c));
+    check(r, notInDx.length === 0, `služba alebo karta s druhom, ktorý nie je v zozname alebo formulári: ${notInDx.join(', ')}`);
+    for (const c of ['murar', 'podlahy', 'strecha', 'stolar']) check(r, d.options.includes(c) && dirCats.includes(c), `chýba nový druh práce ${c}`);
+    const few = d.dir.filter(x => !(x.n >= 4)).map(x => `${x.cat} (${Number.isNaN(x.n) ? 'bez počtu' : x.n})`);
+    check(r, few.length === 0, `služba má menej ako 4 majstrov alebo chýba počet: ${few.join(', ')}`);
     // Vyhľadávanie rozpozná aj nové druhy práce
     const cases = [
       ['Oprava strechy', 'strecha'], ['Pokládka laminátu', 'podlahy'], ['Sadrokartónová priečka', 'murar'], ['Stolár', 'stolar'],
@@ -377,7 +387,97 @@ async function runViewport(browser, target, vp, out) {
       check(r, s.open && s.cat === want, `„${q}“ → ${s.cat || 'nič'}, čakal som ${want}`);
       await closeDialog(page);
     }
-    r.info = `${d.options.length} druhov, ${d.dir.length} v adresári`;
+    r.info = `${d.options.length} druhov, ${d.dir.length} služieb, ${d.tiles.length} kariet`;
+  });
+
+  await test(ctx, 'kategória → zoznam majstrov s remeslom', async r => {
+    await fresh(page);
+    if (!(await page.$('.dir-item[data-dx], .tile[data-dx]'))) { r.info = 'na stránke nie sú kategórie s data-dx'; return; }
+    const readDx = () => page.evaluate(() => {
+      const sel = document.getElementById('dx-cat');
+      const b = document.querySelector('#dx-count b');
+      const head = document.querySelector('#zoznam .sec-head').getBoundingClientRect().top;
+      const ask = document.getElementById('dx-ask');
+      return {
+        cat: sel.value,
+        label: sel.value ? sel.options[sel.selectedIndex].textContent.trim() : '',
+        q: document.getElementById('dx-q').value,
+        kraj: document.getElementById('dx-kraj').value,
+        total: b ? +b.textContent : 0,
+        countText: document.getElementById('dx-count').textContent.replace(/\s+/g, ' ').trim(),
+        trades: [...document.querySelectorAll('#dx-list > li.biz .trade')].map(t => t.textContent.trim()),
+        empty: !!document.querySelector('#dx-list > li.dx-empty'),
+        focus: (document.activeElement && document.activeElement.id) || '',
+        headTop: Math.round(head), vh: innerHeight,
+        ask: ask ? { shown: !ask.hidden && getComputedStyle(ask).display !== 'none', open: ask.dataset.open || '' } : null,
+      };
+    });
+    check(r, (await readDx()).ask && !(await readDx()).ask.shown, 'tlačidlo #dx-ask má byť bez zvoleného remesla skryté');
+
+    const items = page.locator('.dir-item[data-dx], .tile[data-dx]');
+    const n = await items.count();
+    let tested = 0;
+    for (let i = 0; i < n; i++) {
+      const el = items.nth(i);
+      if (!(await el.isVisible())) continue;
+      const info = await el.evaluate(e => {
+        const m = ((e.querySelector('small') || {}).textContent || '').match(/·\s*(\d+)\s+majst/);
+        return { cat: e.dataset.dx, n: m ? +m[1] : null, what: `${e.classList[0]} „${e.dataset.dx}“` };
+      });
+      await page.fill('#dx-q', 'abc');
+      await el.click();
+      const ok = await page.waitForFunction(c => {
+        const t = document.querySelector('#zoznam .sec-head').getBoundingClientRect().top;
+        return document.getElementById('dx-cat').value === c && document.activeElement && document.activeElement.id === 'zoznam-title' && t > -4 && t < innerHeight * 0.5;
+      }, info.cat, { timeout: 3000 }).then(() => true, () => false);
+      tested++;
+      const st = await readDx();
+      if (!check(r, ok, `${info.what}: zoznam sa nenastavil (remeslo ${st.cat}, fokus ${st.focus || 'nikde'}, nadpis zoznamu ${st.headTop} px z ${st.vh})`)) continue;
+      check(r, st.q === '', `${info.what}: hľadanie v zozname sa nevyprázdnilo („${st.q}“)`);
+      check(r, st.total > 0 && st.trades.length > 0 && st.trades.every(t => t.startsWith(st.label)), `${info.what}: zoznam ukazuje iné remeslá (${[...new Set(st.trades.map(t => t.split(' · ')[0]))].join(', ')})`);
+      check(r, st.countText.includes(st.label), `${info.what}: počítadlo nespomína remeslo („${st.countText}“)`);
+      if (info.n !== null) check(r, st.total === info.n, `${info.what}: pri službe je ${info.n} majstrov, zoznam ukazuje ${st.total}`);
+      check(r, st.ask && st.ask.shown && st.ask.open === info.cat, `${info.what}: tlačidlo „Získať ponuky“ chýba alebo má iný druh (${st.ask && st.ask.open})`);
+    }
+    check(r, tested > 0, 'žiadna viditeľná kategória');
+
+    // „Získať ponuky“ otvorí dialóg so zvoleným remeslom
+    let st = await readDx();
+    await page.click('#dx-ask');
+    const s = await dialogState(page);
+    check(r, s.open && s.cat === st.cat, `„Získať ponuky“: dialóg ${s.open ? 'má druh ' + s.cat : 'sa neotvoril'}, čakal som ${st.cat}`);
+    await closeDialog(page);
+
+    // Kraj ostáva pri kliku na kategóriu
+    await page.click('#filter button[data-kraj="TT"]');
+    await page.locator('.dir-item[data-dx]').filter({ visible: true }).first().click();
+    st = await readDx();
+    check(r, st.kraj === 'TT' && st.countText.includes('Trnavský kraj'), `klik na kategóriu zrušil kraj (${st.kraj || 'žiadny'}, „${st.countText}“)`);
+
+    // Prázdny výsledok s krajom: „Všetky kraje“ zruší kraj a remeslo ostane
+    const krajs = await page.$$eval('#dx-kraj option', os => os.map(o => o.value).filter(Boolean));
+    const cats = await page.$$eval('#dx-cat option', os => os.map(o => o.value).filter(Boolean));
+    let combo = null;
+    for (const c of cats) {
+      await page.selectOption('#dx-cat', c);
+      for (const k of krajs) {
+        await page.selectOption('#dx-kraj', k);
+        if ((await readDx()).empty) { combo = [c, k]; break; }
+      }
+      if (combo) break;
+    }
+    if (combo) {
+      const all = page.locator('#dx-list .dx-empty [data-dx-all]');
+      if (check(r, (await all.count()) > 0, `prázdny výsledok ${combo.join(' + ')}: chýba „Všetky kraje“`)) {
+        await all.first().click();
+        st = await readDx();
+        check(r, st.kraj === '' && st.cat === combo[0] && st.total > 0, `„Všetky kraje“: kraj ${st.kraj || 'zrušený'}, remeslo ${st.cat}, výsledkov ${st.total}`);
+      }
+    }
+    await page.click('#dx-reset');
+    st = await readDx();
+    check(r, st.ask && !st.ask.shown, 'po „Zrušiť filtre“ ostalo viditeľné „Získať ponuky“');
+    r.info = `${tested} kategórií${combo ? `, prázdny stav ${combo.join('+')}` : ', každá kombinácia má majstra'}`;
   });
 
   await test(ctx, 'miesto: obec alebo PSČ nastaví kraj', async r => {
