@@ -32,7 +32,7 @@ html = html.replace(fontLink, () => `<style id="fonts">\n${fontCss}</style>`);
 // Kredity fotiek s licenciou CC BY do pätičky (CC0 a public domain kredit nevyžadujú)
 const creditsFile = path.join(SRC, 'photos', 'credits.json');
 if (fs.existsSync(creditsFile)) {
-  const LABEL = { kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', elektro: 'rozvádzač', kuchyna: 'kuchyňa', 's-instalater': 'inštalatér', 's-upratovanie': 'upratovanie 2', 's-zahrada': 'záhradník' };
+  const LABEL = { kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', elektro: 'rozvádzač', kuchyna: 'kuchyňa', 's-instalater': 'inštalatér', 's-upratovanie': 'upratovanie 2', 's-zahrada': 'záhradník', 's-stahovanie': 'sťahovanie', hero: 'úvod', 'hero-m': 'úvod (mobil)', 'krok-opis': 'opis práce', 'krok-ponuky': 'porovnanie ponúk', 'krok-praca': 'odovzdanie práce', 'preco-kontakt': 'správy', 'preco-hodnotenia': 'hotová práca' };
   const by = JSON.parse(fs.readFileSync(creditsFile, 'utf8')).filter(c => !/cc0|pdm|public/i.test(c.license || ''));
   const groups = {};
   for (const c of by) (groups[`${c.creator}|${c.license}|${c.license_url}`] ||= []).push(c);
@@ -45,7 +45,7 @@ if (fs.existsSync(creditsFile)) {
 }
 
 // Fotky: src="photos/x.jpg" a url(photos/x.jpg)
-const photoRe = { attr: /src="(photos\/[^"]+)"/g, css: /url\((photos\/[^)]+)\)/g };
+const photoRe = { attr: /src="(photos\/[^"]+)"/g, srcset: /srcset="(photos\/[^" ]+)"/g, css: /url\((photos\/[^)]+)\)/g };
 const check = f => {
   if (fs.existsSync(path.join(SRC, f))) return true;
   if (draft) { console.warn(`! chýba ${f}, použitá zástupná plocha`); return false; }
@@ -53,6 +53,7 @@ const check = f => {
 };
 const withPhotos = mode => html
   .replace(photoRe.attr, (_, f) => `src="${check(f) ? (mode === 'web' ? 'src/' + f : dataUri(f)) : PLACEHOLDER}"`)
+  .replace(photoRe.srcset, (_, f) => `srcset="${check(f) ? (mode === 'web' ? 'src/' + f : dataUri(f)) : PLACEHOLDER}"`)
   .replace(photoRe.css, (_, f) => `url(${check(f) ? (mode === 'web' ? 'src/' + f : dataUri(f)) : PLACEHOLDER})`);
 
 const web = withPhotos('web');
@@ -60,4 +61,4 @@ const offline = withPhotos('offline');
 fs.writeFileSync(path.join(ROOT, 'index.html'), web);
 fs.writeFileSync(path.join(ROOT, 'poruke.html'), offline);
 const kb = s => Math.round(Buffer.byteLength(s) / 1024);
-console.log(`index.html (web): ${kb(web)} KB · poruke.html (offline): ${kb(offline)} KB · fotky: ${(html.match(photoRe.css) || []).length + (html.match(photoRe.attr) || []).length}`);
+console.log(`index.html (web): ${kb(web)} KB · poruke.html (offline): ${kb(offline)} KB · fotky: ${(html.match(photoRe.css) || []).length + (html.match(photoRe.attr) || []).length + (html.match(photoRe.srcset) || []).length}`);

@@ -50,6 +50,7 @@
   --shadow-sm:0 1px 2px rgba(20,20,20,.05);
   --shadow:0 1px 3px rgba(20,20,20,.05), 0 14px 36px rgba(20,20,20,.08);
   --shadow-lg:0 2px 6px rgba(20,20,20,.06), 0 24px 60px rgba(20,20,20,.14);
+  --shadow-card:0 1px 2px rgba(20,20,20,.04), 0 10px 30px rgba(20,20,20,.05);
 
   --f:"Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
   --wrap:1200px;
@@ -122,8 +123,12 @@ button,input,select,textarea{font:inherit;color:inherit}
 .top-actions .link{text-decoration:none;font-weight:500;font-size:15px;color:var(--ink-2);padding:0 12px;border-radius:999px}
 @media (hover: hover){ .top-actions .link:hover{color:var(--ink);background:var(--bg-alt)} }
 
-/* Hero */
-.hero{padding-block:clamp(48px, 7vw, 96px) clamp(56px, 7vw, 88px);overflow:hidden}
+/* Hero: fotka interiéru v zaoblenom paneli, biely závoj pod textom */
+.hero{padding:8px max(12px, env(safe-area-inset-right, 0px)) clamp(48px, 6vw, 80px) max(12px, env(safe-area-inset-left, 0px))}
+.hero-panel{position:relative;isolation:isolate;overflow:hidden;max-width:1400px;margin-inline:auto;border-radius:32px;background:var(--bg-alt);padding-block:clamp(64px, 8.5vw, 124px) clamp(72px, 8vw, 116px)}
+.hero-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
+.hero-panel::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 54% 66% at 50% 47%, rgba(255,255,255,.93) 0%, rgba(255,255,255,.84) 48%, rgba(255,255,255,.5) 78%, rgba(255,255,255,.28) 100%)}
+.hero .lead{color:var(--ink-2)}
 .hero-in{display:grid;justify-items:center;gap:22px;max-width:820px;margin-inline:auto;text-align:center}
 .hero h1{display:grid;gap:4px;line-height:1}
 .hero h1 .l1{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:-.035em;line-height:1.06}
@@ -145,22 +150,18 @@ button,input,select,textarea{font:inherit;color:inherit}
 .privacy{text-align:center;text-wrap:balance;font-size:14.5px;color:var(--ink-2)}
 .privacy .ic{display:inline-block;vertical-align:-3px;margin-right:6px;color:var(--good)}
 
-/* Oblúk fotiek prác (Flowblox) */
-.strip{perspective:1100px;margin-top:clamp(40px, 6vw, 72px)}
-.strip-track{display:flex;justify-content:center;align-items:center;gap:22px;list-style:none;margin:0;padding:12px 0;transform-style:preserve-3d}
-.strip-track > li{flex:none;transform-style:preserve-3d}
-.tile{position:relative;isolation:isolate;display:block;width:var(--w);height:var(--h);border:0;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:var(--photo-fallback);transform:rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
-.tile .ph{position:absolute;inset:0;z-index:-2}
-.tile::after{content:"";position:absolute;inset:30% 0 0;z-index:-1;background:linear-gradient(rgba(15,15,12,0), rgba(15,15,12,.6) 45%, rgba(15,15,12,.8))}
-.tile-label{position:absolute;left:14px;right:14px;bottom:12px;color:var(--on-photo);font-weight:600;font-size:14.5px;text-align:left}
-@media (hover: hover){ .tile:hover{transform:rotateY(var(--ry)) translateY(-6px)} }
-.t-3{--w:190px;--h:262px;--ry:30deg}
-.t-2{--w:162px;--h:220px;--ry:18deg}
-.t-1{--w:142px;--h:188px;--ry:8deg}
-.t0{--w:132px;--h:172px;--ry:0deg}
-.t1{--w:142px;--h:188px;--ry:-8deg}
-.t2{--w:162px;--h:220px;--ry:-18deg}
-.t3{--w:190px;--h:262px;--ry:-30deg}
+/* Kategórie pod úvodom: rovný rad rovnakých kariet */
+.strip{margin-top:clamp(20px, 2.6vw, 32px)}
+.strip-track{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
+.tile{display:grid;gap:10px;width:100%;border:0;padding:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:16px}
+.tile-img{display:block;border-radius:16px;overflow:hidden;background:var(--bg-alt)}
+.tile .ph{aspect-ratio:4 / 5;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.tile-label{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:600;font-size:15px;line-height:1.3;padding-inline:2px}
+.tile-label .ic{width:15px;height:15px;color:var(--muted);transition:transform .2s, color .2s}
+@media (hover: hover){
+  .tile:hover .ph{transform:scale(1.045)}
+  .tile:hover .tile-label .ic{color:var(--ink);transform:translate(2px, -2px)}
+}
 
 /* Tri piliere s deliacimi čiarami */
 
@@ -172,8 +173,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ph-obklad{background-image:url(photos/obklad.jpg)}
 .ph-stahovanie{background-image:url(photos/stahovanie.jpg)}
 .ph-zahrada{background-image:url(photos/zahrada.jpg)}
-.ph-elektro{background-image:url(photos/elektro.jpg)}
 .ph-kuchyna{background-image:url(photos/kuchyna.jpg)}
+.ph-elektro{background-image:url(photos/elektro.jpg)}
 .ph-s-obklad{background-image:url(photos/s-obklad.jpg)}
 .ph-s-malovanie{background-image:url(photos/s-malovanie.jpg)}
 .ph-s-instalater{background-image:url(photos/s-instalater.jpg)}
@@ -182,13 +183,26 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ph-s-zahrada{background-image:url(photos/s-zahrada.jpg)}
 .ph-s-stahovanie{background-image:url(photos/s-stahovanie.jpg)}
 
+/* Farebné odtiene remesiel: ikony služieb, riadky cien a avatary v zozname majstrov */
+.tc-amber{--tb:#FCF0D6;--ti:#B07408}
+.tc-blue{--tb:#E4EDFA;--ti:#2257A8}
+.tc-clay{--tb:#F8E7DD;--ti:#A1461C}
+.tc-lilac{--tb:#EDE9F8;--ti:#5A49A3}
+.tc-teal{--tb:#DFF1EE;--ti:#1C6B5F}
+.tc-sage{--tb:#E5EFDF;--ti:#3E6A32}
+.tc-sand{--tb:#F2EBDF;--ti:#77572F}
+.tic{display:grid;place-items:center;justify-self:start;flex:none;color:var(--ti, var(--ink));transition:transform .2s}
+.tic .ic{width:26px;height:26px;stroke-width:1.75}
+
 /* Služby: zoznam (GAZU) */
-.dir{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;list-style:none;margin:0;padding:0}
-.dir-item{width:100%;height:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:22px 20px;border:0;background:var(--surface);text-align:left;cursor:pointer;transition:background-color .15s}
-@media (hover: hover){ .dir-item:hover{background:var(--bg-alt)} }
-.dir-item > .ic{width:24px;height:24px;stroke-width:1.5;color:var(--ink)}
-.dir-item b{display:block;font-weight:600;font-size:15.5px;line-height:1.3}
-.dir-item small{display:block;font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dir{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:22px;overflow:hidden;list-style:none;margin:0;padding:0;box-shadow:var(--shadow-card)}
+.dir-item{width:100%;height:100%;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:16px;padding:20px;border:0;background:var(--surface);text-align:left;cursor:pointer;transition:background-color .15s}
+@media (hover: hover){
+  .dir-item:hover{background:color-mix(in srgb, var(--tb) 34%, var(--surface))}
+  .dir-item:hover .tic{transform:scale(1.06)}
+}
+.dir-item b{display:block;font-weight:600;font-size:16px;line-height:1.3}
+.dir-item small{display:block;margin-top:2px;font-size:13.5px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 .dir-item .go{width:16px;height:16px;color:var(--muted);transition:transform .2s, color .2s}
 @media (hover: hover){ .dir-item:hover .go{color:var(--ink);transform:translate(2px, -2px)} }
 
@@ -214,11 +228,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .zig li.rev .zig-img{order:2}
 .zig-img{border-radius:22px;overflow:hidden;background:var(--surface)}
 .zig-img .ph{aspect-ratio:16 / 10}
-.zig li:nth-child(1) .ph{background-size:150%;background-position:40% 30%}
-.zig li:nth-child(2) .ph{background-size:140%;background-position:20% 60%}
-.zig li:nth-child(3) .ph{background-size:150%;background-position:30% 20%}
-.bento .b-photo .ph{background-size:130%}
-.bento .b-photo:first-child .ph{background-position:70% 30%}
 .zig-text{display:grid;gap:10px;align-content:center;max-width:440px}
 .zig-n{font-weight:400;font-size:56px;letter-spacing:-.05em;line-height:1;color:var(--ink)}
 .zig h3{font-weight:600;font-size:clamp(22px, 2.2vw, 28px);line-height:1.2;letter-spacing:-.025em}
@@ -248,26 +257,68 @@ button,input,select,textarea{font:inherit;color:inherit}
 .chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
 @media (pointer: coarse){ .chip{min-height:44px} }
 .pros{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
-.pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;background:var(--surface);min-width:0}
+.pro{position:relative;display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:20px;background:var(--surface);min-width:0}
 .pro-top{display:flex;gap:12px;align-items:center;min-width:0}
 .pro-top > div{min-width:0}
 .ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg-alt);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:.02em;flex:none}
 .pro h3{font-weight:600;font-size:16.5px;line-height:1.25;letter-spacing:-.01em}
 .vf{display:inline-block;width:17px;height:17px;margin-left:5px;vertical-align:-3px;color:var(--good)}
 .trade{font-size:14px;color:var(--muted)}
-.rating{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
-.rating strong{color:var(--ink);font-size:15px}
+.rating{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:14px;color:var(--muted)}
+.rating strong{color:var(--ink);font-size:16px;font-weight:700;font-variant-numeric:tabular-nums}
 .star{width:15px;height:15px;fill:var(--star);stroke:var(--star)}
+/* Päť hviezd ako maska, vyplnené podľa --p (hodnotenie / 5) */
+.stars{--p:100%;display:inline-block;flex:none;width:85px;height:17px;background:linear-gradient(90deg, var(--star) var(--p), #E6E0D3 var(--p));-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.85 5.95 6.55.88-4.8 4.55 1.2 6.5L12 17.33l-5.8 3.15 1.2-6.5-4.8-4.55 6.55-.88z'/%3E%3C/svg%3E") 0 0 / 17px 17px repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.85 5.95 6.55.88-4.8 4.55 1.2 6.5L12 17.33l-5.8 3.15 1.2-6.5-4.8-4.55 6.55-.88z'/%3E%3C/svg%3E") 0 0 / 17px 17px repeat-x}
+.quote{margin:0;display:grid;gap:6px;padding:12px 14px;border-radius:14px;background:#FBF5E8}
+.quote blockquote{margin:0;font-size:14px;line-height:1.5;font-weight:500;color:var(--ink-2);text-wrap:pretty}
+.quote figcaption{font-size:12.5px;color:var(--muted)}
 .pro-facts{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
 .pro-facts li{display:flex;gap:9px;align-items:flex-start;min-width:0}
 .pro-facts .ic{width:16px;height:16px;margin-top:3px;color:var(--muted)}
 .pro .btn{margin-top:auto;width:100%}
 @supports (grid-template-rows: subgrid){
-  .pro{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:14px;align-content:start}
+  .pro{display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:14px;align-content:start}
   .pro-top{align-self:start}
 }
 .empty{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:24px;border:1px dashed var(--line-strong);border-radius:20px;color:var(--muted)}
 .empty p{max-width:60ch}
+.empty-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+
+/* Zoznam majstrov a firiem: výber priamo */
+.dx-bar{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3, minmax(0,1fr));gap:12px;padding:14px;margin:0 0 18px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-card)}
+.dx-f{display:grid;gap:5px;min-width:0}
+.dx-f > label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-left:4px}
+.dx-in{position:relative}
+.dx-in .ic{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.dx-in .input{padding-left:44px}
+.dx-bar .input{border-color:var(--line);border-radius:14px;background-color:var(--bg-alt)}
+.dx-bar .input:focus{background-color:var(--surface)}
+.dx-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;margin:0 0 12px;font-size:14.5px;color:var(--muted);min-height:44px}
+.dx-meta b{color:var(--ink);font-weight:700}
+.dx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;gap:10px 0}
+.biz{position:relative;grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;align-items:center;gap:12px 24px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .15s, box-shadow .2s}
+@supports (grid-template-columns: subgrid){
+  .dx-list{grid-template-columns:auto minmax(0,1fr) auto auto auto}
+  .biz{grid-template-columns:subgrid}
+}
+@media (hover: hover){ .biz:hover{border-color:#D3D1CA;box-shadow:var(--shadow-card)} }
+.biz .ava{width:54px;height:54px;font-size:16px;background:var(--tb);color:var(--ti)}
+.biz-main{min-width:0;display:grid;gap:2px}
+.biz h3{font-weight:600;font-size:17px;line-height:1.3;letter-spacing:-.01em}
+.biz .kind{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:var(--bg-alt);font-size:12px;font-weight:600;color:var(--ink-2);vertical-align:2px;white-space:nowrap}
+.biz-tags{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.biz-tags li{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+.biz-rate{display:grid;gap:4px;justify-items:start}
+.biz-rate small{font-size:13px;color:var(--muted)}
+.biz-side{display:grid;gap:4px;justify-items:start}
+.biz-price{font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
+.biz-resp{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.biz-resp .ic{width:15px;height:15px}
+.biz .btn{min-height:44px;padding:0 18px;font-size:15px}
+.dx-empty{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:24px;border:1px dashed var(--line-strong);border-radius:20px;color:var(--muted)}
+.dx-empty p{max-width:60ch}
+.dx-more{display:flex;justify-content:center;margin-top:22px}
+.dx-foot{margin-top:18px;justify-content:center;text-align:center}
 
 /* Ceny */
 .prices{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px, 5vw, 72px);align-items:start}
@@ -283,18 +334,24 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
 .note{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
 .note .ic{width:16px;height:16px;margin-top:2px}
-.ptable-wrap{background:var(--surface);border-radius:20px;overflow-x:auto}
+.ptable-wrap{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow-card);padding:6px 24px 10px;overflow-x:auto}
 .ptable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-.ptable caption{text-align:left;padding:18px 0 8px;font-size:14px;font-weight:600;color:var(--ink-2)}
-.ptable th,.ptable td{padding:15px 22px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.ptable caption{text-align:left;padding:18px 0 10px;font-size:15px;font-weight:700;color:var(--ink)}
+.ptable caption::before{content:"";display:inline-block;width:8px;height:8px;margin:0 10px 2px 2px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px var(--good-soft)}
+.ptable th,.ptable td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 .ptable th:first-child,.ptable td:first-child{padding-left:0}
 .ptable th:last-child,.ptable td:last-child{padding-right:0}
 .ptable tr:last-child th,.ptable tr:last-child td{border-bottom:0}
 .ptable thead th{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;padding-block:8px}
 .ptable thead th:last-child{text-align:right}
-.ptable tbody th{font-weight:500}
-.ptable tbody th span{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:2px}
-.ptable td{text-align:right;white-space:nowrap;font-weight:600;font-size:16px}
+.ptable tbody th{font-weight:600;font-size:15.5px}
+.ptable .pw{display:flex;align-items:center;gap:14px}
+.ptable .tic{width:24px}
+.ptable .tic .ic{width:22px;height:22px}
+.ptable .pn small{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:2px}
+.ptable td{text-align:right;white-space:nowrap}
+.ptable td b{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--bg-alt);font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
+@media (hover: hover){ .ptable tbody tr:hover td b{background:var(--tb, var(--bg-alt))} }
 
 /* Pre firmy */
 .band{background:var(--band-bg);color:var(--band-ink)}
@@ -413,7 +470,15 @@ dialog::backdrop{background:var(--scrim)}
   .dir{grid-template-columns:repeat(4, minmax(0,1fr))}
   .dir-item{padding:18px 16px}
 }
+@media (max-width: 1080px){
+  .dx-list{grid-template-columns:minmax(0,1fr)}
+  .biz{grid-template-columns:auto minmax(0,1fr) 214px;gap:12px 20px}
+  .biz-side{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
+  .biz-btn{grid-column:3;justify-self:stretch}
+}
 @media (max-width: 980px){
+  .dx-bar{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .dx-bar .dx-q{grid-column:1 / -1}
   .prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
   .bento{grid-template-columns:repeat(2, minmax(0,1fr))}
   .bento .b-2{grid-column:span 2}
@@ -440,20 +505,18 @@ dialog::backdrop{background:var(--scrim)}
   .top-actions .btn-primary .circ{background:var(--ink);color:var(--surface)}
   .foot .logo{order:-1}
 }
-@media (min-width: 861px) and (max-width: 1340px){
-  .strip-track > li:has(.t-3),.strip-track > li:has(.t3){display:none}
-}
 @media (max-width: 860px){
-  .strip{perspective:none}
-  .strip-track{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px var(--gut-r) 8px var(--gut);scroll-padding-inline:var(--gut)}
+  .strip-track{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:136px;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:2px var(--gut-r) 6px var(--gut);scroll-padding-inline:var(--gut)}
   .strip-track::-webkit-scrollbar{display:none}
   .strip-track > li{scroll-snap-align:start}
-  .tile{--w:150px!important;--h:200px!important;--ry:0deg!important;border-radius:16px}
+  .tile-label{font-size:14.5px}
+  .hero-panel{border-radius:24px}
 }
 @media (max-width: 760px){
   .dir{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .dir-item{grid-template-columns:minmax(0,1fr);gap:8px;padding:16px}
+  .dir-item{grid-template-columns:minmax(0,1fr);gap:10px;padding:16px}
   .dir-item .go{display:none}
+  .dir-item .tic .ic{width:24px;height:24px}
   .zig li,.zig li.rev{grid-template-columns:minmax(0,1fr)}
   .zig li.rev .zig-img{order:0}
   .zig-n{font-size:44px}
@@ -479,8 +542,22 @@ dialog::backdrop{background:var(--scrim)}
   .pros > .empty{flex:1 0 100%}
   .filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding-inline:var(--gut) var(--gut-r);padding-block:2px;scroll-padding-inline:var(--gut)}
   .filter::-webkit-scrollbar{display:none}
-  .ptable th,.ptable td{padding:12px 16px}
-  .ptable caption{padding:16px 0 6px}
+  .ptable-wrap{padding:4px 16px 8px;border-radius:20px}
+  .ptable th,.ptable td{padding:12px 8px}
+  .ptable caption{padding:14px 0 6px}
+  .ptable .pw{gap:12px}
+  .ptable .tic{width:22px}
+  .ptable .tic .ic{width:20px;height:20px}
+  .ptable tbody th{font-size:15px}
+  .ptable td b{padding:5px 10px;font-size:15px}
+  .dx-bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:12px;border-radius:20px}
+  .dx-bar .dx-sort{grid-column:1 / -1}
+  .dx-bar select.input{padding-left:12px;padding-right:30px;background-position:calc(100% - 16px) 52%, calc(100% - 11px) 52%}
+  .biz{grid-template-columns:auto minmax(0,1fr);gap:12px 14px;padding:16px}
+  .biz .ava{width:46px;height:46px;font-size:15px}
+  .biz-rate{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
+  .biz-side{grid-column:1 / -1}
+  .biz-btn{grid-column:1 / -1;width:100%}
   .ico-row{flex-direction:column}
   .guar{grid-template-columns:minmax(0,1fr);gap:18px}
   .cta{border-radius:22px}
@@ -573,6 +650,7 @@ dialog::backdrop{background:var(--scrim)}
 <main id="obsah">
 
 <section class="hero" aria-labelledby="hero-title">
+  <div class="hero-panel">
   <div class="wrap hero-in">
     <h1 id="hero-title"><span class="l1">Každá práca doma,</span> <span class="l2">s overeným majstrom.</span></h1>
     <p class="lead">Opíšte, čo treba urobiť. Do 24 hodín porovnáte najviac tri ponuky od remeselníkov z okolia, každú s cenou vrátane DPH, termínom a zárukou.</p>
@@ -596,16 +674,17 @@ dialog::backdrop{background:var(--scrim)}
 
     <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Telefón dostane len majster, ktorého si vyberiete.</p>
   </div>
+  </div>
 
-  <div class="strip" aria-label="Služby">
-    <ul class="strip-track">
-      <li><button class="tile t-3" type="button" data-open="obklad"><span class="ph ph-s-obklad"></span><span class="tile-label">Obklady a dlažby</span></button></li>
-      <li><button class="tile t-2" type="button" data-open="maliar"><span class="ph ph-s-malovanie"></span><span class="tile-label">Maliar</span></button></li>
-      <li><button class="tile t-1" type="button" data-open="voda"><span class="ph ph-s-instalater"></span><span class="tile-label">Vodoinštalatér</span></button></li>
-      <li><button class="tile t0" type="button" data-open="elektro"><span class="ph ph-s-elektro"></span><span class="tile-label">Elektrikár</span></button></li>
-      <li><button class="tile t1" type="button" data-open="upratovanie"><span class="ph ph-s-upratovanie"></span><span class="tile-label">Upratovanie</span></button></li>
-      <li><button class="tile t2" type="button" data-open="zahrada"><span class="ph ph-s-zahrada"></span><span class="tile-label">Záhrada</span></button></li>
-      <li><button class="tile t3" type="button" data-open="stahovanie"><span class="ph ph-s-stahovanie"></span><span class="tile-label">Sťahovanie</span></button></li>
+  <div class="wrap strip">
+    <ul class="strip-track" aria-label="Obľúbené služby">
+      <li><button class="tile" type="button" data-open="elektro"><span class="tile-img"><span class="ph ph-s-elektro"></span></span><span class="tile-label">Elektrikár<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="voda"><span class="tile-img"><span class="ph ph-s-instalater"></span></span><span class="tile-label">Vodoinštalatér<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="maliar"><span class="tile-img"><span class="ph ph-s-malovanie"></span></span><span class="tile-label">Maliar<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="obklad"><span class="tile-img"><span class="ph ph-s-obklad"></span></span><span class="tile-label">Obklady<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="upratovanie"><span class="tile-img"><span class="ph ph-s-upratovanie"></span></span><span class="tile-label">Upratovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="zahrada"><span class="tile-img"><span class="ph ph-s-zahrada"></span></span><span class="tile-label">Záhrada<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+      <li><button class="tile" type="button" data-open="stahovanie"><span class="tile-img"><span class="ph ph-s-stahovanie"></span></span><span class="tile-label">Sťahovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
     </ul>
   </div>
 
@@ -632,22 +711,22 @@ dialog::backdrop{background:var(--scrim)}
       <button class="link" type="button" data-open="ine">Opísať inú prácu</button>
     </div>
     <ul class="dir">
-      <li><button class="dir-item" type="button" data-open="elektro"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg><span><b>Elektrikár</b><small>od 28 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="voda"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="kurenie"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="maliar"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg><span><b>Maliar</b><small>od 6 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="upratovanie"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg><span><b>Upratovanie</b><small>od 14 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="montaz"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg><span><b>Montáž nábytku</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="obklad"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="stahovanie"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg><span><b>Sťahovanie</b><small>od 45 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="zahrada"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg><span><b>Záhrada</b><small>od 20 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="komin"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg><span><b>Kominár</b><small>od 40 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="okna"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg><span><b>Okná a fasády</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="solar"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg><span><b>Fotovoltika</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="murar"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg><span><b>Murár a stavebné úpravy</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="podlahy"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg><span><b>Podlahár</b><small>od 12 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="strecha"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg><span><b>Pokrývač a klampiar</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
-      <li><button class="dir-item" type="button" data-open="stolar"><svg class="ic" aria-hidden="true"><use href="#i-ruler2"/></svg><span><b>Stolár</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-amber" type="button" data-open="elektro"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><span><b>Elektrikár</b><small>od 28 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-open="voda"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><span><b>Vodoinštalatér</b><small>od 30 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-open="kurenie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span><span><b>Kúrenie a plyn</b><small>servis od 80 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-lilac" type="button" data-open="maliar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg></span><span><b>Maliar</b><small>od 6 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-teal" type="button" data-open="upratovanie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span><b>Upratovanie</b><small>od 14 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-open="montaz"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg></span><span><b>Montáž nábytku</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-open="obklad"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg></span><span><b>Obklady a dlažby</b><small>od 28 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sage" type="button" data-open="stahovanie"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><span><b>Sťahovanie</b><small>od 45 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sage" type="button" data-open="zahrada"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg></span><span><b>Záhrada</b><small>od 20 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-open="komin"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg></span><span><b>Kominár</b><small>od 40 €</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-lilac" type="button" data-open="okna"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-window"/></svg></span><span><b>Okná a fasády</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-amber" type="button" data-open="solar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-solar"/></svg></span><span><b>Fotovoltika</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-clay" type="button" data-open="murar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-brick"/></svg></span><span><b>Murár a stavebné úpravy</b><small>od 25 €/h</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-open="podlahy"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg></span><span><b>Podlahár</b><small>od 12 €/m²</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-blue" type="button" data-open="strecha"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-house"/></svg></span><span><b>Pokrývač a klampiar</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
+      <li><button class="dir-item tc-sand" type="button" data-open="stolar"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-ruler2"/></svg></span><span><b>Stolár</b><small>cena na ponuku</small></span><svg class="ic go" aria-hidden="true"><use href="#i-upright"/></svg></button></li>
     </ul>
   </div>
 </section>
@@ -725,15 +804,15 @@ dialog::backdrop{background:var(--scrim)}
         <caption id="pcap">Celé Slovensko · ceny s DPH 23 %</caption>
         <thead><tr><th scope="col">Práca</th><th scope="col">Bežne</th></tr></thead>
         <tbody>
-          <tr data-min="28" data-max="42"><th scope="row">Hodinová sadzba elektrikára<span>1 hodina</span></th><td>28 – 42 €</td></tr>
-          <tr data-min="45" data-max="75"><th scope="row">Výmena batérie pri umývadle alebo dreze<span>1 kus, bez batérie</span></th><td>45 – 75 €</td></tr>
-          <tr data-min="80" data-max="130"><th scope="row">Servis plynového kotla<span>1 kotol, s protokolom</span></th><td>80 – 130 €</td></tr>
-          <tr data-min="40" data-max="70"><th scope="row">Kontrola a čistenie komína<span>1 prieduch, so správou</span></th><td>40 – 70 €</td></tr>
-          <tr data-min="190" data-max="320"><th scope="row">Maľovanie izby do 20 m² podlahy<span>steny a strop, dve vrstvy, s farbou</span></th><td>190 – 320 €</td></tr>
-          <tr data-min="28" data-max="45"><th scope="row">Pokládka obkladu alebo dlažby<span>1 m², bez materiálu</span></th><td>28 – 45 €</td></tr>
-          <tr data-min="110" data-max="170"><th scope="row">Upratovanie bytu 2 + 1 po rekonštrukcii<span>jednorazovo, s prostriedkami</span></th><td>110 – 170 €</td></tr>
-          <tr data-min="45" data-max="70"><th scope="row">Montáž kuchynskej linky<span>1 bežný meter</span></th><td>45 – 70 €</td></tr>
-          <tr data-min="45" data-max="65"><th scope="row">Sťahovanie v rámci mesta<span>2 pracovníci a dodávka, 1 hodina</span></th><td>45 – 65 €</td></tr>
+          <tr class="tc-amber" data-min="28" data-max="42"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg></span><span class="pn">Hodinová sadzba elektrikára<small>1 hodina</small></span></span></th><td><b>28 – 42 €</b></td></tr>
+          <tr class="tc-blue" data-min="45" data-max="75"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg></span><span class="pn">Výmena batérie pri umývadle alebo dreze<small>1 kus, bez batérie</small></span></span></th><td><b>45 – 75 €</b></td></tr>
+          <tr class="tc-clay" data-min="80" data-max="130"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-flame"/></svg></span><span class="pn">Servis plynového kotla<small>1 kotol, s protokolom</small></span></span></th><td><b>80 – 130 €</b></td></tr>
+          <tr class="tc-clay" data-min="40" data-max="70"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-wind"/></svg></span><span class="pn">Kontrola a čistenie komína<small>1 prieduch, so správou</small></span></span></th><td><b>40 – 70 €</b></td></tr>
+          <tr class="tc-lilac" data-min="190" data-max="320"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-roller"/></svg></span><span class="pn">Maľovanie izby do 20 m² podlahy<small>steny a strop, dve vrstvy, s farbou</small></span></span></th><td><b>190 – 320 €</b></td></tr>
+          <tr class="tc-blue" data-min="28" data-max="45"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-tiles"/></svg></span><span class="pn">Pokládka obkladu alebo dlažby<small>1 m², bez materiálu</small></span></span></th><td><b>28 – 45 €</b></td></tr>
+          <tr class="tc-teal" data-min="110" data-max="170"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-sparkle"/></svg></span><span class="pn">Upratovanie bytu 2 + 1 po rekonštrukcii<small>jednorazovo, s prostriedkami</small></span></span></th><td><b>110 – 170 €</b></td></tr>
+          <tr class="tc-sand" data-min="45" data-max="70"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-chair"/></svg></span><span class="pn">Montáž kuchynskej linky<small>1 bežný meter</small></span></span></th><td><b>45 – 70 €</b></td></tr>
+          <tr class="tc-sage" data-min="45" data-max="65"><th scope="row"><span class="pw"><span class="tic"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg></span><span class="pn">Sťahovanie v rámci mesta<small>2 pracovníci a dodávka, 1 hodina</small></span></span></th><td><b>45 – 65 €</b></td></tr>
         </tbody>
       </table>
     </div>
@@ -748,6 +827,7 @@ dialog::backdrop{background:var(--scrim)}
         <h2 class="h2" id="majstri-title">Najlepšie hodnotení majstri</h2>
         <p class="sub">Ukážkové profily. Hodnotiť môže len zákazník, ktorému majster prácu dokončil, a poradie nezávisí od platieb.</p>
       </div>
+      <a class="link" href="#zoznam">Celý zoznam majstrov</a>
     </div>
     <div class="filter" role="group" aria-label="Filtrovať podľa kraja" id="filter">
       <button class="chip" type="button" aria-pressed="true" data-kraj="">Všetky kraje</button>
@@ -762,58 +842,115 @@ dialog::backdrop{background:var(--scrim)}
     </div>
     <div class="pros" id="pros" aria-live="polite">
       <div class="empty" id="pros-empty" hidden>
-        <p>V tomto kraji zatiaľ nemáme ukážkový profil. Zákazku môžete zadať aj tak, ponuky pošlú overení majstri z okolia.</p>
-        <button class="btn btn-primary" type="button" data-open="">Zadať zákazku</button>
+        <p>V tomto kraji zatiaľ nemáme ukážkový profil. Pozrite si zoznam majstrov z kraja alebo zadajte zákazku, ponuky pošlú overení majstri z okolia.</p>
+        <span class="empty-acts"><a class="link" href="#zoznam">Majstri v zozname</a><button class="btn btn-primary" type="button" data-open="">Zadať zákazku</button></span>
       </div>
       <article class="pro" data-kraj="TT">
         <div class="pro-top"><span class="ava" aria-hidden="true">MK</span><div><h3>Martin Kováč<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Elektroinštalácie · Trnava</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(86 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:98%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,9<span class="sr"> z 5</span></strong>(86 hodnotení)</p>
+        <figure class="quote"><blockquote>„Vymenil rozvádzač za jeden deň, všetko vysvetlil a po sebe upratal.“</blockquote><figcaption>Jana, Hlohovec · výmena rozvádzača</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 32 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Elektrotechnik § 22</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 2 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN</li></ul>
         <button class="btn btn-outline" type="button" data-open="elektro" data-pro="Martin Kováč">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="BA">
         <div class="pro-top"><span class="ava" aria-hidden="true">ZH</span><div><h3>Zuzana Horváthová<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Upratovanie · Bratislava-Petržalka</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(214 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:96%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,8<span class="sr"> z 5</span></strong>(214 hodnotení)</p>
+        <figure class="quote"><blockquote>„Po maliaroch bol byt ako nový. Prišla presne a mala vlastné prostriedky.“</blockquote><figcaption>Michal, Bratislava · upratovanie po rekonštrukcii</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 16 €/h, neplatiteľka DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Poistenie zodpovednosti</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 4 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN · DE</li></ul>
         <button class="btn btn-outline" type="button" data-open="upratovanie" data-pro="Zuzana Horváthová">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="TT">
         <div class="pro-top"><span class="ava" aria-hidden="true">LN</span><div><h3>Ladislav Nagy<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Obklady a dlažby · Dunajská Streda</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>5,0</strong>(41 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:100%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>5,0<span class="sr"> z 5</span></strong>(41 hodnotení)</p>
+        <figure class="quote"><blockquote>„Škáry ako podľa pravítka a cena sedela s ponukou do eura.“</blockquote><figcaption>Katarína, Šamorín · obklad kúpeľne</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 30 €/m² s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>18 realizácií s fotkami</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · HU</li></ul>
         <button class="btn btn-outline" type="button" data-open="obklad" data-pro="Ladislav Nagy">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="ZA">
         <div class="pro-top"><span class="ava" aria-hidden="true">PB</span><div><h3>Peter Baláž<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Voda a kúrenie · Žilina</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(97 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:96%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,8<span class="sr"> z 5</span></strong>(97 hodnotení)</p>
+        <figure class="quote"><blockquote>„Kotol vyčistil a nastavil, protokol poslal ešte v ten deň.“</blockquote><figcaption>Ondrej, Bytča · servis kotla</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 30 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Oprávnenie na plyn</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 3 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · PL</li></ul>
         <button class="btn btn-outline" type="button" data-open="kurenie" data-pro="Peter Baláž">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="BB">
         <div class="pro-top"><span class="ava" aria-hidden="true">KŠ</span><div><h3>Kominárstvo Šimko<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Kominár · Banská Bystrica</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(158 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:98%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,9<span class="sr"> z 5</span></strong>(158 hodnotení)</p>
+        <figure class="quote"><blockquote>„Prišli v dohodnutý čas a správu pre poisťovňu sme mali hneď.“</blockquote><figcaption>Alena, Zvolen · kontrola komína</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>kontrola od 45 € s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Kominársky majster</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK</li></ul>
         <button class="btn btn-outline" type="button" data-open="komin" data-pro="Kominárstvo Šimko">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="KE">
         <div class="pro-top"><span class="ava" aria-hidden="true">OM</span><div><h3>Oksana Melnyk<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Maľovanie interiérov · Košice</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,9</strong>(63 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:98%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,9<span class="sr"> z 5</span></strong>(63 hodnotení)</p>
+        <figure class="quote"><blockquote>„Bez prachu a bez fľakov, nábytok mala pekne zakrytý.“</blockquote><figcaption>Peter, Košice · maľovanie bytu</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 6,50 €/m² s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Bezprašné brúsenie</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 2 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · UK · EN</li></ul>
         <button class="btn btn-outline" type="button" data-open="maliar" data-pro="Oksana Melnyk">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="NR">
         <div class="pro-top"><span class="ava" aria-hidden="true">JM</span><div><h3>Jozef Mráz<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Montáž nábytku a kuchýň · Nitra</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,7</strong>(122 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:94%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,7<span class="sr"> z 5</span></strong>(122 hodnotení)</p>
+        <figure class="quote"><blockquote>„Kuchyňu zložil za jedno popoludnie, aj s úpravou dvierok.“</blockquote><figcaption>Lucia, Nitra · montáž kuchyne</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>od 26 €/h s DPH</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Vlastné náradie a doprava</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 5 h</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · HU</li></ul>
         <button class="btn btn-outline" type="button" data-open="montaz" data-pro="Jozef Mráz">Požiadať o ponuku</button>
       </article>
       <article class="pro" data-kraj="PO">
         <div class="pro-top"><span class="ava" aria-hidden="true">ŠT</span><div><h3>Šarišské teplo, s. r. o.<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg></h3><p class="trade">Fotovoltika a tepelné čerpadlá · Prešov</p></div></div>
-        <p class="rating"><svg class="star" aria-hidden="true"><use href="#i-star"/></svg><strong>4,8</strong>(37 hodnotení)</p>
+        <p class="rating"><span class="stars" style="--p:96%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>4,8<span class="sr"> z 5</span></strong>(37 hodnotení)</p>
+        <figure class="quote"><blockquote>„Pomohli nám aj so žiadosťou o dotáciu, vybavili ju za nás.“</blockquote><figcaption>Rodina Ferková, Sabinov · fotovoltika</figcaption></figure>
         <ul class="pro-facts"><li><svg class="ic" aria-hidden="true"><use href="#i-euro"/></svg>na ponuku, obhliadka zdarma</li><li><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>Pomoc s dotáciou</li><li><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá zvyčajne do 1 dňa</li><li><svg class="ic" aria-hidden="true"><use href="#i-msg"/></svg>SK · EN</li></ul>
         <button class="btn btn-outline" type="button" data-open="solar" data-pro="Šarišské teplo, s. r. o.">Požiadať o ponuku</button>
       </article>
     </div>
+  </div>
+</section>
+
+<section class="section" id="zoznam" data-tab="majstri" aria-labelledby="zoznam-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Zoznam majstrov a firiem</p>
+        <h2 class="h2" id="zoznam-title">Vyberte si majstra sami</h2>
+        <p class="sub">Prejdite si overených remeselníkov a firmy z vášho kraja. Žiadosť pošlete priamo tomu, koho si vyberiete.</p>
+      </div>
+    </div>
+    <form class="dx-bar" id="dx-form" role="search" aria-label="Hľadať v zozname majstrov" novalidate>
+      <div class="dx-f dx-q">
+        <label for="dx-q">Hľadať</label>
+        <div class="dx-in"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input class="input" id="dx-q" type="search" placeholder="Meno, firma alebo obec" autocomplete="off" enterkeyhint="search"></div>
+      </div>
+      <div class="dx-f">
+        <label for="dx-cat">Remeslo</label>
+        <select class="input" id="dx-cat"><option value="">Všetky remeslá</option></select>
+      </div>
+      <div class="dx-f">
+        <label for="dx-kraj">Kraj</label>
+        <select class="input" id="dx-kraj">
+          <option value="">Všetky kraje</option>
+          <option value="BA">Bratislavský</option>
+          <option value="TT">Trnavský</option>
+          <option value="TN">Trenčiansky</option>
+          <option value="NR">Nitriansky</option>
+          <option value="ZA">Žilinský</option>
+          <option value="BB">Banskobystrický</option>
+          <option value="PO">Prešovský</option>
+          <option value="KE">Košický</option>
+        </select>
+      </div>
+      <div class="dx-f dx-sort">
+        <label for="dx-sort">Zoradiť</label>
+        <select class="input" id="dx-sort">
+          <option value="rating">Najlepšie hodnotení</option>
+          <option value="count">Najviac hodnotení</option>
+          <option value="resp">Najrýchlejšia odpoveď</option>
+          <option value="name">Podľa abecedy</option>
+        </select>
+      </div>
+    </form>
+    <div class="dx-meta"><p id="dx-count" aria-live="polite"></p><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button></div>
+    <ol class="dx-list" id="dx-list"></ol>
+    <div class="dx-more"><button class="btn btn-outline" type="button" id="dx-more" hidden>Zobraziť ďalších</button></div>
+    <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
   </div>
 </section>
 
@@ -914,6 +1051,7 @@ dialog::backdrop{background:var(--scrim)}
           <li><a href="#sluzby">Služby</a></li>
           <li><a href="#ako">Ako to funguje</a></li>
           <li><a href="#ceny">Ceny</a></li>
+          <li><a href="#zoznam">Majstri</a></li>
           <li><a href="#pre-majstrov">Pre firmy</a></li>
         </ul>
       </nav>
@@ -1082,6 +1220,7 @@ dialog::backdrop{background:var(--scrim)}
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const norm = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
 
   /* Našepkávač: bežné práce a ich kategória */
   const TASKS = [
@@ -1173,7 +1312,7 @@ dialog::backdrop{background:var(--scrim)}
     const vatIn = $('#vat-in').checked;
     $$('#ptable tbody tr').forEach(tr => {
       const f = v => Math.round((v * k) / (vatIn ? 1 : 1.23));
-      tr.querySelector('td').textContent = `${fmt(f(+tr.dataset.min))} – ${fmt(f(+tr.dataset.max))} €`;
+      (tr.querySelector('td b') || tr.querySelector('td')).textContent = `${fmt(f(+tr.dataset.min))} – ${fmt(f(+tr.dataset.max))} €`;
     });
     $('#pcap').textContent = `${sel.options[sel.selectedIndex].text} · ceny ${vatIn ? 's DPH 23 %' : 'bez DPH'}`;
   };
@@ -1190,7 +1329,132 @@ dialog::backdrop{background:var(--scrim)}
     let shown = 0;
     $$('#pros .pro').forEach(p => { p.hidden = !!k && p.dataset.kraj !== k; if (!p.hidden) shown++; });
     $('#pros-empty').hidden = shown > 0;
+    setDirKraj(k);
   });
+
+  /* Zoznam majstrov a firiem: zákazník si vyberie priamo */
+  const CAT = {
+    elektro: ['Elektrikár', 'amber'], voda: ['Vodoinštalatér', 'blue'], kurenie: ['Kúrenie a plyn', 'clay'], komin: ['Kominár', 'clay'],
+    maliar: ['Maliar', 'lilac'], obklad: ['Obklady a dlažby', 'blue'], upratovanie: ['Upratovanie', 'teal'], stahovanie: ['Sťahovanie', 'sage'],
+    montaz: ['Montáž nábytku', 'sand'], zahrada: ['Záhrada', 'sage'], okna: ['Okná a zateplenie', 'lilac'], solar: ['Fotovoltika a tepelné čerpadlá', 'amber'],
+    murar: ['Murár a stavebné úpravy', 'clay'], podlahy: ['Podlahár', 'sand'], strecha: ['Pokrývač a klampiar', 'blue'], stolar: ['Stolár', 'sand']
+  };
+  // [meno, firma?, remeslo, obec, kraj, hodnotenie, počet hodnotení, dokončené zákazky, cena, odpoveď do (h), jazyky, štítok]
+  const PROS = [
+    ['Zuzana Horváthová', 0, 'upratovanie', 'Bratislava-Petržalka', 'BA', 4.8, 214, 380, 'od 16 €/h, neplatiteľka DPH', 4, 'SK · EN · DE', 'Poistenie zodpovednosti'],
+    ['ElektroMont BA, s. r. o.', 1, 'elektro', 'Bratislava-Ružinov', 'BA', 4.7, 132, 410, 'od 35 €/h s DPH', 2, 'SK · EN', 'Elektrotechnik § 22'],
+    ['Tomáš Krajčír', 0, 'voda', 'Pezinok', 'BA', 4.9, 58, 96, 'od 30 €/h s DPH', 3, 'SK', 'Pohotovosť aj cez víkend'],
+    ['Malby Senec', 1, 'maliar', 'Senec', 'BA', 4.6, 47, 120, 'od 6,50 €/m² s DPH', 24, 'SK · HU', 'Bezprašné brúsenie'],
+    ['Andrej Bielik', 0, 'podlahy', 'Malacky', 'BA', 4.8, 39, 64, 'od 12 €/m², neplatiteľ DPH', 5, 'SK · CZ', 'Vinyl, laminát, parkety'],
+    ['Stolárstvo Vrabec', 1, 'stolar', 'Stupava', 'BA', 5.0, 22, 41, 'na ponuku, zameranie zdarma', 24, 'SK · DE', 'Vlastná dielňa'],
+    ['Martin Kováč', 0, 'elektro', 'Trnava', 'TT', 4.9, 86, 152, 'od 32 €/h s DPH', 2, 'SK · EN', 'Elektrotechnik § 22'],
+    ['Ladislav Nagy', 0, 'obklad', 'Dunajská Streda', 'TT', 5.0, 41, 58, 'od 30 €/m² s DPH', 24, 'SK · HU', '18 realizácií s fotkami'],
+    ['Peter Hudec', 0, 'zahrada', 'Piešťany', 'TT', 4.7, 64, 140, 'od 20 €/h, neplatiteľ DPH', 6, 'SK', 'Vlastná technika'],
+    ['Sťahovanie Mojtek, s. r. o.', 1, 'stahovanie', 'Galanta', 'TT', 4.6, 151, 520, 'od 45 €/h s DPH', 2, 'SK · HU · EN', 'Poistenie nákladu'],
+    ['Marek Šimon', 0, 'murar', 'Senica', 'TT', 4.8, 33, 47, 'od 25 €/h s DPH', 24, 'SK · CZ', 'Sadrokartón a omietky'],
+    ['Ivan Mikuš', 0, 'voda', 'Trenčín', 'TN', 4.9, 71, 133, 'od 28 €/h s DPH', 3, 'SK', 'Voda aj kúrenie'],
+    ['Kominárstvo Považie', 1, 'komin', 'Považská Bystrica', 'TN', 4.8, 96, 310, 'kontrola od 40 € s DPH', 24, 'SK', 'Kominársky majster'],
+    ['Lucia Hanková', 0, 'upratovanie', 'Prievidza', 'TN', 4.9, 118, 260, 'od 14 €/h, neplatiteľka DPH', 4, 'SK · EN', 'Vlastné prostriedky'],
+    ['Strechy Bebrava, s. r. o.', 1, 'strecha', 'Bánovce nad Bebravou', 'TN', 4.7, 29, 75, 'na ponuku, obhliadka zdarma', 48, 'SK', 'Záruka 5 rokov'],
+    ['Roman Ďurica', 0, 'montaz', 'Nové Mesto nad Váhom', 'TN', 4.8, 52, 118, 'od 24 €/h, neplatiteľ DPH', 5, 'SK · CZ', 'Vlastné náradie a doprava'],
+    ['Jozef Mráz', 0, 'montaz', 'Nitra', 'NR', 4.7, 122, 230, 'od 26 €/h s DPH', 5, 'SK · HU', 'Montáž kuchýň'],
+    ['Attila Szabó', 0, 'obklad', 'Komárno', 'NR', 4.9, 67, 88, 'od 28 €/m² s DPH', 24, 'SK · HU', 'Veľkoformát'],
+    ['Elektro Levice, s. r. o.', 1, 'elektro', 'Levice', 'NR', 4.6, 44, 190, 'od 30 €/h s DPH', 4, 'SK · HU', 'Elektrotechnik § 22'],
+    ['Mária Benková', 0, 'maliar', 'Topoľčany', 'NR', 4.8, 35, 70, 'od 6 €/m², neplatiteľka DPH', 3, 'SK', 'Tapety a stierky'],
+    ['Solárne domy, s. r. o.', 1, 'solar', 'Nové Zámky', 'NR', 4.7, 26, 84, 'na ponuku, obhliadka zdarma', 24, 'SK · HU · EN', 'Pomoc s dotáciou'],
+    ['Peter Baláž', 0, 'kurenie', 'Žilina', 'ZA', 4.8, 97, 205, 'od 30 €/h s DPH', 3, 'SK · PL', 'Oprávnenie na plyn'],
+    ['Michal Kubica', 0, 'stolar', 'Martin', 'ZA', 4.9, 48, 62, 'na ponuku, zameranie zdarma', 24, 'SK', 'Masív a dyhy'],
+    ['Okná Liptov, s. r. o.', 1, 'okna', 'Liptovský Mikuláš', 'ZA', 4.6, 73, 340, 'na ponuku, zameranie zdarma', 24, 'SK · PL', 'Montáž podľa RAL'],
+    ['Juraj Hrnčiar', 0, 'zahrada', 'Ružomberok', 'ZA', 4.7, 31, 77, 'od 18 €/h, neplatiteľ DPH', 6, 'SK', 'Rez stromov'],
+    ['Podlahy Kysuce', 1, 'podlahy', 'Čadca', 'ZA', 4.8, 40, 115, 'od 11 €/m² s DPH', 4, 'SK · CZ · PL', 'Brúsenie parkiet'],
+    ['Kominárstvo Šimko', 1, 'komin', 'Banská Bystrica', 'BB', 4.9, 158, 600, 'kontrola od 45 € s DPH', 24, 'SK', 'Kominársky majster'],
+    ['Pavol Lukáč', 0, 'murar', 'Zvolen', 'BB', 4.8, 54, 90, 'od 24 €/h s DPH', 5, 'SK', 'Rekonštrukcie bytových jadier'],
+    ['Eva Kollárová', 0, 'upratovanie', 'Banská Bystrica', 'BB', 4.9, 89, 210, 'od 15 €/h, neplatiteľka DPH', 2, 'SK · EN', 'Pravidelné upratovanie'],
+    ['Elektro Gemer', 1, 'elektro', 'Rimavská Sobota', 'BB', 4.6, 37, 150, 'od 27 €/h s DPH', 4, 'SK · HU', 'Revízie elektroinštalácie'],
+    ['Sťahovanie Pohronie', 1, 'stahovanie', 'Žiar nad Hronom', 'BB', 4.7, 61, 230, 'od 40 €/h s DPH', 3, 'SK', 'Vypratávanie pivníc'],
+    ['Šarišské teplo, s. r. o.', 1, 'solar', 'Prešov', 'PO', 4.8, 37, 95, 'na ponuku, obhliadka zdarma', 24, 'SK · EN', 'Pomoc s dotáciou'],
+    ['Miroslav Kučera', 0, 'voda', 'Poprad', 'PO', 4.8, 66, 140, 'od 27 €/h s DPH', 2, 'SK · PL', 'Odpady a kanalizácia'],
+    ['Strechy Tatry, s. r. o.', 1, 'strecha', 'Kežmarok', 'PO', 4.9, 44, 130, 'na ponuku, obhliadka zdarma', 24, 'SK · PL · DE', 'Klampiarske práce'],
+    ['Dávid Fedor', 0, 'maliar', 'Bardejov', 'PO', 4.7, 28, 51, 'od 5,50 €/m², neplatiteľ DPH', 5, 'SK · UK', 'Fasádne nátery'],
+    ['Natália Hudáková', 0, 'upratovanie', 'Humenné', 'PO', 4.8, 41, 98, 'od 13 €/h, neplatiteľka DPH', 3, 'SK · UK', 'Umývanie okien'],
+    ['Oksana Melnyk', 0, 'maliar', 'Košice', 'KE', 4.9, 63, 105, 'od 6,50 €/m² s DPH', 2, 'SK · UK · EN', 'Bezprašné brúsenie'],
+    ['Gabriel Tóth', 0, 'kurenie', 'Košice', 'KE', 4.8, 79, 170, 'servis od 75 € s DPH', 3, 'SK · HU', 'Oprávnenie na plyn'],
+    ['Stolárstvo Spiš', 1, 'stolar', 'Spišská Nová Ves', 'KE', 4.7, 25, 60, 'na ponuku, zameranie zdarma', 24, 'SK', 'Kuchyne na mieru'],
+    ['Rastislav Varga', 0, 'elektro', 'Michalovce', 'KE', 4.9, 51, 99, 'od 28 €/h s DPH', 2, 'SK · HU', 'Elektrotechnik § 22'],
+    ['Zateplenie Východ, s. r. o.', 1, 'okna', 'Trebišov', 'KE', 4.6, 34, 140, 'na ponuku, obhliadka zdarma', 48, 'SK · HU', 'Okná aj fasády'],
+    ['Ondrej Kiss', 0, 'podlahy', 'Rožňava', 'KE', 4.8, 23, 38, 'od 11 €/m², neplatiteľ DPH', 6, 'SK · HU', 'Vinylové podlahy']
+  ].map(([name, firm, cat, town, kraj, rating, count, jobs, price, resp, langs, tag], i) => ({ name, firm, cat, town, kraj, rating, count, jobs, price, resp, langs, tag, i }));
+
+  const PAGE = 8;
+  const dx = { list: $('#dx-list'), count: $('#dx-count'), more: $('#dx-more'), reset: $('#dx-reset'), limit: PAGE };
+  const plural = (n, one, few, many) => n === 1 ? one : n > 1 && n < 5 ? few : many;
+  const initials = s => s.replace(/,?\s*s\.\s*r\.\s*o\.$/, '').split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
+  const respText = h => h < 24 ? `do ${h} h` : h === 24 ? 'do 1 dňa' : `do ${h / 24} dní`;
+  const num = r => r.toLocaleString('sk-SK', { minimumFractionDigits: 1 });
+  const SORT = {
+    rating: (a, b) => b.rating - a.rating || b.count - a.count,
+    count: (a, b) => b.count - a.count,
+    resp: (a, b) => a.resp - b.resp || b.rating - a.rating,
+    name: (a, b) => a.name.localeCompare(b.name, 'sk')
+  };
+  $('#dx-cat').insertAdjacentHTML('beforeend', Object.entries(CAT).map(([k, [label]]) => `<option value="${k}">${label}</option>`).join(''));
+
+  const bizHTML = p => {
+    const [trade, tint] = CAT[p.cat];
+    const nm = esc(p.name);
+    return `<li class="biz tc-${tint}">
+      <span class="ava" aria-hidden="true">${esc(initials(p.name))}</span>
+      <div class="biz-main">
+        <h3 tabindex="-1">${nm}<svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg><span class="kind">${p.firm ? 'Firma' : 'Živnostník'}</span></h3>
+        <p class="trade">${trade} · ${esc(p.town)}</p>
+        <ul class="biz-tags"><li>${esc(p.tag)}</li><li>${p.langs}</li></ul>
+      </div>
+      <div class="biz-rate">
+        <p class="rating"><span class="stars" style="--p:${p.rating / 5 * 100}%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>${num(p.rating)}<span class="sr"> z 5</span></strong>(${p.count} hodnotení)</p>
+        <small>${p.jobs} dokončených zákaziek</small>
+      </div>
+      <div class="biz-side">
+        <span class="biz-price">${esc(p.price)}</span>
+        <span class="biz-resp"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá ${respText(p.resp)}</span>
+      </div>
+      <button class="btn btn-outline biz-btn" type="button" data-open="${p.cat}" data-pro="${nm}" aria-label="Požiadať o ponuku: ${nm}">Požiadať o ponuku</button>
+    </li>`;
+  };
+
+  const renderDir = (focusFrom = -1) => {
+    const q = norm($('#dx-q').value);
+    const cat = $('#dx-cat').value;
+    const kraj = $('#dx-kraj').value;
+    const sort = SORT[$('#dx-sort').value] || SORT.rating;
+    const hits = PROS.filter(p => (!cat || p.cat === cat) && (!kraj || p.kraj === kraj) &&
+      (!q || norm(`${p.name} ${p.town} ${CAT[p.cat][0]} ${KRAJ[p.kraj]}`).includes(q))).sort(sort);
+    const shown = hits.slice(0, dx.limit);
+    const where = kraj ? ` · ${KRAJ[kraj]}` : '';
+    dx.count.innerHTML = hits.length
+      ? `<b>${hits.length}</b> ${plural(hits.length, 'majster alebo firma', 'majstri a firmy', 'majstrov a firiem')}${where}${shown.length < hits.length ? ` · zobrazených ${shown.length}` : ''}`
+      : `Žiadny výsledok${where}`;
+    dx.list.innerHTML = shown.length ? shown.map(bizHTML).join('') :
+      `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></li>`;
+    const rest = hits.length - shown.length;
+    dx.more.hidden = rest <= 0;
+    const k = Math.min(PAGE, rest);
+    dx.more.textContent = `Zobraziť ${plural(k, 'ďalší', 'ďalšie', 'ďalších')} ${k}`;
+    dx.reset.hidden = !(q || cat || kraj);
+    if (focusFrom >= 0) { const h = dx.list.children[focusFrom]?.querySelector('h3'); if (h) h.focus(); }
+  };
+  const refreshDir = () => { dx.limit = PAGE; renderDir(); };
+  function setDirKraj(k) { if ($('#dx-kraj').value !== k) { $('#dx-kraj').value = k; refreshDir(); } }
+  $('#dx-q').addEventListener('input', refreshDir);
+  ['#dx-cat', '#dx-kraj', '#dx-sort'].forEach(s => $(s).addEventListener('change', refreshDir));
+  $('#dx-form').addEventListener('submit', e => e.preventDefault());
+  dx.more.addEventListener('click', () => { const from = dx.limit; dx.limit += PAGE; renderDir(from); });
+  dx.reset.addEventListener('click', () => { $('#dx-form').reset(); refreshDir(); $('#dx-q').focus(); });
+  // Prázdny stav v najlepšie hodnotených: odkaz na zoznam s rovnakým krajom
+  $('#pros-empty a[href="#zoznam"]').addEventListener('click', () => {
+    const b = $('#filter button[aria-pressed="true"]');
+    setDirKraj(b ? b.dataset.kraj : '');
+  });
+  renderDir();
 
   /* Otázky: otvorenie podľa odkazu */
   const openFaq = () => {
@@ -1283,7 +1547,6 @@ dialog::backdrop{background:var(--scrim)}
     return true;
   };
 
-  const esc = s => s.replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const finish = () => {
     const cat = $('#f-cat');
     const when = form.querySelector('input[name="when"]:checked').value;
@@ -1325,7 +1588,7 @@ dialog::backdrop{background:var(--scrim)}
     pro = proName;
     const note = $('#pro-note');
     note.hidden = !pro;
-    if (pro) note.querySelector('span').textContent = `Žiadosť dostane aj ${pro}.`;
+    if (pro) note.querySelector('span').textContent = `Žiadosť pošleme priamo: ${pro}`;
     if (psc) $('#f-psc').value = psc;
     if (cat) {
       $('#f-cat').value = cat;
