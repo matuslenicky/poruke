@@ -472,6 +472,131 @@ async function runViewport(browser, target, vp, out) {
     r.info = `${chips.length} filtrov, ${pros.length} majstrov`;
   });
 
+  await test(ctx, 'zoznam majstrov: hľadanie, filtre, radenie', async r => {
+    await fresh(page);
+    if (!(await page.$('#zoznam'))) { r.info = 'sekcia #zoznam na stránke nie je'; return; }
+    const read = () => page.evaluate(() => {
+      const norm = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+      const hours = t => { const m = t.match(/do (\d+) (h|dň|dn)/); return m ? (+m[1]) * (m[2] === 'h' ? 1 : 24) : NaN; };
+      const items = [...document.querySelectorAll('#dx-list > li.biz')].map(li => {
+        const rt = li.querySelector('.rating').textContent;
+        const rm = rt.match(/(\d+),(\d)/);
+        return {
+          name: li.querySelector('h3').childNodes[0].textContent.trim(),
+          trade: li.querySelector('.trade').textContent.trim(),
+          text: norm(li.textContent),
+          rating: rm ? +(rm[1] + '.' + rm[2]) : NaN,
+          count: +((rt.match(/\((\d+)/) || [])[1]),
+          resp: hours(li.querySelector('.biz-resp').textContent),
+        };
+      });
+      const b = document.querySelector('#dx-count b');
+      return {
+        total: b ? +b.textContent : 0,
+        countText: document.getElementById('dx-count').textContent.replace(/\s+/g, ' ').trim(),
+        items,
+        empty: !!document.querySelector('#dx-list > li.dx-empty'),
+        more: !document.getElementById('dx-more').hidden,
+        reset: !document.getElementById('dx-reset').hidden,
+        active: (() => { const a = document.activeElement; const li = a && a.closest('#dx-list > li'); return li ? [...li.parentNode.children].indexOf(li) : -1; })(),
+      };
+    });
+    const expandAll = async () => {
+      for (let i = 0; i < 20; i++) {
+        const st = await read();
+        if (!st.more) return st;
+        await page.click('#dx-more');
+      }
+      return read();
+    };
+
+    // Začiatok: prvá strana po 8, tlačidlo „Zobraziť ďalších“, bez „Zrušiť filtre“
+    let st = await read();
+    const N = st.total;
+    check(r, N > 0, `počet v zozname sa nedá prečítať („${st.countText}“)`);
+    check(r, st.items.length === Math.min(8, N), `prvá strana má ${st.items.length} položiek, čakal som ${Math.min(8, N)}`);
+    check(r, st.more === N > 8, `tlačidlo „Zobraziť ďalších“ ${st.more ? 'je' : 'nie je'} viditeľné pri ${N} výsledkoch`);
+    check(r, !st.reset, '„Zrušiť filtre“ má byť skryté bez filtra');
+    if (N > 8) {
+      await page.click('#dx-more');
+      st = await read();
+      check(r, st.items.length === Math.min(16, N), `po „Zobraziť ďalších“ je ${st.items.length} položiek`);
+      check(r, st.active === 8, `po „Zobraziť ďalších“ má byť fokus na 9. položke, je na ${st.active + 1}.`);
+    }
+    st = await expandAll();
+    check(r, st.items.length === N && !st.more, `po rozbalení je ${st.items.length} z ${N} a tlačidlo ${st.more ? 'ostalo' : 'zmizlo'}`);
+    const unreadable = st.items.filter(x => [x.rating, x.count, x.resp].some(Number.isNaN)).map(x => x.name);
+    check(r, unreadable.length === 0, `hodnotenie, počet hodnotení alebo čas odpovede sa nedá prečítať: ${unreadable.slice(0, 3).join(', ')}`);
+
+    // Radenie (vždy celý zoznam)
+    const sorted = (arr, cmp) => arr.every((x, i) => i === 0 || cmp(arr[i - 1], x) <= 0);
+    const coll = new Intl.Collator('sk');
+    const sorts = {
+      rating: (a, b) => (b.rating - a.rating) || (b.count - a.count),
+      count: (a, b) => b.count - a.count,
+      resp: (a, b) => (a.resp - b.resp) || (b.rating - a.rating),
+      name: (a, b) => coll.compare(a.name, b.name),
+    };
+    for (const [key, cmp] of Object.entries(sorts)) {
+      await page.selectOption('#dx-sort', key);
+      st = await expandAll();
+      const bad = st.items.findIndex((x, i) => i > 0 && cmp(st.items[i - 1], x) > 0);
+      check(r, sorted(st.items, cmp), `radenie „${key}“ je zlé pri ${bad + 1}. položke (${bad > 0 ? st.items[bad - 1].name + ' → ' + st.items[bad].name : '?'})`);
+      check(r, st.items.length === N, `radenie „${key}“ zmenilo počet na ${st.items.length}`);
+    }
+    await page.selectOption('#dx-sort', 'rating');
+
+    // Remeslo, kraj, text bez diakritiky
+    await page.selectOption('#dx-cat', 'elektro');
+    st = await expandAll();
+    check(r, st.items.length > 0 && st.items.every(x => x.trade.startsWith('Elektrikár')), `remeslo Elektrikár: ${st.items.length} položiek, nie všetky sú elektrikári`);
+    check(r, st.total === st.items.length && st.reset, `remeslo: počítadlo ${st.total} / ${st.items.length}, „Zrušiť filtre“ ${st.reset ? 'je' : 'chýba'}`);
+    const elektroAll = st.items.length;
+    await page.selectOption('#dx-kraj', 'KE');
+    st = await expandAll();
+    check(r, st.items.length > 0 && st.items.length < elektroAll && st.items.every(x => x.trade.startsWith('Elektrikár')), `elektrikár + Košický: ${st.items.length} z ${elektroAll}`);
+    check(r, st.countText.includes('Košický kraj'), `počítadlo nespomína kraj („${st.countText}“)`);
+    await page.click('#dx-reset');
+    await page.fill('#dx-q', 'kosice');
+    st = await expandAll();
+    check(r, st.items.length > 0 && st.items.every(x => x.text.includes('kosice')), `hľadanie „kosice“ bez diakritiky: ${st.items.length} položiek`);
+
+    // Prázdny výsledok a jeho tlačidlo
+    await page.fill('#dx-q', 'qwertyzz');
+    st = await read();
+    check(r, st.empty && st.items.length === 0 && /Žiadny výsledok/.test(st.countText), `prázdny výsledok: „${st.countText}“`);
+    const emptyBtn = page.locator('#dx-list .dx-empty [data-open]');
+    if (check(r, (await emptyBtn.count()) > 0, 'prázdny výsledok nemá tlačidlo na zadanie zákazky')) {
+      await emptyBtn.first().click();
+      check(r, await isOpen(page), 'tlačidlo v prázdnom výsledku neotvorilo dialóg');
+      await closeDialog(page);
+    }
+
+    // Zrušiť filtre
+    await page.selectOption('#dx-cat', 'voda');
+    await page.click('#dx-reset');
+    st = await read();
+    const f = await page.evaluate(() => ['#dx-q', '#dx-cat', '#dx-kraj'].map(s => document.querySelector(s).value));
+    check(r, f.every(v => v === '') && !st.reset && st.total === N && st.items.length === Math.min(8, N), `„Zrušiť filtre“ nevrátil zoznam do začiatku (${f.join('|')}, ${st.items.length}/${st.total})`);
+    check(r, (await activeId(page)) === 'dx-q', 'po „Zrušiť filtre“ má byť fokus v hľadaní');
+
+    // Žiadosť priamo majstrovi zo zoznamu
+    const first = page.locator('#dx-list .biz-btn').first();
+    const info = await first.evaluate(b => ({ cat: b.dataset.open, pro: b.dataset.pro }));
+    await first.click();
+    const s = await dialogState(page);
+    check(r, s.open && s.cat === info.cat && s.note && s.noteText.includes(info.pro), `„Požiadať o ponuku“ v zozname: ${s.cat} / „${s.noteText}“`);
+    await closeDialog(page);
+
+    // Prepojenie: čip kraja aj obec v hero nastavia kraj v zozname
+    await page.click('#filter button[data-kraj="TN"]');
+    check(r, (await page.$eval('#dx-kraj', x => x.value)) === 'TN', 'čip Trenčiansky nenastavil kraj v zozname');
+    await page.fill('#where', 'Trnava');
+    const synced = await page.waitForFunction(() => document.getElementById('dx-kraj').value === 'TT', null, { timeout: 2000 }).then(() => true, () => false);
+    check(r, synced, 'obec Trnava v hero nenastavila Trnavský kraj v zozname');
+    r.info = `${N} majstrov a firiem, ${elektroAll} elektrikárov`;
+  });
+
   await test(ctx, 'ceny: kraj a s/bez DPH', async r => {
     await fresh(page);
     const opts = await page.$$eval('#kraj option', os => os.map(o => ({ v: o.value, t: o.textContent.trim() })));

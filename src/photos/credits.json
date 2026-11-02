@@ -48,14 +48,6 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg"
   },
   {
-    "key": "elektro",
-    "title": "Electrician checking circuit breakers with a screwdriver",
-    "creator": "StockSnap (autor neuvedený)",
-    "license": "CC0 1.0",
-    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "source_url": "https://stocksnap.io/photo/81EG7NOR4G"
-  },
-  {
     "key": "s-obklad",
     "title": "Einschlämmen eines Fugenmörtels (grouting a tiled floor)",
     "creator": "Frank Winkelmann",
@@ -73,11 +65,11 @@
   },
   {
     "key": "s-instalater",
-    "title": "Plumber with pliers fix wires of water heater closeup",
-    "creator": "Shixart1985",
+    "title": "Plumber at work 2010 USA",
+    "creator": "ocean yamaha",
     "license": "CC BY 2.0",
     "license_url": "https://creativecommons.org/licenses/by/2.0/",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg"
+    "source_url": "https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg"
   },
   {
     "key": "s-elektro",
@@ -89,11 +81,11 @@
   },
   {
     "key": "s-upratovanie",
-    "title": "Woman cleaning kitchen stove with spray cleaner and cloth in bright kitchen setting",
+    "title": "Woman vacuuming living room in a cozy home setting",
     "creator": "Shixart1985",
     "license": "CC BY 2.0",
     "license_url": "https://creativecommons.org/licenses/by/2.0/",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_stove_with_spray_cleaner_and_cloth_in_bright_kitchen_setting.jpg"
+    "source_url": "https://commons.wikimedia.org/wiki/File:Woman_vacuuming_living_room_in_a_cozy_home_setting.jpg"
   },
   {
     "key": "s-zahrada",
@@ -105,11 +97,11 @@
   },
   {
     "key": "s-stahovanie",
-    "title": "Man taping a cardboard box",
-    "creator": "StockSnap (autor neuvedený)",
-    "license": "CC0 1.0",
-    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
-    "source_url": "https://stocksnap.io/photo/WP1KHDXGOY"
+    "title": "What to know when moving out of Air Force dormitories (6189891)",
+    "creator": "U.S. Air Force photo by Airman 1st Class Jonathan Whitely",
+    "license": "Public domain (dielo vlády USA)",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:What_to_know_when_moving_out_of_Air_Force_dormitories_(6189891).jpeg"
   },
   {
     "key": "kuchyna",
@@ -118,5 +110,61 @@
     "license": "CC0 1.0",
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
     "source_url": "https://commons.wikimedia.org/wiki/File:Kitchen_Fitting_(6).JPG"
+  },
+  {
+    "key": "hero",
+    "title": "Empty bright room with open white double doors and light wooden floor",
+    "creator": "StockSnap (autor neuvedený)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://stocksnap.io/photo/Q0EGF4XNXG"
+  },
+  {
+    "key": "hero-m",
+    "title": "Empty bright room with open white double doors and light wooden floor",
+    "creator": "StockSnap (autor neuvedený)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://stocksnap.io/photo/Q0EGF4XNXG"
+  },
+  {
+    "key": "krok-opis",
+    "title": "Woman taking a picture of a document",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Woman_taking_a_picture_of_a_document.jpg"
+  },
+  {
+    "key": "krok-ponuky",
+    "title": "Woman works on laptop while sitting on a couch in a living room",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Woman_works_on_laptop_while_sitting_on_a_couch_in_a_living_room.jpg"
+  },
+  {
+    "key": "krok-praca",
+    "title": "Handshake (work, business, people)",
+    "creator": "StockSnap (autor neuvedený)",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://stocksnap.io/photo/WQ2JMRIIQB"
+  },
+  {
+    "key": "preco-kontakt",
+    "title": "Person sitting indoors using a phone while resting on a sofa in a casual setting closeup",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Person_sitting_indoors_using_a_phone_while_resting_on_a_sofa_in_a_casual_setting_closeup.jpg"
+  },
+  {
+    "key": "preco-hodnotenia",
+    "title": "Modern bathroom design featuring shower enclosure, circular mirror, and stylish decor in a small space renovation",
+    "creator": "Shixart1985",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Modern_bathroom_design_featuring_shower_enclosure,_circular_mirror,_and_stylish_decor_in_a_small_space_renovation.jpg"
   }
 ]
