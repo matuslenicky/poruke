@@ -747,6 +747,12 @@ async function runViewport(browser, target, vp, out) {
     check(r, openers.pros.every(Boolean), `karta v najlepšie hodnotených bez tlačidla s menom (${openers.pros.filter(x => !x).length})`);
     check(r, openers.biz.every(Boolean), `položka zoznamu bez tlačidla s menom (${openers.biz.filter(x => !x).length})`);
 
+    // Fotky z realizácií (.pf-gal) majú mať najlepšie hodnotení, len čo sú v CSS pravidlá .ph-pf-*
+    const galleryFeature = await page.evaluate(() => [...document.styleSheets].some(ss => {
+      try { return [...ss.cssRules].some(rule => rule.cssText.includes('ph-pf-')); } catch { return false; }
+    }));
+    let galleries = 0;
+
     const targets = page.locator('#pros .pro h3 [data-profile], #dx-list > li.biz h3 [data-profile], .pf-teaser [data-profile]');
     const n = await targets.count();
     let tested = 0;
@@ -782,6 +788,25 @@ async function runViewport(browser, target, vp, out) {
       if (info.quote) check(r, p.revs[0] === info.quote, `${what}: prvá recenzia nie je citácia z karty`);
       check(r, p.cta && p.cta.pro === info.name, `${what}: tlačidlo „Požiadať o ponuku“ v profile chýba alebo je pre iného majstra`);
       check(r, p.overflow <= 1, `${what}: profil je širší ako okno o ${p.overflow} px`);
+      const gal = await page.evaluate(async () => {
+        const phs = [...document.querySelectorAll('#pf .pf-gal .ph')];
+        const urls = phs.map(el => (getComputedStyle(el).backgroundImage.match(/url\("?([^")]+)"?\)/) || [])[1] || '');
+        const widths = await Promise.all(urls.map(u => !u ? 0 : new Promise(ok => {
+          const i = new Image();
+          i.onload = () => ok(i.naturalWidth);
+          i.onerror = () => ok(0);
+          i.src = u;
+        })));
+        const heading = [...document.querySelectorAll('#pf .pf-sec > h3')].some(h => h.textContent.trim() === 'Fotky z realizácií');
+        return { n: phs.length, noBg: urls.filter(u => !u).length, broken: widths.filter((w, k) => urls[k] && !w).length, heading };
+      });
+      if (gal.n) {
+        galleries++;
+        check(r, gal.heading, `${what}: fotky v profile nemajú nadpis „Fotky z realizácií“`);
+        check(r, gal.noBg === 0, `${what}: ${gal.noBg} z ${gal.n} fotiek v profile nemá obrázok (chýba pravidlo .ph-pf-* alebo je viazané na .ph-on)`);
+        check(r, gal.broken === 0, `${what}: ${gal.broken} z ${gal.n} fotiek v profile sa nenačítalo`);
+      }
+      if (galleryFeature && info.where === 'pro') check(r, gal.n >= 2, `${what}: najlepšie hodnotený majster má v profile ${gal.n} fotiek z realizácií, čakal som aspoň 2`);
       if (!sampleHash) { sampleHash = p.hash; sampleName = info.name; }
 
       await page.click('#pf [data-pf-close]');
@@ -846,7 +871,7 @@ async function runViewport(browser, target, vp, out) {
       await closePf();
       await page.goto(target, { waitUntil: 'load' });
     }
-    r.info = `${tested} profilov otvorených`;
+    r.info = `${tested} profilov otvorených, ${galleries ? `${galleries} s fotkami z realizácií` : galleryFeature ? 'fotky z realizácií chýbajú' : 'fotky z realizácií ešte nie sú'}`;
   });
 
   await test(ctx, 'ceny: kraj a s/bez DPH', async r => {

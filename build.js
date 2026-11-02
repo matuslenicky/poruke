@@ -32,7 +32,10 @@ html = html.replace(fontLink, () => `<style id="fonts">\n${fontCss}</style>`);
 // Kredity fotiek s licenciou CC BY do pätičky (CC0 a public domain kredit nevyžadujú)
 const creditsFile = path.join(SRC, 'photos', 'credits.json');
 if (fs.existsSync(creditsFile)) {
-  const LABEL = { kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', kuchyna: 'kuchyňa', 's-instalater': 'inštalatér', 's-upratovanie': 'upratovanie 2', 's-zahrada': 'záhradník', 's-stahovanie': 'sťahovanie', hero: 'úvod', 'hero-m': 'úvod (mobil)', 'krok-opis': 'opis práce', 'krok-ponuky': 'porovnanie ponúk', 'krok-praca': 'odovzdanie práce', 'preco-kontakt': 'správy', 'preco-hodnotenia': 'hotová práca' };
+  const LABEL = { kotol: 'bojler', malovanie: 'maľovanie', upratovanie: 'upratovanie', obklad: 'dlažba', stahovanie: 'balenie', zahrada: 'kosenie', kuchyna: 'kuchyňa', 's-instalater': 'inštalatér', 's-upratovanie': 'upratovanie 2', 's-zahrada': 'záhradník', 's-stahovanie': 'sťahovanie', hero: 'úvod', 'hero-m': 'úvod (mobil)', 'krok-opis': 'opis práce', 'krok-ponuky': 'porovnanie ponúk', 'krok-praca': 'odovzdanie práce', 'preco-kontakt': 'správy', 'preco-hodnotenia': 'hotová práca',
+    'pf-kovac-1': 'rozvádzač', 'pf-kovac-2': 'rozvody', 'pf-horvathova-1': 'obývačka', 'pf-horvathova-2': 'okno', 'pf-simko-1': 'komíny', 'pf-simko-2': 'komín',
+    'pf-melnyk-1': 'akcentová stena', 'pf-melnyk-2': 'maľovanie', 'pf-mraz-1': 'kuchyňa', 'pf-mraz-2': 'montáž skriniek', 'pf-sarisske-1': 'fotovoltika', 'pf-sarisske-2': 'montáž panelov',
+    'pf-nagy-1': 'obklad', 'pf-nagy-2': 'dlažba', 'pf-balaz-1': 'kotol', 'pf-balaz-2': 'kúrenie' };
   const by = JSON.parse(fs.readFileSync(creditsFile, 'utf8')).filter(c => !/cc0|pdm|public/i.test(c.license || ''));
   const groups = {};
   for (const c of by) (groups[`${c.creator}|${c.license}|${c.license_url}`] ||= []).push(c);

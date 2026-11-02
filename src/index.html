@@ -527,6 +527,23 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-gal figure{margin:0;display:grid;gap:6px}
 .pf-gal .ph{aspect-ratio:3 / 2;border-radius:14px}
 .pf-gal figcaption{font-size:13px;color:var(--muted)}
+/* Fotky z realizácií: obsah profilu vzniká až pri otvorení, takže sa sťahujú až vtedy */
+.pf .ph-pf-kovac-1{background-image:url(photos/pf-kovac-1.jpg)}
+.pf .ph-pf-kovac-2{background-image:url(photos/pf-kovac-2.jpg)}
+.pf .ph-pf-horvathova-1{background-image:url(photos/pf-horvathova-1.jpg)}
+.pf .ph-pf-horvathova-2{background-image:url(photos/pf-horvathova-2.jpg)}
+.pf .ph-pf-simko-1{background-image:url(photos/pf-simko-1.jpg)}
+.pf .ph-pf-simko-2{background-image:url(photos/pf-simko-2.jpg)}
+.pf .ph-pf-melnyk-1{background-image:url(photos/pf-melnyk-1.jpg)}
+.pf .ph-pf-melnyk-2{background-image:url(photos/pf-melnyk-2.jpg)}
+.pf .ph-pf-mraz-1{background-image:url(photos/pf-mraz-1.jpg)}
+.pf .ph-pf-mraz-2{background-image:url(photos/pf-mraz-2.jpg)}
+.pf .ph-pf-sarisske-1{background-image:url(photos/pf-sarisske-1.jpg)}
+.pf .ph-pf-sarisske-2{background-image:url(photos/pf-sarisske-2.jpg)}
+.pf .ph-pf-nagy-1{background-image:url(photos/pf-nagy-1.jpg)}
+.pf .ph-pf-nagy-2{background-image:url(photos/pf-nagy-2.jpg)}
+.pf .ph-pf-balaz-1{background-image:url(photos/pf-balaz-1.jpg)}
+.pf .ph-pf-balaz-2{background-image:url(photos/pf-balaz-2.jpg)}
 .pf-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px}
 .pf-verif{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .pf-verif li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
@@ -1747,7 +1764,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       rev: [['Kuchyňa presne podľa vizualizácie, všetko sedí na milimeter.', 'kuchyňa na mieru'], ['Skriňa do šikmín využila každý centimeter.', 'vstavaná skriňa'], ['Schody krásne, pevné a nevŕzgajú.', 'drevené schody'], ['Starý príborník po renovácii ako nový.', 'renovácia nábytku']] }
   };
   // Fotky z realizácií majú zatiaľ len najlepšie hodnotení majstri: [trieda fotky, popis]
-  const PF_PHOTOS = {};
+  const PF_PHOTOS = {
+    'Martin Kováč': [['ph-pf-kovac-1', 'Nový rozvádzač v rodinnom dome'], ['ph-pf-kovac-2', 'Nové rozvody v novostavbe pred omietkami']],
+    'Zuzana Horváthová': [['ph-pf-horvathova-1', 'Obývačka po upratovaní po rekonštrukcii'], ['ph-pf-horvathova-2', 'Umyté okná aj parapety']],
+    'Ladislav Nagy': [['ph-pf-nagy-1', 'Kúpeľňa s veľkoformátovou dlažbou'], ['ph-pf-nagy-2', 'Pokládka veľkoformátu s nivelačným systémom']],
+    'Peter Baláž': [['ph-pf-balaz-1', 'Kotolňa s novými rozvodmi a rozdeľovačom'], ['ph-pf-balaz-2', 'Podlahové kúrenie pred zaliatím']],
+    'Kominárstvo Šimko': [['ph-pf-simko-1', 'Oprava dvoch komínov s medeným oplechovaním'], ['ph-pf-simko-2', 'Medená strieška a oplechovanie komína']],
+    'Oksana Melnyk': [['ph-pf-melnyk-1', 'Akcentová stena s geometrickým vzorom v spálni'], ['ph-pf-melnyk-2', 'Maľovanie s olepením a zakrytou podlahou']],
+    'Jozef Mráz': [['ph-pf-mraz-1', 'Zmontovaná bezúchytková kuchyňa'], ['ph-pf-mraz-2', 'Spájanie rohových skriniek pri montáži']],
+    'Šarišské teplo, s. r. o.': [['ph-pf-sarisske-1', 'Fotovoltika na rodinnom dome'], ['ph-pf-sarisske-2', 'Montáž panelov na škridlovú strechu']]
+  };
   const REVIEWERS = ['Jana K.', 'Michal R.', 'Katarína S.', 'Ondrej B.', 'Alena M.', 'Peter V.', 'Lucia H.', 'Tomáš D.', 'Zuzana P.', 'Marek L.', 'Eva T.', 'Juraj N.'];
   const MONTHS = ['október 2026', 'september 2026', 'august 2026', 'júl 2026', 'jún 2026'];
   const slug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

@@ -527,6 +527,23 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-gal figure{margin:0;display:grid;gap:6px}
 .pf-gal .ph{aspect-ratio:3 / 2;border-radius:14px}
 .pf-gal figcaption{font-size:13px;color:var(--muted)}
+/* Fotky z realizácií: obsah profilu vzniká až pri otvorení, takže sa sťahujú až vtedy */
+.pf .ph-pf-kovac-1{background-image:url(src/photos/pf-kovac-1.jpg)}
+.pf .ph-pf-kovac-2{background-image:url(src/photos/pf-kovac-2.jpg)}
+.pf .ph-pf-horvathova-1{background-image:url(src/photos/pf-horvathova-1.jpg)}
+.pf .ph-pf-horvathova-2{background-image:url(src/photos/pf-horvathova-2.jpg)}
+.pf .ph-pf-simko-1{background-image:url(src/photos/pf-simko-1.jpg)}
+.pf .ph-pf-simko-2{background-image:url(src/photos/pf-simko-2.jpg)}
+.pf .ph-pf-melnyk-1{background-image:url(src/photos/pf-melnyk-1.jpg)}
+.pf .ph-pf-melnyk-2{background-image:url(src/photos/pf-melnyk-2.jpg)}
+.pf .ph-pf-mraz-1{background-image:url(src/photos/pf-mraz-1.jpg)}
+.pf .ph-pf-mraz-2{background-image:url(src/photos/pf-mraz-2.jpg)}
+.pf .ph-pf-sarisske-1{background-image:url(src/photos/pf-sarisske-1.jpg)}
+.pf .ph-pf-sarisske-2{background-image:url(src/photos/pf-sarisske-2.jpg)}
+.pf .ph-pf-nagy-1{background-image:url(src/photos/pf-nagy-1.jpg)}
+.pf .ph-pf-nagy-2{background-image:url(src/photos/pf-nagy-2.jpg)}
+.pf .ph-pf-balaz-1{background-image:url(src/photos/pf-balaz-1.jpg)}
+.pf .ph-pf-balaz-2{background-image:url(src/photos/pf-balaz-2.jpg)}
 .pf-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px}
 .pf-verif{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .pf-verif li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
@@ -1196,7 +1213,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       </nav>
     </div>
     <div class="foot-bottom">
-      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_vacuuming_living_room_in_a_cozy_home_setting.jpg" rel="noopener">upratovanie 2</a>, <a href="https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg" rel="noopener">záhradník</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_taking_a_picture_of_a_document.jpg" rel="noopener">opis práce</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_works_on_laptop_while_sitting_on_a_couch_in_a_living_room.jpg" rel="noopener">porovnanie ponúk</a>, <a href="https://commons.wikimedia.org/wiki/File:Person_sitting_indoors_using_a_phone_while_resting_on_a_sofa_in_a_casual_setting_closeup.jpg" rel="noopener">správy</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_bathroom_design_featuring_shower_enclosure,_circular_mirror,_and_stylish_decor_in_a_small_space_renovation.jpg" rel="noopener">hotová práca</a>); ocean yamaha, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg" rel="noopener">inštalatér</a>), upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
+      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_vacuuming_living_room_in_a_cozy_home_setting.jpg" rel="noopener">upratovanie 2</a>, <a href="https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg" rel="noopener">záhradník</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_taking_a_picture_of_a_document.jpg" rel="noopener">opis práce</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_works_on_laptop_while_sitting_on_a_couch_in_a_living_room.jpg" rel="noopener">porovnanie ponúk</a>, <a href="https://commons.wikimedia.org/wiki/File:Person_sitting_indoors_using_a_phone_while_resting_on_a_sofa_in_a_casual_setting_closeup.jpg" rel="noopener">správy</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_bathroom_design_featuring_shower_enclosure,_circular_mirror,_and_stylish_decor_in_a_small_space_renovation.jpg" rel="noopener">hotová práca</a>, <a href="https://commons.wikimedia.org/wiki/File:Cozy_living_room_with_a_gray_sofa.jpg" rel="noopener">obývačka</a>, <a href="https://commons.wikimedia.org/wiki/File:A_red_window_cleaning_tool_with_a_blue_accent_is_positioned_on_a_windowsill.jpg" rel="noopener">okno</a>, <a href="https://commons.wikimedia.org/wiki/File:Stylish_bedroom_interior_featuring_a_unique_headboard_design_with_geometric_patterns_and_elegant_bedding_decor.jpg" rel="noopener">akcentová stena</a>, <a href="https://commons.wikimedia.org/wiki/File:Room_in_renovation_with_partially_painted_wall_and_painting_supplies.jpg" rel="noopener">maľovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_kitchen_with_simple_design_and_natural_light_during_daytime.jpg" rel="noopener">kuchyňa</a>); ocean yamaha, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg" rel="noopener">inštalatér</a>); Markus Hörburger, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_3.jpg" rel="noopener">komíny</a>, <a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_1.jpg" rel="noopener">komín</a>); Stilfehler, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Sektion_47_Inch_Corner_Cabinet_Installation_1.jpg" rel="noopener">montáž skriniek</a>); -wuppertaler, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:GER_Schwindegg,_Herzog-Albrecht-Stra%C3%9Fe_0005.jpg" rel="noopener">fotovoltika</a>); Friedrich Haag, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:004_2011_08_04_Badezimmer_und_Toiletten.jpg" rel="noopener">obklad</a>); Alexander Eichler, <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gro%C3%9Fformate_-_Verlegung_Donauhalle_Ulm.jpg" rel="noopener">dlažba</a>); Audetat, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:ModCon_boiler_system.jpg" rel="noopener">kotol</a>), upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
       <p>Ceny sú v eurách vrátane 23 % DPH, ak nie je uvedené inak.</p>
     </div>
   </div>
@@ -1753,7 +1770,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       rev: [['Kuchyňa presne podľa vizualizácie, všetko sedí na milimeter.', 'kuchyňa na mieru'], ['Skriňa do šikmín využila každý centimeter.', 'vstavaná skriňa'], ['Schody krásne, pevné a nevŕzgajú.', 'drevené schody'], ['Starý príborník po renovácii ako nový.', 'renovácia nábytku']] }
   };
   // Fotky z realizácií majú zatiaľ len najlepšie hodnotení majstri: [trieda fotky, popis]
-  const PF_PHOTOS = {};
+  const PF_PHOTOS = {
+    'Martin Kováč': [['ph-pf-kovac-1', 'Nový rozvádzač v rodinnom dome'], ['ph-pf-kovac-2', 'Nové rozvody v novostavbe pred omietkami']],
+    'Zuzana Horváthová': [['ph-pf-horvathova-1', 'Obývačka po upratovaní po rekonštrukcii'], ['ph-pf-horvathova-2', 'Umyté okná aj parapety']],
+    'Ladislav Nagy': [['ph-pf-nagy-1', 'Kúpeľňa s veľkoformátovou dlažbou'], ['ph-pf-nagy-2', 'Pokládka veľkoformátu s nivelačným systémom']],
+    'Peter Baláž': [['ph-pf-balaz-1', 'Kotolňa s novými rozvodmi a rozdeľovačom'], ['ph-pf-balaz-2', 'Podlahové kúrenie pred zaliatím']],
+    'Kominárstvo Šimko': [['ph-pf-simko-1', 'Oprava dvoch komínov s medeným oplechovaním'], ['ph-pf-simko-2', 'Medená strieška a oplechovanie komína']],
+    'Oksana Melnyk': [['ph-pf-melnyk-1', 'Akcentová stena s geometrickým vzorom v spálni'], ['ph-pf-melnyk-2', 'Maľovanie s olepením a zakrytou podlahou']],
+    'Jozef Mráz': [['ph-pf-mraz-1', 'Zmontovaná bezúchytková kuchyňa'], ['ph-pf-mraz-2', 'Spájanie rohových skriniek pri montáži']],
+    'Šarišské teplo, s. r. o.': [['ph-pf-sarisske-1', 'Fotovoltika na rodinnom dome'], ['ph-pf-sarisske-2', 'Montáž panelov na škridlovú strechu']]
+  };
   const REVIEWERS = ['Jana K.', 'Michal R.', 'Katarína S.', 'Ondrej B.', 'Alena M.', 'Peter V.', 'Lucia H.', 'Tomáš D.', 'Zuzana P.', 'Marek L.', 'Eva T.', 'Juraj N.'];
   const MONTHS = ['október 2026', 'september 2026', 'august 2026', 'júl 2026', 'jún 2026'];
   const slug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
