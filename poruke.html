@@ -411,6 +411,8 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(data
 .ico-msg{font-size:14px;color:var(--band-muted);min-height:1.5em}
 .ico-msg.ok{color:var(--band-ink)}
 .ico-msg.bad{color:var(--danger)}
+.ico-more{display:grid;gap:10px;padding-top:4px;border-top:1px solid var(--band-line)}
+.ico-note{font-size:13.5px;color:var(--band-muted)}
 
 /* Otázky */
 .faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px, 5vw, 72px);align-items:start}
@@ -1150,6 +1152,14 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
           <button class="btn btn-warn" type="submit">Overiť IČO</button>
         </div>
         <p class="ico-msg" id="ico-msg" aria-live="polite">Názov a sídlo doplníme z registra, nemusíte ich prepisovať.</p>
+        <div class="ico-more" id="ico-more" hidden>
+          <label for="ico-email">E-mail, na ktorý vám pošleme pozvánku</label>
+          <div class="ico-row">
+            <input class="input" id="ico-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" aria-describedby="ico-note">
+            <button class="btn btn-warn" type="submit" id="ico-send">Chcem profil zadarmo</button>
+          </div>
+          <p class="ico-note" id="ico-note">Ozveme sa, keď spustíme registráciu firiem. E-mail použijeme len na tento účel.</p>
+        </div>
       </form>
     </div>
   </div>
@@ -1213,7 +1223,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       </nav>
     </div>
     <div class="foot-bottom">
-      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia, ceny a čísla žiadostí sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_vacuuming_living_room_in_a_cozy_home_setting.jpg" rel="noopener">upratovanie 2</a>, <a href="https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg" rel="noopener">záhradník</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_taking_a_picture_of_a_document.jpg" rel="noopener">opis práce</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_works_on_laptop_while_sitting_on_a_couch_in_a_living_room.jpg" rel="noopener">porovnanie ponúk</a>, <a href="https://commons.wikimedia.org/wiki/File:Person_sitting_indoors_using_a_phone_while_resting_on_a_sofa_in_a_casual_setting_closeup.jpg" rel="noopener">správy</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_bathroom_design_featuring_shower_enclosure,_circular_mirror,_and_stylish_decor_in_a_small_space_renovation.jpg" rel="noopener">hotová práca</a>, <a href="https://commons.wikimedia.org/wiki/File:Cozy_living_room_with_a_gray_sofa.jpg" rel="noopener">obývačka</a>, <a href="https://commons.wikimedia.org/wiki/File:A_red_window_cleaning_tool_with_a_blue_accent_is_positioned_on_a_windowsill.jpg" rel="noopener">okno</a>, <a href="https://commons.wikimedia.org/wiki/File:Stylish_bedroom_interior_featuring_a_unique_headboard_design_with_geometric_patterns_and_elegant_bedding_decor.jpg" rel="noopener">akcentová stena</a>, <a href="https://commons.wikimedia.org/wiki/File:Room_in_renovation_with_partially_painted_wall_and_painting_supplies.jpg" rel="noopener">maľovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_kitchen_with_simple_design_and_natural_light_during_daytime.jpg" rel="noopener">kuchyňa</a>); ocean yamaha, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg" rel="noopener">inštalatér</a>); Markus Hörburger, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_3.jpg" rel="noopener">komíny</a>, <a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_1.jpg" rel="noopener">komín</a>); Stilfehler, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Sektion_47_Inch_Corner_Cabinet_Installation_1.jpg" rel="noopener">montáž skriniek</a>); -wuppertaler, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:GER_Schwindegg,_Herzog-Albrecht-Stra%C3%9Fe_0005.jpg" rel="noopener">fotovoltika</a>); Friedrich Haag, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:004_2011_08_04_Badezimmer_und_Toiletten.jpg" rel="noopener">obklad</a>); Alexander Eichler, <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gro%C3%9Fformate_-_Verlegung_Donauhalle_Ulm.jpg" rel="noopener">dlažba</a>); Audetat, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:ModCon_boiler_system.jpg" rel="noopener">kotol</a>), upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
+      <p>© 2026 Poruke · koncept dizajnu. Mená, hodnotenia a ceny sú ilustračné. Fotky: Shixart1985, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_with_pliers_fix_wires_of_water_heater_closeup.jpg" rel="noopener">bojler</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_cleaning_kitchen_cabinets_in_a_bright_home.jpg" rel="noopener">upratovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Mowing_a_lush_green_lawn_on_a_sunny_day_in_a_residential_garden.jpg" rel="noopener">kosenie</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_vacuuming_living_room_in_a_cozy_home_setting.jpg" rel="noopener">upratovanie 2</a>, <a href="https://commons.wikimedia.org/wiki/File:Gardening_activity_in_a_lush_backyard_with_a_man_tending_to_plants.jpg" rel="noopener">záhradník</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_taking_a_picture_of_a_document.jpg" rel="noopener">opis práce</a>, <a href="https://commons.wikimedia.org/wiki/File:Woman_works_on_laptop_while_sitting_on_a_couch_in_a_living_room.jpg" rel="noopener">porovnanie ponúk</a>, <a href="https://commons.wikimedia.org/wiki/File:Person_sitting_indoors_using_a_phone_while_resting_on_a_sofa_in_a_casual_setting_closeup.jpg" rel="noopener">správy</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_bathroom_design_featuring_shower_enclosure,_circular_mirror,_and_stylish_decor_in_a_small_space_renovation.jpg" rel="noopener">hotová práca</a>, <a href="https://commons.wikimedia.org/wiki/File:Cozy_living_room_with_a_gray_sofa.jpg" rel="noopener">obývačka</a>, <a href="https://commons.wikimedia.org/wiki/File:A_red_window_cleaning_tool_with_a_blue_accent_is_positioned_on_a_windowsill.jpg" rel="noopener">okno</a>, <a href="https://commons.wikimedia.org/wiki/File:Stylish_bedroom_interior_featuring_a_unique_headboard_design_with_geometric_patterns_and_elegant_bedding_decor.jpg" rel="noopener">akcentová stena</a>, <a href="https://commons.wikimedia.org/wiki/File:Room_in_renovation_with_partially_painted_wall_and_painting_supplies.jpg" rel="noopener">maľovanie</a>, <a href="https://commons.wikimedia.org/wiki/File:Modern_kitchen_with_simple_design_and_natural_light_during_daytime.jpg" rel="noopener">kuchyňa</a>); ocean yamaha, <a href="https://creativecommons.org/licenses/by/2.0/" rel="noopener">CC BY 2.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Plumber_at_work_2010_USA.jpg" rel="noopener">inštalatér</a>); Markus Hörburger, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_3.jpg" rel="noopener">komíny</a>, <a href="https://commons.wikimedia.org/wiki/File:Kaminsanierung_nachher_1.jpg" rel="noopener">komín</a>); Stilfehler, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Sektion_47_Inch_Corner_Cabinet_Installation_1.jpg" rel="noopener">montáž skriniek</a>); -wuppertaler, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener">CC BY 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:GER_Schwindegg,_Herzog-Albrecht-Stra%C3%9Fe_0005.jpg" rel="noopener">fotovoltika</a>); Friedrich Haag, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a> (<a href="https://commons.wikimedia.org/wiki/File:004_2011_08_04_Badezimmer_und_Toiletten.jpg" rel="noopener">obklad</a>); Alexander Eichler, <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:Gro%C3%9Fformate_-_Verlegung_Donauhalle_Ulm.jpg" rel="noopener">dlažba</a>); Audetat, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a> (<a href="https://commons.wikimedia.org/wiki/File:ModCon_boiler_system.jpg" rel="noopener">kotol</a>), upravené (výrez, farby, retuš značiek); ostatné CC0 alebo voľné dielo (StockSnap, Wikimedia Commons). Ikony Lucide (ISC).</p>
       <p>Ceny sú v eurách vrátane 23 % DPH, ak nie je uvedené inak.</p>
     </div>
   </div>
@@ -1268,7 +1278,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         </div>
         <div class="f">
           <label for="f-psc">Obec alebo PSČ, kde sa bude pracovať</label>
-          <input class="input" id="f-psc" name="psc" list="obce" autocomplete="address-level2" placeholder="napr. Trnava alebo 917 01" aria-describedby="e-psc">
+          <input class="input" id="f-psc" name="psc" list="obce" autocomplete="address-level2" maxlength="80" placeholder="napr. Trnava alebo 917 01" aria-describedby="e-psc">
           <p class="err" id="e-psc" hidden>Zadajte obec alebo PSČ (5 číslic).</p>
         </div>
         <fieldset class="f opts">
@@ -1283,7 +1293,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         <legend class="sr">Podrobnosti</legend>
         <div class="f">
           <label for="f-desc">Čo treba urobiť?</label>
-          <textarea class="input" id="f-desc" name="desc" placeholder="Napr. bojler 80 l v kúpeľni, starý treba odviezť. Prístup cez pivnicu, parkovanie pred domom." aria-describedby="h-desc e-desc"></textarea>
+          <textarea class="input" id="f-desc" name="desc" maxlength="4000" placeholder="Napr. bojler 80 l v kúpeľni, starý treba odviezť. Prístup cez pivnicu, parkovanie pred domom." aria-describedby="h-desc e-desc"></textarea>
           <p class="hint" id="h-desc">Rozmery, poschodie, prístup a materiál pomôžu majstrom naceniť prácu presne.</p>
           <p class="err" id="e-desc" hidden>Napíšte aspoň pár slov, najmenej 10 znakov.</p>
         </div>
@@ -1308,18 +1318,18 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         <legend class="sr">Kontakt</legend>
         <div class="f">
           <label for="f-name">Meno</label>
-          <input class="input" id="f-name" name="name" autocomplete="name" aria-describedby="e-name">
+          <input class="input" id="f-name" name="name" autocomplete="name" maxlength="120" aria-describedby="e-name">
           <p class="err" id="e-name" hidden>Zadajte meno, aby vás majster vedel osloviť.</p>
         </div>
         <div class="f">
           <label for="f-email">E-mail</label>
-          <input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="h-email e-email">
+          <input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" aria-describedby="h-email e-email">
           <p class="hint" id="h-email">Sem pošleme ponuky. Majstri ho neuvidia.</p>
           <p class="err" id="e-email" hidden>Zadajte e-mail v tvare meno@domena.sk.</p>
         </div>
         <div class="f">
           <label for="f-phone">Telefón (nepovinné)</label>
-          <input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+421" aria-describedby="h-phone">
+          <input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+421" aria-describedby="h-phone">
           <p class="hint" id="h-phone">Dostane ho len majster, ktorého vyberiete.</p>
         </div>
         <div class="f">
@@ -1341,9 +1351,11 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
           <input class="input" id="f-ico" name="ico" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="napr. 12345678" aria-describedby="e-ico">
           <p class="err" id="e-ico" hidden>IČO má 8 číslic, napríklad 12345678.</p>
         </div>
-        <label class="check"><input type="checkbox" id="f-consent" name="consent" aria-describedby="e-consent"><span>Súhlasím so spracovaním údajov na účel tejto zákazky. Kontakt dostane len majster, ktorého vyberiem.</span></label>
+        <label class="check"><input type="checkbox" id="f-consent" name="consent" aria-describedby="e-consent"><span id="consent-text">Súhlasím so spracovaním údajov na účel tejto zákazky. Kontakt dostane len majster, ktorého vyberiem.</span></label>
         <p class="err" id="e-consent" hidden>Bez súhlasu vám nevieme poslať ponuky.</p>
         <label class="check"><input type="checkbox" id="f-news" name="news"><span>Chcem raz za mesiac dostávať sezónne tipy pre domácnosť (nepovinné).</span></label>
+        <div hidden><label for="f-web">Webová stránka (nevypĺňajte)</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
+        <p class="err" id="e-send" role="alert" hidden></p>
       </fieldset>
 
       <div class="step done" data-step="4" hidden>
@@ -1351,7 +1363,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         <h3 id="done-title">Žiadosť je pripravená</h3>
         <p id="done-text"></p>
         <dl class="summary" id="summary"></dl>
-        <p class="note"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Toto je koncept, preto sa žiadosť nikam neodoslala a údaje zostali len vo vašom prehliadači.</p>
+        <p class="note"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span id="done-note">Toto je koncept, preto sa žiadosť nikam neodoslala a údaje zostali len vo vašom prehliadači.</span></p>
       </div>
 
     </div>
@@ -1371,6 +1383,39 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const norm = s => (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+
+  /* Databáza Supabase: len verejný anon kľúč, čo smie web čítať a zapisovať, určujú pravidlá RLS (supabase/schema.sql).
+     Bez adresy, offline alebo s ?nodb (testy) stránka nič neposiela a ukazuje údaje, ktoré má v sebe. */
+  const DB_URL = 'https://pcoajyawqgbuczwywzfv.supabase.co';
+  const DB_KEY = 'sb_publishable_9drL5JI30AAzCnkDIkXY4w_892G8kJV';
+  const dbOn = !!(DB_URL && DB_KEY) && !/[?&]nodb\b/.test(location.search);
+  document.documentElement.dataset.db = dbOn ? 'wait' : 'off';
+  const dbReq = async (path, { method = 'GET', body, headers = {}, timeout = 10000, json = false } = {}) => {
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), timeout);
+    const auth = DB_KEY.startsWith('eyJ') ? { Authorization: `Bearer ${DB_KEY}` } : {};
+    try {
+      const res = await fetch(DB_URL + path, { method, body, signal: ctl.signal, headers: { apikey: DB_KEY, ...auth, ...headers } });
+      if (!res.ok) {
+        let msg = '';
+        try { const j = await res.json(); msg = j.message || j.error || ''; } catch { /* odpoveď bez JSON */ }
+        throw Object.assign(new Error(msg || `HTTP ${res.status}`), { status: res.status });
+      }
+      if (!json) return res;
+      // tvrdý limit aj na čítanie tela odpovede (keby sa prenos zasekol po hlavičkách)
+      const late = new Promise((_, no) => ctl.signal.addEventListener('abort', () => no(Object.assign(new Error('Časový limit'), { name: 'AbortError' }))));
+      return await Promise.race([res.json(), late]);
+    } finally { clearTimeout(timer); }
+  };
+  const dbInsert = (table, row) => dbReq(`/rest/v1/${table}`, {
+    method: 'POST', body: JSON.stringify(row), headers: { 'Content-Type': 'application/json', Prefer: 'return=minimal' }
+  });
+  // Hlásenie pre človeka: limit z databázy (P0001) povie sám, inak všeobecná rada
+  const dbError = err => err && err.status && /skúste|preťažená/i.test(err.message) ? err.message
+    : err && err.status ? 'Nepodarilo sa to uložiť. Skúste to, prosím, o chvíľu znova.'
+    : 'Nepodarilo sa to odoslať. Skontrolujte pripojenie na internet a skúste to znova.';
+  const uuid = () => crypto.randomUUID ? crypto.randomUUID()
+    : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
 
   /* Našepkávač: bežné práce a ich kategória */
   const TASKS = [
@@ -1561,8 +1606,8 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   const PAGE = 8;
   const dx = { list: $('#dx-list'), count: $('#dx-count'), more: $('#dx-more'), reset: $('#dx-reset'), ask: $('#dx-ask'), limit: PAGE };
   const plural = (n, one, few, many) => n === 1 ? one : n > 1 && n < 5 ? few : many;
-  const initials = s => s.replace(/,?\s*s\.\s*r\.\s*o\.$/, '').split(/\s+/).slice(0, 2).map(w => w[0].toUpperCase()).join('');
-  const respText = h => h < 24 ? `do ${h} h` : h === 24 ? 'do 1 dňa' : `do ${h / 24} dní`;
+  const initials = s => String(s).trim().replace(/,?\s*s\.\s*r\.\s*o\.$/, '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0].toUpperCase()).join('') || '?';
+  const respText = h => h < 24 ? `do ${h} h` : h <= 24 ? 'do 1 dňa' : `do ${Math.ceil(h / 24)} dní`;
   const num = r => r.toLocaleString('sk-SK', { minimumFractionDigits: 1 });
   const SORT = {
     rating: (a, b) => b.rating - a.rating || b.count - a.count,
@@ -1580,7 +1625,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       <div class="biz-main">
         <h3 tabindex="-1"><button class="biz-name" type="button" data-profile="${nm}">${nm}</button><svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg><span class="kind">${p.firm ? 'Firma' : 'Živnostník'}</span></h3>
         <p class="trade">${trade} · ${esc(p.town)}</p>
-        <ul class="biz-tags"><li>${esc(p.tag)}</li><li>${p.langs}</li></ul>
+        <ul class="biz-tags"><li>${esc(p.tag)}</li><li>${esc(p.langs)}</li></ul>
       </div>
       <div class="biz-rate">
         <p class="rating"><span class="stars" style="--p:${p.rating / 5 * 100}%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>${num(p.rating)}<span class="sr"> z 5</span></strong>(${p.count} hodnotení)</p>
@@ -1644,13 +1689,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     $('#zoznam .sec-head').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
     $('#zoznam-title').focus({ preventScroll: true });
   });
-  // Počet majstrov pri každej službe
-  $$('.dir-item[data-dx]').forEach(b => {
+  // Počet majstrov pri každej službe (znova po načítaní zoznamu z databázy)
+  const countDir = () => $$('.dir-item[data-dx]').forEach(b => {
     const n = PROS.filter(p => p.cat === b.dataset.dx).length;
     const s = b.querySelector('small');
+    if (!s) return;
+    if (!s.dataset.t) s.dataset.t = s.textContent;
     // cena a počet sa nezalomia vnútri, len medzi sebou
-    if (s && n) s.innerHTML = `<span class="nw">${esc(s.textContent)}</span><span class="dot"> · </span><span class="nw">${n} ${plural(n, 'majster', 'majstri', 'majstrov')}</span>`;
+    s.innerHTML = n ? `<span class="nw">${esc(s.dataset.t)}</span><span class="dot"> · </span><span class="nw">${n} ${plural(n, 'majster', 'majstri', 'majstrov')}</span>` : esc(s.dataset.t);
   });
+  countDir();
   renderDir();
 
   /* Profil majstra alebo firmy: kto je, s čím pracuje, ukážky prác a hodnotenia (ilustračný obsah podľa remesla) */
@@ -1780,6 +1828,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     'Jozef Mráz': [['ph-pf-mraz-1', 'Zmontovaná bezúchytková kuchyňa'], ['ph-pf-mraz-2', 'Spájanie rohových skriniek pri montáži']],
     'Šarišské teplo, s. r. o.': [['ph-pf-sarisske-1', 'Fotovoltika na rodinnom dome'], ['ph-pf-sarisske-2', 'Montáž panelov na škridlovú strechu']]
   };
+  const DB_REVS = new Map(); // meno -> [[text, autor, práca, mesiac, hviezdy]] z databázy
   const REVIEWERS = ['Jana K.', 'Michal R.', 'Katarína S.', 'Ondrej B.', 'Alena M.', 'Peter V.', 'Lucia H.', 'Tomáš D.', 'Zuzana P.', 'Marek L.', 'Eva T.', 'Juraj N.'];
   const MONTHS = ['október 2026', 'september 2026', 'august 2026', 'júl 2026', 'jún 2026'];
   const slug = s => norm(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -1807,18 +1856,21 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     const license = /§|oprávnen|majster/i.test(p.tag);
     const payer = !/neplatite/i.test(p.price);
     // hodnotenia: citácia z karty najlepšie hodnotených (ak je), potom ďalšie podľa remesla
-    const card = $$('#pros .pro').find(a => a.querySelector('[data-profile]')?.dataset.profile === p.name);
-    const revs = [];
-    if (card) {
-      const q = card.querySelector('.quote blockquote')?.textContent || '';
-      const who = (card.querySelector('.quote figcaption')?.textContent || '').split(' · ');
-      if (q) revs.push([q, who[0] || '', who[1] || '', MONTHS[0], 5]);
-    }
-    for (let k = 0; revs.length < 3 && k < t.rev.length * 2; k++) {
-      const [text, job] = t.rev[(p.i + k) % t.rev.length];
-      if (revs.some(r => norm(r[2]) === norm(job) || norm(r[0]).includes(norm(text).slice(0, 16)))) continue;
-      const name = REVIEWERS[(p.i * 3 + k) % REVIEWERS.length].split(' ')[0];
-      revs.push([`„${text}“`, `${name}, ${towns[(p.i + k * 2) % towns.length]}`, job, MONTHS[(k + p.i) % MONTHS.length], k === 2 && p.rating < 4.8 ? 4 : 5]);
+    // z databázy (ak sa načítala), inak citácia z karty najlepšie hodnotených a ďalšie podľa remesla
+    const revs = (DB_REVS.get(p.name) || []).slice(0, 3);
+    if (!revs.length) {
+      const card = $$('#pros .pro').find(a => a.querySelector('[data-profile]')?.dataset.profile === p.name);
+      if (card) {
+        const q = card.querySelector('.quote blockquote')?.textContent || '';
+        const who = (card.querySelector('.quote figcaption')?.textContent || '').split(' · ');
+        if (q) revs.push([q, who[0] || '', who[1] || '', MONTHS[0], 5]);
+      }
+      for (let k = 0; revs.length < 3 && k < t.rev.length * 2; k++) {
+        const [text, job] = t.rev[(p.i + k) % t.rev.length];
+        if (revs.some(r => norm(r[2]) === norm(job) || norm(r[0]).includes(norm(text).slice(0, 16)))) continue;
+        const name = REVIEWERS[(p.i * 3 + k) % REVIEWERS.length].split(' ')[0];
+        revs.push([`„${text}“`, `${name}, ${towns[(p.i + k * 2) % towns.length]}`, job, MONTHS[(k + p.i) % MONTHS.length], k === 2 && p.rating < 4.8 ? 4 : 5]);
+      }
     }
     const bars = dist(p.rating, p.count);
     const photos = PF_PHOTOS[p.name] || [];
@@ -1847,9 +1899,9 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       <section class="pf-sec">
         <h3>${p.firm ? 'O nás' : 'O mne'}</h3>
         <p>${t[own].replace('{r}', years)}</p>
-        <ul class="pf-chips"><li class="hl">${esc(p.tag)}</li><li>Pôsobisko: ${esc(p.town)}, do ${radius} km</li><li>Jazyky: ${p.langs}</li></ul>
+        <ul class="pf-chips"><li class="hl">${esc(p.tag)}</li><li>Pôsobisko: ${esc(p.town)}, do ${radius} km</li><li>Jazyky: ${esc(p.langs)}</li></ul>
       </section>
-      ${photos.length ? `<section class="pf-sec"><h3>Fotky z realizácií</h3><div class="pf-gal">${photos.map(([cls, cap]) => `<figure><span class="ph ${cls}" role="img" aria-label="${esc(cap)}"></span><figcaption>${esc(cap)}</figcaption></figure>`).join('')}</div></section>` : ''}
+      ${photos.length ? `<section class="pf-sec"><h3>Fotky z realizácií</h3><div class="pf-gal">${photos.map(([cls, cap, url]) => `<figure><span class="ph ${cls}"${url ? ` style="background-image:url('${esc(url)}')"` : ''} role="img" aria-label="${esc(cap)}"></span><figcaption>${esc(cap)}</figcaption></figure>`).join('')}</div></section>` : ''}
       <section class="pf-sec">
         <h3>${p.firm ? 'S čím pracujeme' : 'S čím pracujem'}</h3>
         <ul class="pf-chips">${t.works.map(w => `<li>${icon('i-check')}${w}</li>`).join('')}</ul>
@@ -1880,7 +1932,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
           <div class="pf-score"><b>${num(p.rating)}</b><span class="stars" style="--p:${p.rating / 5 * 100}%" aria-hidden="true"></span><small>${p.count} hodnotení</small></div>
           <ul class="pf-bars" aria-label="Rozdelenie hodnotení">${bars.map((n, k) => `<li><span>${5 - k} ★</span><i style="--w:${Math.round(n / p.count * 100)}%"></i><span>${n}</span></li>`).join('')}</ul>
         </div>
-        <ul class="pf-revs">${revs.map(([q, who, job, month, st]) => `<li><span class="stars" style="--p:${st * 20}%" aria-hidden="true"></span><span class="sr">${st} z 5 hviezdičiek.</span><blockquote>${esc(q)}</blockquote><small>${esc(who)} · ${esc(job)} · ${month}</small></li>`).join('')}</ul>
+        <ul class="pf-revs">${revs.map(([q, who, job, month, st]) => `<li><span class="stars" style="--p:${st * 20}%" aria-hidden="true"></span><span class="sr">${st} z 5 hviezdičiek.</span><blockquote>${esc(q)}</blockquote><small>${esc(who)} · ${esc(job)} · ${esc(month)}</small></li>`).join('')}</ul>
       </section>
       <section class="pf-sec">
         <h3>${p.firm ? 'Ako pracujeme' : 'Ako pracujem'}</h3>
@@ -1936,6 +1988,63 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   window.addEventListener('hashchange', profileFromHash);
   profileFromHash();
 
+  /* Majstri, fotky z realizácií a hodnotenia z databázy. Kým neprídu alebo keď databáza neodpovedá,
+     platia údaje zo stránky (PROS, PF_PHOTOS), takže zoznam ani profily nikdy nie sú prázdne. */
+  const PHOTO_URL = new RegExp(`^${DB_URL.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}/storage/v1/object/public/[A-Za-z0-9._/-]{3,300}$`);
+  const loadPros = async () => {
+    const cols = 'id,meno,firma,remeslo,obec,kraj,hodnotenie,pocet_hodnoteni,dokoncene,cena,odpoved_h,jazyky,stitok';
+    const data = await dbReq(`/rest/v1/majstri?select=${cols},fotky_realizacii(poradie,obrazok,popis),hodnotenia(poradie,text,autor,praca,mesiac,hviezdy)&order=id`, { timeout: 8000, json: true });
+    const rows = (Array.isArray(data) ? data : []).filter(r => r && typeof r.meno === 'string' && r.meno.trim().length >= 2 &&
+      Object.hasOwn(CAT, r.remeslo) && Object.hasOwn(KRAJ, r.kraj) && Number.isInteger(r.id))
+      .map(r => ({ ...r, meno: r.meno.trim() }));
+    if (!rows.length) throw new Error('Databáza vrátila prázdny zoznam');
+    const byOrder = (a, b) => a.poradie - b.poradie;
+    const photos = {};
+    const sig = list => JSON.stringify(list.map(p => [p.name, p.firm, p.cat, p.town, p.kraj, p.rating, p.count, p.jobs, p.price, p.resp, p.langs, p.tag, p.i]));
+    const before = sig(PROS);
+    // záloha: ak by sa údaje z DB nedali vykresliť, vráti sa pôvodný zoznam zo stránky
+    const prev = { pros: PROS.slice(), photos: { ...PF_PHOTOS }, revs: new Map(DB_REVS) };
+    try {
+    DB_REVS.clear();
+    PROS.splice(0, PROS.length, ...rows.map(r => {
+      const ph = (r.fotky_realizacii || []).sort(byOrder).map(f =>
+        PHOTO_URL.test(f.obrazok) ? ['', f.popis, f.obrazok] : /^[a-z0-9-]+$/.test(f.obrazok) ? [`ph-${f.obrazok}`, f.popis] : null).filter(Boolean);
+      if (ph.length) photos[r.meno] = ph;
+      const rv = (r.hodnotenia || []).sort(byOrder).map(h => [h.text, h.autor, h.praca, h.mesiac, Math.min(5, Math.max(1, h.hviezdy | 0))]);
+      if (rv.length) DB_REVS.set(r.meno, rv);
+      return {
+        name: r.meno, firm: r.firma ? 1 : 0, cat: r.remeslo, town: String(r.obec), kraj: r.kraj,
+        rating: Math.min(5, Math.max(1, +r.hodnotenie || 0)), count: Math.max(0, r.pocet_hodnoteni | 0), jobs: Math.max(0, r.dokoncene | 0),
+        price: String(r.cena), resp: Math.max(1, r.odpoved_h | 0), langs: String(r.jazyky), tag: String(r.stitok), i: r.id
+      };
+    }));
+    Object.keys(PF_PHOTOS).forEach(k => delete PF_PHOTOS[k]);
+    Object.assign(PF_PHOTOS, photos);
+    if (sig(PROS) !== before) {
+      // prekresliť zoznam, ale nestratiť fokus, ak bol na niektorom majstrovi
+      const act = document.activeElement;
+      const keep = dx.list.contains(act) ? act.closest('li')?.querySelector('[data-profile]')?.dataset.profile : '';
+      countDir();
+      renderDir();
+      if (keep) dx.list.querySelector(`[data-profile="${CSS.escape(keep)}"]`)?.focus();
+    }
+    } catch (e) {
+      PROS.splice(0, PROS.length, ...prev.pros);
+      Object.keys(PF_PHOTOS).forEach(k => delete PF_PHOTOS[k]);
+      Object.assign(PF_PHOTOS, prev.photos);
+      DB_REVS.clear();
+      prev.revs.forEach((v, k) => DB_REVS.set(k, v));
+      countDir();
+      renderDir();
+      throw e;
+    }
+    document.documentElement.dataset.db = 'ok';
+  };
+  if (dbOn) {
+    const go = () => loadPros().catch(() => { document.documentElement.dataset.db = 'fallback'; });
+    if (document.readyState === 'complete') setTimeout(go, 0); else window.addEventListener('load', go, { once: true });
+  }
+
   /* Otázky: otvorenie podľa odkazu */
   const openFaq = () => {
     const id = location.hash.slice(1);
@@ -1962,19 +2071,59 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     [...tabs.map(t => document.getElementById(t.dataset.sec)), ...$$('section[data-tab]')].forEach(s => { if (s) io.observe(s); });
   }
 
-  /* IČO */
-  $('#ico-form').addEventListener('submit', e => {
+  /* IČO: overenie tvaru; s databázou potom e-mail a uloženie záujmu o profil (tabuľka firmy_zaujem) */
+  const icoMore = $('#ico-more');
+  const icoEmail = $('#ico-email');
+  const icoSend = $('#ico-send');
+  let icoBusy = false;
+  $('#ico-form').addEventListener('submit', async e => {
     e.preventDefault();
+    if (icoBusy) return;
     const raw = $('#ico').value.replace(/\s+/g, '');
+    const nice = raw.replace(/(\d{2})(\d{3})(\d{3})/, '$1 $2 $3');
     const msg = $('#ico-msg');
-    if (/^\d{8}$/.test(raw)) {
-      msg.className = 'ico-msg ok';
-      msg.textContent = `IČO ${raw.replace(/(\d{2})(\d{3})(\d{3})/, '$1 $2 $3')} má správny tvar. V ostrej verzii by sme názov a sídlo načítali z registra právnických osôb.`;
-      $('#ico').removeAttribute('aria-invalid');
-    } else {
-      msg.className = 'ico-msg bad';
-      msg.textContent = 'IČO má 8 číslic, napríklad 12345678.';
+    const say = (cls, text) => { msg.className = `ico-msg ${cls}`; msg.textContent = text; };
+    if (!/^\d{8}$/.test(raw)) {
+      say('bad', 'IČO má 8 číslic, napríklad 12345678.');
       $('#ico').setAttribute('aria-invalid', 'true');
+      icoMore.hidden = true;
+      return;
+    }
+    $('#ico').removeAttribute('aria-invalid');
+    // Enter v poli e-mailu odošle formulár cez prvé tlačidlo („Overiť IČO“), preto rozhoduje aj fokus
+    const send = dbOn && !icoMore.hidden && (e.submitter === icoSend || document.activeElement === icoEmail);
+    if (!send) {
+      say('ok', dbOn
+        ? `IČO ${nice} má správny tvar. Nechajte nám e-mail a pošleme vám pozvánku do registrácie firiem.`
+        : `IČO ${nice} má správny tvar. V ostrej verzii by sme názov a sídlo načítali z registra právnických osôb.`);
+      if (dbOn) { icoMore.hidden = false; icoEmail.focus(); }
+      return;
+    }
+    const email = icoEmail.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      say('bad', 'Zadajte e-mail v tvare meno@domena.sk.');
+      icoEmail.setAttribute('aria-invalid', 'true');
+      icoEmail.focus();
+      return;
+    }
+    icoEmail.removeAttribute('aria-invalid');
+    icoBusy = true;
+    icoSend.disabled = true;
+    icoSend.textContent = 'Odosielam…';
+    try {
+      await dbInsert('firmy_zaujem', { ico: raw, email });
+      say('ok', `Ďakujeme. Pozvánku pre IČO ${nice} pošleme na ${email}, keď spustíme registráciu firiem.`);
+      icoMore.hidden = true;
+      $('#ico').value = '';
+      icoEmail.value = '';
+      $('#ico').focus();
+    } catch (err) {
+      say('bad', dbError(err));
+    } finally {
+      icoBusy = false;
+      icoSend.disabled = false;
+      icoSend.textContent = 'Chcem profil zadarmo';
+      if (document.activeElement === document.body || !document.activeElement) icoSend.focus();
     }
   });
 
@@ -2027,36 +2176,144 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     return true;
   };
 
-  const finish = () => {
+  // Fotky: najviac 5, zmenšené na 1600 px a uložené ako JPEG; čo prehliadač nevie otvoriť (napr. HEIC), vynechá
+  const MAX_PHOTOS = 5;
+  const loadImgEl = file => new Promise((ok, no) => {
+    const url = URL.createObjectURL(file);
+    const im = new Image();
+    im.onload = () => { URL.revokeObjectURL(url); ok(im); };
+    im.onerror = e => { URL.revokeObjectURL(url); no(e); };
+    im.src = url;
+  });
+  const loadImg = file => !window.createImageBitmap ? loadImgEl(file)
+    : createImageBitmap(file, { imageOrientation: 'from-image' }).catch(() => createImageBitmap(file)).catch(() => loadImgEl(file));
+  const toJpeg = async file => {
+    const img = await loadImg(file);
+    const k = Math.min(1, 1600 / Math.max(img.width, img.height));
+    const c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(img.width * k));
+    c.height = Math.max(1, Math.round(img.height * k));
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    if (img.close) img.close();
+    return new Promise((ok, no) => c.toBlob(b => (b ? ok(b) : no(new Error('Fotku sa nepodarilo spracovať'))), 'image/jpeg', 0.82));
+  };
+  // Žiadosť do tabuľky zakazky, potom fotky do súkromného priečinka <id>/ (pravidlá ich prijmú len 15 minút po žiadosti)
+  let reqId = null;
+  const sendRequest = async () => {
+    const id = reqId ||= uuid();
+    const picked = [...$('#f-photos').files];
+    const blobs = [];
+    for (const f of picked.slice(0, MAX_PHOTOS)) {
+      try { blobs.push(await toJpeg(f)); } catch { /* nečitateľná fotka sa vynechá, žiadosť platí aj bez nej */ }
+    }
+    const place = $('#f-psc').value.trim();
+    const phone = $('#f-phone').value.replace(/[^0-9 +()/.-]/g, '').trim().slice(0, 30);
+    try { await dbInsert('zakazky', {
+      id,
+      druh: $('#f-cat').value,
+      miesto: place,
+      kraj: (findPlace(place) || [])[2] || null,
+      termin: form.querySelector('input[name="when"]:checked').value,
+      opis: $('#f-desc').value.trim(),
+      rozpocet: $('#f-budget').value || null,
+      jazyk: $('#f-lang').value,
+      ico: $('#f-firm').checked ? $('#f-ico').value.replace(/\s+/g, '') : null,
+      meno: $('#f-name').value.trim(),
+      email: $('#f-email').value.trim(),
+      telefon: phone.length >= 3 ? phone : null,
+      majster: pro || null,
+      fotky_pocet: blobs.length,
+      tipy: $('#f-news').checked,
+      suhlas: true
+    }); } catch (e) { if (e.status !== 409) throw e; } // 409 = žiadosť s týmto id už je uložená z predošlého pokusu
+    let photos = 0;
+    for (let k = 0; k < blobs.length; k++) {
+      try {
+        await dbReq(`/storage/v1/object/zakazky-fotky/${id}/${k + 1}.jpg`, {
+          method: 'POST', body: blobs[k], headers: { 'Content-Type': 'image/jpeg', 'x-upsert': 'false' }, timeout: 30000
+        });
+        photos++;
+      } catch { /* fotka sa nenahrala, žiadosť je už uložená */ }
+    }
+    reqId = null;
+    return { id, photos, wanted: picked.length };
+  };
+
+  const finish = sent => {
     const cat = $('#f-cat');
     const when = form.querySelector('input[name="when"]:checked').value;
     const email = $('#f-email').value.trim();
+    const nPhotos = $('#f-photos').files.length;
+    const photoText = !sent ? (nPhotos ? `${nPhotos} ks` : 'bez fotiek')
+      : sent.photos ? `${sent.photos} ks${sent.photos < sent.wanted ? ` z ${sent.wanted}` : ''}`
+      : sent.wanted ? `nepodarilo sa ich nahrať (${sent.wanted} ks)` : 'bez fotiek';
     const rows = [
       ['Práca', cat.options[cat.selectedIndex].text],
       ['Miesto', $('#f-psc').value.trim()],
       ['Termín', when],
       ['Opis', $('#f-desc').value.trim()],
-      ['Fotky', $('#f-photos').files.length ? `${$('#f-photos').files.length} ks` : 'bez fotiek'],
+      ['Fotky', photoText],
       ['Rozpočet', $('#f-budget').value || 'bez predstavy'],
       ['Jazyk', $('#f-lang').value]
     ];
     if ($('#f-firm').checked) rows.push(['Faktúra na IČO', $('#f-ico').value.replace(/\s+/g, '')]);
     if (pro) rows.unshift(['Pre majstra', pro]);
     $('#summary').innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
-    $('#done-text').textContent = `V ostrej verzii by ste do 24 hodín dostali najviac tri ponuky na ${email}. Telefón uvidí až majster, ktorého vyberiete.`;
+    $('#done-title').textContent = sent ? 'Žiadosť je odoslaná' : 'Žiadosť je pripravená';
+    $('#done-text').textContent = sent
+      ? `Žiadosť č. ${sent.id.slice(0, 8).toUpperCase()} sme prijali. V ostrej prevádzke by ste do 24 hodín dostali najviac tri ponuky na ${email}. Telefón uvidí až majster, ktorého vyberiete.`
+      : `V ostrej verzii by ste do 24 hodín dostali najviac tri ponuky na ${email}. Telefón uvidí až majster, ktorého vyberiete.`;
+    $('#done-note').textContent = sent
+      ? 'Poruke je zatiaľ koncept. Žiadosť sme uložili, ale skutočným majstrom sa zatiaľ neposiela.'
+      : 'Toto je koncept, preto sa žiadosť nikam neodoslala a údaje zostali len vo vašom prehliadači.';
   };
 
-  form.addEventListener('submit', e => {
+  let sending = false;
+  form.addEventListener('submit', async e => {
     e.preventDefault();
+    if (sending) return;
     if (step === 4) { dlg.close(); return; }
     if (!validate(step)) return;
-    if (step === 3) finish();
+    if (step === 3) {
+      let sent = null;
+      // pole f-web je skryté, vypĺňajú ho len roboty: tým sa nič neodošle
+      if (dbOn && !$('#f-web').value) {
+        const err = $('#e-send');
+        err.hidden = true;
+        sending = true;
+        next.disabled = back.disabled = true;
+        next.textContent = 'Odosielam…';
+        try {
+          sent = await sendRequest();
+        } catch (x) {
+          err.textContent = dbError(x);
+          err.hidden = false;
+          return;
+        } finally {
+          sending = false;
+          next.disabled = back.disabled = false;
+          if (step === 3) next.textContent = 'Odoslať žiadosť';
+          if (!dlg.contains(document.activeElement)) next.focus();
+        }
+        if (!dlg.open) dlg.showModal();
+      }
+      finish(sent);
+    }
     show(step + 1);
   });
+  if (dbOn) {
+    $('#h-photos').textContent = `Najviac ${MAX_PHOTOS} fotiek. Pred odoslaním ich zmenšíme, odstránime z nich polohu a uložíme spolu so žiadosťou.`;
+    // koncept: žiadosť vidí len správca Poruke, majstrom sa neposiela; newsletter zatiaľ neexistuje
+    $('#consent-text').textContent = 'Súhlasím so spracovaním údajov na účel tejto žiadosti. Poruke je zatiaľ koncept: žiadosť uloží a uvidí ju len správca, majstrom sa neposiela.';
+    $('#f-news').closest('label').hidden = true;
+    $('#f-news').checked = false;
+    $('#faq-udaje p').textContent = 'Poruke je zatiaľ koncept. Žiadosti o ponuku a e-maily z formulárov ukladáme v databáze v EÚ (Supabase, Írsko), vidí ich len správca Poruke a skutočným majstrom sa neposielajú. Fotky pred odoslaním zmenšíme a odstránime z nich polohu. V ostrej prevádzke by majstri do výberu videli len obec, opis práce a fotky a meno, telefón a adresu by dostal iba vybraný majster. Používame len nevyhnutné cookies, preto tu nenájdete cookie lištu.';
+  }
   back.addEventListener('click', () => show(Math.max(1, step - 1)));
   $('#f-firm').addEventListener('change', () => { $('#firm-box').hidden = !$('#f-firm').checked; if ($('#f-firm').checked) $('#f-ico').focus(); });
-  $('#req-close').addEventListener('click', () => dlg.close());
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+  $('#req-close').addEventListener('click', () => { if (!sending) dlg.close(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg && !sending) dlg.close(); });
+  dlg.addEventListener('cancel', e => { if (sending) e.preventDefault(); });
   $$('.err', form).forEach(el => {
     const input = form.querySelector(`[aria-describedby~="${el.id}"]`);
     if (input) input.addEventListener('input', () => { el.hidden = true; input.removeAttribute('aria-invalid'); });
@@ -2064,7 +2321,9 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 
   let autoDesc = '';
   const openReq = ({ cat = '', desc = '', psc = '', proName = '' } = {}) => {
-    if (step === 4) { form.reset(); $('#firm-box').hidden = true; }
+    // počas odosielania formulár nevynulovať, len ho ukázať s priebehom
+    if (sending) { if (!dlg.open) dlg.showModal(); return; }
+    if (step === 4) { form.reset(); $('#firm-box').hidden = true; reqId = null; }
     pro = proName;
     const note = $('#pro-note');
     note.hidden = !pro;

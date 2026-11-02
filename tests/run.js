@@ -26,12 +26,32 @@ function loadPlaywright() {
 }
 
 function resolveTarget() {
-  if (process.env.SHARED) return process.env.SHARED;
+  let url;
   const arg = process.argv[2];
-  if (arg && /^https?:\/\//.test(arg)) return arg;
-  const file = path.resolve(ROOT, arg || 'index.html');
-  if (!fs.existsSync(file)) throw new Error(`Súbor neexistuje: ${file}`);
-  return pathToFileURL(file).href;
+  if (process.env.SHARED) url = process.env.SHARED;
+  else if (arg && /^https?:\/\//.test(arg)) url = arg;
+  else {
+    const file = path.resolve(ROOT, arg || 'index.html');
+    if (!fs.existsSync(file)) throw new Error(`Súbor neexistuje: ${file}`);
+    url = pathToFileURL(file).href;
+  }
+  // Testy nesmú zapisovať do ostrej databázy: stránka s ?nodb nič neposiela (NODB=0 to vypne)
+  if (process.env.NODB !== '0' && !/[?&]nodb\b/.test(url)) {
+    const [base, hash] = url.split('#');
+    url = base + (base.includes('?') ? '&' : '?') + 'nodb' + (hash !== undefined ? '#' + hash : '');
+  }
+  return url;
+}
+
+// Poistka navyše: každá požiadavka na Supabase sa zablokuje a zapíše (zápis dostane falošnú odpoveď 201)
+const isSupabase = u => { try { return /(^|\.)supabase\.co$/.test(new URL(String(u)).hostname); } catch { return false; } };
+async function guardDatabase(context, hits) {
+  await context.route(isSupabase, route => {
+    const q = route.request();
+    hits.push(`${q.method()} ${q.url().replace(/[?#].*$/, '')}`);
+    if (q.method() === 'GET' || q.method() === 'HEAD') return route.abort('blockedbyclient');
+    return route.fulfill({ status: 201, contentType: 'application/json', body: '[]', headers: { 'access-control-allow-origin': '*' } });
+  });
 }
 
 const VIEWPORTS = [
@@ -120,11 +140,13 @@ async function runViewport(browser, target, vp, out) {
     locale: 'sk-SK',
     reducedMotion: 'reduce',
   });
+  const dbHits = [];
+  await guardDatabase(context, dbHits);
   const page = await context.newPage();
   const problems = [];
   page.on('console', m => { if (m.type() === 'error') problems.push('konzola: ' + m.text()); });
   page.on('pageerror', e => problems.push('JS chyba: ' + e.message));
-  page.on('requestfailed', q => problems.push(`nenačítané: ${q.url().slice(0, 120)} (${q.failure() && q.failure().errorText})`));
+  page.on('requestfailed', q => { if (!isSupabase(q.url())) problems.push(`nenačítané: ${q.url().slice(0, 120)} (${q.failure() && q.failure().errorText})`); });
   page.on('response', resp => { if (resp.status() >= 400) problems.push(`HTTP ${resp.status()}: ${resp.url().slice(0, 120)}`); });
 
   const ctx = { vp, page, out };
@@ -1049,6 +1071,13 @@ async function runViewport(browser, target, vp, out) {
       .map(a => a.getAttribute('href'))
       .filter(h => h.length > 1 && !document.getElementById(decodeURIComponent(h.slice(1)))));
     check(r, bad.length === 0, `mŕtve kotvy: ${[...new Set(bad)].join(', ')}`);
+  });
+
+  await test(ctx, 'databáza: s ?nodb sa nič neposlalo', async r => {
+    const uniq = [...new Set(dbHits)];
+    const nodb = /[?&]nodb\b/.test(target);
+    r.info = nodb ? (uniq.length ? `${uniq.length} požiadaviek zablokovaných` : 'žiadna požiadavka') : `bez ?nodb (NODB=0), zablokovaných ${uniq.length}`;
+    if (nodb) uniq.slice(0, 8).forEach(h => r.errors.push(`stránka s ?nodb volala databázu: ${h} (zablokované testom)`));
   });
 
   await test(ctx, 'bez chýb v konzole a sieti', async r => {

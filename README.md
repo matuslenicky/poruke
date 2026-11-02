@@ -4,7 +4,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 
 **Živá ukážka:** https://matuslenicky.github.io/poruke/
 
-> Toto je ukážka dizajnu, nie prevádzkovaná služba. Mená majstrov, hodnotenia, ceny a čísla žiadostí sú vymyslené. Formulár zákazky ani overenie IČO nič neodosielajú, všetko zostáva v prehliadači.
+> Toto je koncept, nie prevádzkovaná služba. Mená majstrov, hodnotenia a ceny sú vymyslené. Žiadosti o ponuku a záujem firiem sa ukladajú do databázy Supabase, skutočným majstrom sa však neposielajú.
 
 ## Čo koncept ukazuje
 
@@ -34,6 +34,10 @@ node build.js
 ```
 
 Bez závislostí, stačí Node.js.
+
+## Databáza
+
+Majstri, fotky z realizácií a hodnotenia sa načítajú zo Supabase a žiadosti o ponuku (aj s fotkami) a záujem firiem sa do nej ukladajú. Web používa len verejný kľúč a čo smie, určujú pravidlá RLS na všetkých tabuľkách. Keď databáza neodpovedá, stránka ukáže údaje, ktoré má v sebe. Podrobnosti sú v [supabase/README.md](supabase/README.md).
 
 ## Testy
 
