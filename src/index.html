@@ -291,6 +291,17 @@ button,input,select,textarea{font:inherit;color:inherit}
 .points li:last-child{border-bottom:1px solid var(--band-line)}
 .points .ic{color:var(--band-accent);margin-top:2px;stroke-width:2.2}
 .band-side{display:grid;gap:16px}
+.leads{background:var(--band-card);border:1px solid var(--band-line);border-radius:20px;padding:24px;display:grid;gap:14px}
+.leads-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px}
+.leads-head h3{font-weight:600;font-size:18px}
+.leads-head span{font-size:13.5px;color:var(--band-muted)}
+.lead-list{list-style:none;margin:0;padding:0;display:grid}
+.lead-list li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--band-line)}
+.lead-list b{display:block;font-weight:600;font-size:15.5px}
+.lead-list small{display:block;font-size:13.5px;color:var(--band-muted)}
+.lead-list strong{font-family:var(--serif);font-weight:400;font-size:38px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lead-foot{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--band-muted);padding-top:12px;border-top:1px solid var(--band-line)}
+.lead-foot .ic{margin-top:2px}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .plan{position:relative;display:grid;gap:10px;align-content:start;background:var(--band-card);border:1px solid var(--band-line);border-radius:20px;padding:22px}
 .plan h3{font-weight:600;font-size:17px}
@@ -653,12 +664,12 @@ dialog::backdrop{background:var(--scrim)}
     <div class="sec-head center">
       <div>
         <p class="kicker">Prečo Poruke</p>
-        <h2 class="h2" id="why-title">Žiadny predaj kontaktov. <span class="gray">Len férové ponuky.</span></h2>
-        <p class="sub">Mnohé portály predávajú vašu žiadosť každému, kto zaplatí. My to robíme inak.</p>
+        <h2 class="h2" id="why-title">Najviac traja majstri. <span class="gray">Žiadne naháňanie.</span></h2>
+        <p class="sub">Mnohé portály posielajú vašu žiadosť desiatkam firiem. U nás ju dostanú najviac traja a váš telefón len ten, koho si vyberiete.</p>
       </div>
     </div>
     <div class="bento">
-      <article class="b b-photo b-2"><span class="ph ph-upratovanie"></span><div><h3>Kontakt len pre vybraného</h3><p>Váš telefón si nekúpi žiadna firma. Dostane ho iba majster, ktorého si vyberiete.</p></div></article>
+      <article class="b b-photo b-2"><span class="ph ph-upratovanie"></span><div><h3>Kontakt len pre vybraného</h3><p>Majstri vám píšu cez Poruke. Telefón a adresu dostane iba ten, koho si vyberiete.</p></div></article>
       <article class="b b-sand"><svg class="ic" aria-hidden="true"><use href="#i-receipt"/></svg><div><h3>Cena vopred, s DPH</h3><p>Pevná cena alebo hodinová sadzba s odhadom. Vždy vidíte, či je majster platiteľ DPH.</p></div></article>
       <article class="b b-sage"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div><h3>Overené IČO a oprávnenia</h3><p>Firmy overujeme v registri, elektrikári a plynári dokladajú osvedčenie.</p></div></article>
       <article class="b b-photo b-2"><span class="ph ph-zahrada"></span><div><h3>Hodnotenia len po dokončení</h3><p>Hodnotiť môže iba zákazník, ktorému majster prácu dokončil. Lepšie miesto vo výsledkoch si nikto nekúpi.</p></div></article>
@@ -796,29 +807,24 @@ dialog::backdrop{background:var(--scrim)}
   <div class="wrap band-grid">
     <div class="band-copy">
       <p class="kicker">Pre firmy</p>
-      <h2 class="h2" id="band-title">Platíte za nástroj, <span class="gray">nie za kontakty.</span></h2>
-      <p class="sub">Zákazky z vášho okolia bez prihadzovania o pozície. Lepšie miesto vo výsledkoch si nemôže kúpiť nikto.</p>
+      <h2 class="h2" id="band-title">Platíte len za zákazky, <span class="gray">ktoré chcete.</span></h2>
+      <p class="sub">Žiadne predplatné. Za zákazku z okolia zaplatíte, až keď na ňu pošlete ponuku, a viete, že ju dostanú najviac traja majstri.</p>
       <ul class="points">
-        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Žiadne poplatky za kontakty ani za poslané ponuky</li>
-        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Poradie podľa vzdialenosti, termínu a hodnotení</li>
-        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Faktúry a doklady z eKasy vystavujete po svojom</li>
-        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Mesačná výpoveď, žiadna viazanosť</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Platíte, až keď na zákazku pošlete ponuku</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Zákazku dostanú najviac traja majstri, nie dvadsiati</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Falošnú alebo zrušenú zákazku vrátime ako kredit</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Žiadne predplatné, viazanosť ani platené pozície</li>
       </ul>
     </div>
     <div class="band-side">
-      <div class="plans">
-        <article class="plan">
-          <h3>Štart</h3>
-          <p class="amt">0 € <small>mesačne</small></p>
-          <ul><li>5 ponúk mesačne</li><li>Profil firmy s referenciami</li><li>Hodnotenia od zákazníkov</li></ul>
-        </article>
-        <article class="plan">
-          <span class="plan-tag">Najčastejšia voľba</span>
-          <h3>Remeslo</h3>
-          <p class="amt">19 € <small>mesačne</small></p>
-          <p class="vat">bez DPH, s DPH 23,37 €</p>
-          <ul><li>Neobmedzené ponuky</li><li>Kalendár termínov a šablóny ponúk</li><li>Export pre účtovníka</li></ul>
-        </article>
+      <div class="leads">
+        <div class="leads-head"><h3>Cena za zákazku</h3><span>bez DPH, vidíte ju vopred</span></div>
+        <ul class="lead-list">
+          <li><span><b>Drobná práca</b><small>do 300 €, napr. výmena batérie alebo ističa</small></span><strong>3 €</strong></li>
+          <li><span><b>Stredná zákazka</b><small>300 – 2 000 €, napr. maľovanie bytu</small></span><strong>7 €</strong></li>
+          <li><span><b>Veľká zákazka</b><small>nad 2 000 €, napr. kúpeľňa, fotovoltika</small></span><strong>15 €</strong></li>
+        </ul>
+        <p class="lead-foot"><svg class="ic ic-s" aria-hidden="true"><use href="#i-info"/></svg>Registrácia a profil firmy sú zadarmo. Ceny sú ilustračné.</p>
       </div>
       <form class="ico" id="ico-form" novalidate>
         <label for="ico">Začnite s IČO vašej živnosti alebo firmy</label>
@@ -842,7 +848,8 @@ dialog::backdrop{background:var(--scrim)}
       </div>
     </div>
     <div class="faq">
-      <details id="faq-cena"><summary>Koľko to stojí zákazníka?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Nič. Zadanie zákazky, porovnanie ponúk aj správy s majstrami sú zadarmo. Za prácu platíte priamo majstrovi, na faktúru alebo s dokladom z eKasy.</p></details>
+      <details id="faq-cena"><summary>Koľko to stojí zákazníka?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Nič. Zadanie zákazky, porovnanie ponúk aj správy s majstrami sú zadarmo. Za samotnú prácu platíte priamo majstrovi, na faktúru alebo s dokladom z eKasy.</p></details>
+      <details id="faq-zarabanie"><summary>Ako Poruke zarába?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Platia len remeselníci, a to až vtedy, keď na zákazku pošlú ponuku. Cenu vidia vopred podľa veľkosti zákazky, každú zákazku dostanú najviac traja a za falošnú alebo zrušenú zákazku dostanú kredit späť. Lepšie miesto vo výsledkoch sa kúpiť nedá a zákazník neplatí nič.</p></details>
       <details id="faq-tri"><summary>Prečo najviac tri ponuky?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Aby vás nezahltili telefonáty a aby sa majstrom oplatilo pripraviť poctivú ponuku. Ak vám žiadna nevyhovuje, žiadosť jedným klikom pošleme ďalším trom.</p></details>
       <details id="faq-overenie"><summary>Ako overujete remeselníkov?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>IČO a predmet podnikania overujeme v registri právnických osôb a v živnostenskom registri. Pri elektro a plynových prácach chceme platné osvedčenie, pri väčších zákazkách aj poistenie zodpovednosti za škodu. Hodnotiť môže len zákazník, ktorému majster prácu dokončil.</p></details>
       <details id="faq-udaje"><summary>Kto uvidí moje údaje?<svg class="ic" aria-hidden="true"><use href="#i-plus"/></svg></summary><p>Kým si nevyberiete, majstri vidia len obec, opis práce a fotky. Meno, telefón a adresu dostane iba vybraný majster. Údaje spracúvame podľa GDPR a môžete ich kedykoľvek stiahnuť alebo vymazať. Používame len nevyhnutné cookies, preto tu nenájdete cookie lištu.</p></details>
