@@ -6,8 +6,8 @@
 <title>Poruke</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Overení remeselníci a služby pre domácnosť na Slovensku. Najviac tri ponuky s cenou vrátane DPH, kontakt dostane len majster, ktorého vyberiete.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B1018" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="color-scheme" content="only light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231D5BD6'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 /* Layout: produktový business štýl. Biele plochy, mriežka do 1200 px, hero = text a vyhľadávacia karta vľavo,
@@ -33,14 +33,14 @@
   --good-soft:#E4F4EC;
   --danger:#C5221F;
   --focus:#1D5BD6;
-  --navy:#0B1B3F;
-  --navy-2:#13285A;
-  --navy-ink:#F2F5FF;
-  --navy-muted:#B4C0DD;
-  --navy-line:#2A3D6E;
-  --navy-warn:#FFC76B;
-  --warn-ink:#1A1405;
-  --navy-edge:transparent;
+  --band-bg:#F1F5FD;
+  --band-card:#FFFFFF;
+  --band-ink:#0E1525;
+  --band-muted:#4F5B6E;
+  --band-line:#D6E0F3;
+  --band-accent:#1D5BD6;
+  --band-accent-ink:#FFFFFF;
+  --band-edge:transparent;
   --scrim:rgba(10,14,22,.55);
   --shadow-sm:0 1px 2px rgba(14,21,37,.06);
   --shadow:0 1px 3px rgba(14,21,37,.06), 0 10px 30px rgba(14,21,37,.08);
@@ -51,33 +51,7 @@
   --gut:max(20px, env(safe-area-inset-left, 0px));
   --gut-r:max(20px, env(safe-area-inset-right, 0px));
   --header:72px;
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B1018; --bg-alt:#10161F; --surface:#151C27; --ink:#E9EEF4; --ink-2:#C6CFDA; --muted:#98A3B3;
-    --line:#232C3A; --line-strong:#5E6B7A;
-    --brand:#6E9BFF; --brand-hover:#8DB0FF; --brand-ink:#08112B; --brand-soft:#162544; --brand-text:#93B4FF; --blob:#121E36; --device:#2B3546;
-    --star:#F2B33D; --good:#52D59D; --good-soft:#12301F; --danger:#FF8A80; --focus:#93B4FF;
-    --navy:#0E1830; --navy-2:#172445; --navy-ink:#E9EEF4; --navy-muted:#A6B3CF; --navy-line:#293A64; --navy-warn:#FFC76B; --warn-ink:#1A1405; --navy-edge:#293A64;
-    --scrim:rgba(0,0,0,.68);
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow:0 1px 3px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
-    --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.5);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0B1018; --bg-alt:#10161F; --surface:#151C27; --ink:#E9EEF4; --ink-2:#C6CFDA; --muted:#98A3B3;
-  --line:#232C3A; --line-strong:#5E6B7A;
-  --brand:#6E9BFF; --brand-hover:#8DB0FF; --brand-ink:#08112B; --brand-soft:#162544; --brand-text:#93B4FF; --blob:#121E36; --device:#2B3546;
-  --star:#F2B33D; --good:#52D59D; --good-soft:#12301F; --danger:#FF8A80; --focus:#93B4FF;
-  --navy:#0E1830; --navy-2:#172445; --navy-ink:#E9EEF4; --navy-muted:#A6B3CF; --navy-line:#293A64; --navy-warn:#FFC76B; --warn-ink:#1A1405; --navy-edge:#293A64;
-  --scrim:rgba(0,0,0,.68);
-  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-  --shadow:0 1px 3px rgba(0,0,0,.35), 0 12px 32px rgba(0,0,0,.4);
-  --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 24px 60px rgba(0,0,0,.5);
-  color-scheme:dark;
+  color-scheme:only light;
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -112,10 +86,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .btn-primary:hover{background:var(--brand-hover)}
 .btn-outline{background:var(--surface);border-color:var(--line-strong);color:var(--ink)}
 .btn-outline:hover{border-color:var(--ink)}
-/* Svetlé tlačidlo na navy ploche: farby z navy tokenov, v tmavom režime nesmie splynúť s pozadím */
-.btn-light{background:var(--navy-ink);color:var(--navy)}
-.btn-light:hover{box-shadow:0 0 0 4px color-mix(in srgb, var(--navy-ink) 30%, transparent)}
-.btn-warn{background:var(--navy-warn);color:var(--warn-ink)}
+.btn-warn{background:var(--band-accent);color:var(--band-accent-ink)}
 .btn-warn:hover{filter:brightness(1.05)}
 .link{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--brand-text);font-weight:600;text-decoration:none;background:none;border:0;padding:0;cursor:pointer}
 .link:hover{text-decoration:underline}
@@ -247,7 +218,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
 .chip{display:inline-flex;align-items:center;min-height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-size:14.5px;font-weight:500;cursor:pointer;white-space:nowrap;flex:none;transition:border-color .15s, background-color .15s, color .15s}
 @media (hover: hover){ .chip:hover{border-color:var(--ink);color:var(--ink)} }
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
 @media (pointer: coarse){ .chip{min-height:44px} }
 .pros{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
 .pro{display:flex;flex-direction:column;gap:14px;padding:22px;border-radius:18px;border:1px solid var(--line);background:var(--surface);min-width:0;transition:box-shadow .2s, border-color .2s}
@@ -283,7 +254,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg legend{padding:0}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg label{display:grid;place-items:center;min-height:42px;padding:0 16px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;color:var(--muted)}
-.seg input:checked + label{background:var(--ink);color:var(--bg)}
+.seg input:checked + label{background:var(--brand);color:var(--brand-ink)}
 .seg input:focus-visible + label{outline:3px solid var(--focus);outline-offset:2px}
 .note{font-size:13.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start}
 .note .ic{width:16px;height:16px;margin-top:2px}
@@ -299,31 +270,31 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ptable td{text-align:right;white-space:nowrap;font-weight:700;font-size:16px}
 
 /* Pre firmy */
-.band{background:var(--navy);color:var(--navy-ink)}
-.band .sub{color:var(--navy-muted)}
+.band{background:var(--band-bg);color:var(--band-ink)}
+.band .sub{color:var(--band-muted)}
 .band-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px, 5vw, 72px);align-items:start}
 .band-copy{display:grid;gap:18px}
 .points{list-style:none;margin:6px 0 0;padding:0;display:grid}
-.points li{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--navy-line)}
-.points li:last-child{border-bottom:1px solid var(--navy-line)}
-.points .ic{color:var(--navy-warn);margin-top:2px;stroke-width:2.2}
+.points li{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--band-line)}
+.points li:last-child{border-bottom:1px solid var(--band-line)}
+.points .ic{color:var(--band-accent);margin-top:2px;stroke-width:2.2}
 .band-side{display:grid;gap:16px}
 .plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.plan{display:grid;gap:10px;align-content:start;background:var(--navy-2);border:1px solid var(--navy-line);border-radius:18px;padding:22px}
+.plan{display:grid;gap:10px;align-content:start;background:var(--band-card);border:1px solid var(--band-line);border-radius:18px;padding:22px}
 .plan h3{font-weight:600;font-size:17px}
 .plan{position:relative}
-.plan-tag{position:absolute;top:0;left:22px;transform:translateY(-50%);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--navy-warn);color:var(--warn-ink)}
+.plan-tag{position:absolute;top:0;left:22px;transform:translateY(-50%);font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--band-accent);color:var(--band-accent-ink)}
 .amt{font-weight:700;font-size:36px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.amt small{font-weight:500;font-size:15px;letter-spacing:0;color:var(--navy-muted)}
-.vat{font-size:13px;color:var(--navy-muted)}
+.amt small{font-weight:500;font-size:15px;letter-spacing:0;color:var(--band-muted)}
+.vat{font-size:13px;color:var(--band-muted)}
 .plan ul{margin:4px 0 0;padding:0 0 0 18px;display:grid;gap:4px;font-size:14.5px}
-.ico{background:var(--navy-2);border:1px solid var(--navy-line);border-radius:18px;padding:22px;display:grid;gap:10px}
+.ico{background:var(--band-card);border:1px solid var(--band-line);border-radius:18px;padding:22px;display:grid;gap:10px}
 .ico label{font-weight:600}
 .ico-row{display:flex;gap:8px}
 .ico-row .input{flex:1;min-width:0;border-radius:999px;padding-inline:18px}
-.ico-msg{font-size:14px;color:var(--navy-muted);min-height:1.5em}
-.ico-msg.ok{color:var(--navy-ink)}
-.ico-msg.bad{color:var(--navy-warn)}
+.ico-msg{font-size:14px;color:var(--band-muted);min-height:1.5em}
+.ico-msg.ok{color:var(--band-ink)}
+.ico-msg.bad{color:var(--danger)}
 
 /* Otázky */
 .faq-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(32px, 5vw, 72px);align-items:start}
@@ -336,9 +307,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .faq details p{padding:0 0 20px;color:var(--muted);max-width:66ch}
 
 /* Výzva */
-.cta{background:var(--navy);color:var(--navy-ink);border:1px solid var(--navy-edge);border-radius:24px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
+.cta{background:var(--band-bg);color:var(--band-ink);border:1px solid var(--band-edge);border-radius:24px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px 40px}
 .cta h2{font-weight:700;font-size:clamp(26px, 3vw, 36px);line-height:1.12;letter-spacing:-.025em}
-.cta p{color:var(--navy-muted);margin-top:8px;max-width:52ch}
+.cta p{color:var(--band-muted);margin-top:8px;max-width:52ch}
 .cta .btn{min-height:52px;padding:0 26px;font-size:16px}
 
 /* Pätička */
@@ -864,7 +835,7 @@ dialog::backdrop{background:var(--scrim)}
         <h2 id="cta-title">Máte prácu, ktorá čaká?</h2>
         <p>Opíšte ju za dve minúty. Do 24 hodín máte najviac tri ponuky s cenou vrátane DPH.</p>
       </div>
-      <button class="btn btn-light" type="button" data-open="">Zadať zákazku zadarmo</button>
+      <button class="btn btn-primary" type="button" data-open="">Zadať zákazku zadarmo</button>
     </div>
   </div>
 </section>

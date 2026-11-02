@@ -13,7 +13,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 - **Overené IČO a oprávnenia** (napr. elektrotechnik § 22), platba priamo majstrovi na faktúru alebo s dokladom z eKasy.
 - **Ochrana kontaktu (GDPR):** telefón a adresu dostane len vybraný majster; len nevyhnutné cookies, preto bez cookie lišty.
 - **Transparentné radenie** (nariadenie EÚ 2019/1150) a **nahlasovanie obsahu** podľa DSA.
-- Mobil ako appka: spodná lišta, vodorovné pásy kariet, formulár zákazky na celú obrazovku. Svetlý aj tmavý režim podľa systému.
+- Mobil ako appka: spodná lišta, vodorovné pásy kariet, formulár zákazky na celú obrazovku. Vždy svetlá (biela) téma, aj keď má telefón zapnutý tmavý režim.
 
 ## Štruktúra a build
 
