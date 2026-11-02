@@ -8,6 +8,7 @@
 <meta name="description" content="Overení remeselníci a služby pre domácnosť na Slovensku. Najviac tri ponuky s cenou vrátane DPH, kontakt dostane len majster, ktorého vyberiete.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="only light">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23141414'/%3E%3Cpath d='M11.5 25V14a5.5 5.5 0 1 1 5.5 5.5h-5.5' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 /* Layout: pokojný biely web kombinujúci tri referencie (Flowblox, GAZU, produktový web so slúchadlami).
@@ -168,25 +169,25 @@ button,input,select,textarea{font:inherit;color:inherit}
 
 /* Fotky: každá je v súbore raz, ako pozadie */
 .ph{display:block;background:var(--bg-alt) center / cover no-repeat}
-.ph-kotol{background-image:url(src/photos/kotol.jpg)}
-.ph-malovanie{background-image:url(src/photos/malovanie.jpg)}
-.ph-upratovanie{background-image:url(src/photos/upratovanie.jpg)}
-.ph-obklad{background-image:url(src/photos/obklad.jpg)}
-.ph-stahovanie{background-image:url(src/photos/stahovanie.jpg)}
-.ph-zahrada{background-image:url(src/photos/zahrada.jpg)}
-.ph-kuchyna{background-image:url(src/photos/kuchyna.jpg)}
-.ph-krok-opis{background-image:url(src/photos/krok-opis.jpg)}
-.ph-krok-ponuky{background-image:url(src/photos/krok-ponuky.jpg)}
-.ph-krok-praca{background-image:url(src/photos/krok-praca.jpg)}
-.ph-preco-kontakt{background-image:url(src/photos/preco-kontakt.jpg)}
-.ph-preco-hodnotenia{background-image:url(src/photos/preco-hodnotenia.jpg)}
-.ph-s-obklad{background-image:url(src/photos/s-obklad.jpg)}
-.ph-s-malovanie{background-image:url(src/photos/s-malovanie.jpg)}
-.ph-s-instalater{background-image:url(src/photos/s-instalater.jpg)}
-.ph-s-elektro{background-image:url(src/photos/s-elektro.jpg)}
-.ph-s-upratovanie{background-image:url(src/photos/s-upratovanie.jpg)}
-.ph-s-zahrada{background-image:url(src/photos/s-zahrada.jpg)}
-.ph-s-stahovanie{background-image:url(src/photos/s-stahovanie.jpg)}
+html:not(.js) .ph-kotol,.ph-on .ph-kotol{background-image:url(src/photos/kotol.jpg)}
+html:not(.js) .ph-malovanie,.ph-on .ph-malovanie{background-image:url(src/photos/malovanie.jpg)}
+html:not(.js) .ph-upratovanie,.ph-on .ph-upratovanie{background-image:url(src/photos/upratovanie.jpg)}
+html:not(.js) .ph-obklad,.ph-on .ph-obklad{background-image:url(src/photos/obklad.jpg)}
+html:not(.js) .ph-stahovanie,.ph-on .ph-stahovanie{background-image:url(src/photos/stahovanie.jpg)}
+html:not(.js) .ph-zahrada,.ph-on .ph-zahrada{background-image:url(src/photos/zahrada.jpg)}
+html:not(.js) .ph-kuchyna,.ph-on .ph-kuchyna{background-image:url(src/photos/kuchyna.jpg)}
+html:not(.js) .ph-krok-opis,.ph-on .ph-krok-opis{background-image:url(src/photos/krok-opis.jpg)}
+html:not(.js) .ph-krok-ponuky,.ph-on .ph-krok-ponuky{background-image:url(src/photos/krok-ponuky.jpg)}
+html:not(.js) .ph-krok-praca,.ph-on .ph-krok-praca{background-image:url(src/photos/krok-praca.jpg)}
+html:not(.js) .ph-preco-kontakt,.ph-on .ph-preco-kontakt{background-image:url(src/photos/preco-kontakt.jpg)}
+html:not(.js) .ph-preco-hodnotenia,.ph-on .ph-preco-hodnotenia{background-image:url(src/photos/preco-hodnotenia.jpg)}
+html:not(.js) .ph-s-obklad,.ph-on .ph-s-obklad{background-image:url(src/photos/s-obklad.jpg)}
+html:not(.js) .ph-s-malovanie,.ph-on .ph-s-malovanie{background-image:url(src/photos/s-malovanie.jpg)}
+html:not(.js) .ph-s-instalater,.ph-on .ph-s-instalater{background-image:url(src/photos/s-instalater.jpg)}
+html:not(.js) .ph-s-elektro,.ph-on .ph-s-elektro{background-image:url(src/photos/s-elektro.jpg)}
+html:not(.js) .ph-s-upratovanie,.ph-on .ph-s-upratovanie{background-image:url(src/photos/s-upratovanie.jpg)}
+html:not(.js) .ph-s-zahrada,.ph-on .ph-s-zahrada{background-image:url(src/photos/s-zahrada.jpg)}
+html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(src/photos/s-stahovanie.jpg)}
 
 /* Farebné odtiene remesiel: ikony služieb, riadky cien a avatary v zozname majstrov */
 .tc-amber{--tb:#FCF0D6;--ti:#B07408}
@@ -1688,6 +1689,17 @@ dialog::backdrop{background:var(--scrim)}
     const cat = guessCat(q) || '';
     openReq({ cat, desc: q && cat !== '' ? q : '', psc: $('#where').value.trim() });
   });
+
+  /* Fotky v sekciách pod úvodom: sťahovať až pri priblížení (úvodná fotka má prednosť) */
+  const photoSecs = $$('main > section').filter(s => s.querySelector('.ph'));
+  const photosOn = s => s.classList.add('ph-on');
+  if ('IntersectionObserver' in window) {
+    const pio = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) { photosOn(en.target); pio.unobserve(en.target); }
+    }), { rootMargin: '800px 0px' });
+    photoSecs.forEach(s => pio.observe(s));
+  } else photoSecs.forEach(photosOn);
+  window.addEventListener('beforeprint', () => photoSecs.forEach(photosOn));
 })();
 </script>
 </body>

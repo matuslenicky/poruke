@@ -661,6 +661,17 @@ async function runViewport(browser, target, vp, out) {
     st = await expandAll();
     check(r, st.items.length > 0 && st.items.every(x => x.text.includes('kosice')), `hľadanie „kosice“ bez diakritiky: ${st.items.length} položiek`);
 
+    // Hlásenie pre čítačky: skrytá oblasť s aria-live dostane počet výsledkov po pauze v písaní
+    if (await page.$('#dx-live')) {
+      const live = await page.$eval('#dx-live', e => e.getAttribute('aria-live') || (e.getAttribute('role') === 'status' ? 'polite' : ''));
+      check(r, live === 'polite' || live === 'assertive', `#dx-live nemá aria-live ani role="status"`);
+      const said = await page.waitForFunction(() => {
+        const a = document.getElementById('dx-live').textContent.replace(/\s+/g, ' ').trim();
+        return a && a === document.getElementById('dx-count').textContent.replace(/\s+/g, ' ').trim();
+      }, null, { timeout: 2500 }).then(() => true, () => false);
+      check(r, said, '#dx-live po pauze neohlásil počet výsledkov zo #dx-count');
+    }
+
     // Prázdny výsledok a jeho tlačidlo
     await page.fill('#dx-q', 'qwertyzz');
     st = await read();
