@@ -708,8 +708,160 @@ async function runViewport(browser, target, vp, out) {
     r.info = `${N} majstrov a firiem, ${elektroAll} elektrikárov`;
   });
 
+  await test(ctx, 'profil majstra: otvorenie, obsah, adresa, zatvorenie', async r => {
+    await fresh(page);
+    if (!(await page.$('#pf'))) { r.info = 'dialóg #pf na stránke nie je'; return; }
+    const slugOf = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const pfOpen = () => page.$eval('#pf', d => d.open);
+    const closePf = async () => {
+      if (!(await pfOpen())) return;
+      await page.keyboard.press('Escape');
+      await page.waitForFunction(() => !document.getElementById('pf').open, null, { timeout: 2000 }).catch(() => {});
+    };
+    const readPf = () => page.evaluate(() => {
+      const d = document.getElementById('pf');
+      const t = s => (d.querySelector(s) || {}).textContent || '';
+      const sp = s => s.replace(/\s+/g, ' ').trim();
+      const bars = [...d.querySelectorAll('.pf-bars li')].map(li => +(li.lastElementChild || li).textContent.replace(/\D/g, ''));
+      return {
+        name: sp(t('#pf-name')),
+        kind: sp(t('.pf-kind')),
+        hash: location.hash,
+        focus: !!(document.activeElement && document.activeElement.matches('[data-pf-close]')),
+        secs: [...d.querySelectorAll('.pf-sec > h3')].map(h => sp(h.textContent)),
+        facts: d.querySelectorAll('.pf-facts > *').length,
+        rating: sp(t('.pf-head .rating')),
+        score: +((t('.pf-score small').match(/\d+/) || [])[0]),
+        bars,
+        revs: [...d.querySelectorAll('.pf-revs li blockquote')].map(b => sp(b.textContent)),
+        cta: (() => { const b = d.querySelector('.pf-foot [data-open][data-pro]'); return b ? { cat: b.dataset.open, pro: b.dataset.pro } : null; })(),
+        overflow: Math.max(d.scrollWidth - d.clientWidth, (() => { const s = d.querySelector('.pf-scroll'); return s ? s.scrollWidth - s.clientWidth : 0; })()),
+      };
+    });
+
+    // Každá karta a položka zoznamu má tlačidlo s menom, ktoré otvára profil
+    const openers = await page.evaluate(() => ({
+      pros: [...document.querySelectorAll('#pros .pro')].map(p => !!p.querySelector('h3 [data-profile]')),
+      biz: [...document.querySelectorAll('#dx-list > li.biz')].map(li => !!li.querySelector('h3 [data-profile]')),
+    }));
+    check(r, openers.pros.every(Boolean), `karta v najlepšie hodnotených bez tlačidla s menom (${openers.pros.filter(x => !x).length})`);
+    check(r, openers.biz.every(Boolean), `položka zoznamu bez tlačidla s menom (${openers.biz.filter(x => !x).length})`);
+
+    const targets = page.locator('#pros .pro h3 [data-profile], #dx-list > li.biz h3 [data-profile], .pf-teaser [data-profile]');
+    const n = await targets.count();
+    let tested = 0;
+    let sampleHash = '';
+    let sampleName = '';
+    for (let i = 0; i < n; i++) {
+      const el = targets.nth(i);
+      if (!(await el.isVisible())) continue;
+      const info = await el.evaluate(b => {
+        const card = b.closest('.pro, .biz');
+        const sp = s => s.replace(/\s+/g, ' ').trim();
+        const rt = card ? sp(card.querySelector('.rating').textContent) : '';
+        const q = card && card.querySelector('.quote blockquote');
+        return { name: b.dataset.profile, where: card ? card.className.split(' ')[0] : 'pf-teaser', rating: rt, quote: q ? sp(q.textContent) : '' };
+      });
+      const what = `${info.where} „${info.name}“`;
+      await el.click();
+      tested++;
+      if (!check(r, await pfOpen(), `${what}: profil sa neotvoril`)) continue;
+      const p = await readPf();
+      check(r, p.name.startsWith(info.name), `${what}: v profile je meno „${p.name}“`);
+      check(r, p.hash === '#profil-' + slugOf(info.name), `${what}: adresa ${p.hash}, čakal som #profil-${slugOf(info.name)}`);
+      check(r, p.focus, `${what}: fokus nie je na tlačidle Zavrieť`);
+      const firm = p.kind.startsWith('Firma');
+      const need = [firm ? 'O nás' : 'O mne', firm ? 'S čím pracujeme' : 'S čím pracujem', 'Služby a orientačné ceny', 'Overené Poruke', 'Ukážky prác', 'Hodnotenia', firm ? 'Ako pracujeme' : 'Ako pracujem'];
+      const miss = need.filter(h => !p.secs.includes(h));
+      check(r, miss.length === 0, `${what}: chýbajú časti ${miss.join(', ')}`);
+      check(r, p.facts === 4, `${what}: ${p.facts} údajov v .pf-facts, čakal som 4`);
+      const sum = p.bars.reduce((a, b) => a + b, 0);
+      check(r, p.bars.length === 5 && sum === p.score, `${what}: súčet hodnotení v stĺpcoch ${sum} ≠ ${p.score}`);
+      if (info.rating) check(r, p.rating === info.rating, `${what}: hodnotenie v profile „${p.rating}“ ≠ na karte „${info.rating}“`);
+      check(r, p.revs.length === 3, `${what}: ${p.revs.length} recenzií, čakal som 3`);
+      if (info.quote) check(r, p.revs[0] === info.quote, `${what}: prvá recenzia nie je citácia z karty`);
+      check(r, p.cta && p.cta.pro === info.name, `${what}: tlačidlo „Požiadať o ponuku“ v profile chýba alebo je pre iného majstra`);
+      check(r, p.overflow <= 1, `${what}: profil je širší ako okno o ${p.overflow} px`);
+      if (!sampleHash) { sampleHash = p.hash; sampleName = info.name; }
+
+      await page.click('#pf [data-pf-close]');
+      const after = await page.evaluate(() => ({ open: document.getElementById('pf').open, hash: location.hash }));
+      check(r, !after.open, `${what}: Zavrieť nezavrel profil`);
+      const cleared = await page.waitForFunction(() => !location.hash.startsWith('#profil-'), null, { timeout: 1500 }).then(() => true, () => false);
+      check(r, cleared, `${what}: po zatvorení ostala adresa ${after.hash}`);
+      check(r, await el.evaluate(b => document.activeElement === b), `${what}: fokus sa po zatvorení nevrátil na tlačidlo s menom`);
+    }
+    check(r, tested > 0, 'žiadne viditeľné tlačidlo, ktoré otvára profil');
+
+    // Esc, klik na pozadie, kopírovanie odkazu
+    const first = targets.filter({ visible: true }).first();
+    await first.click();
+    await page.keyboard.press('Escape');
+    check(r, !(await pfOpen()), 'Esc nezavrel profil');
+    await first.click();
+    const outside = await page.evaluate(() => {
+      const b = document.getElementById('pf').getBoundingClientRect();
+      const W = innerWidth, H = innerHeight;
+      return [[W / 2, 6], [6, H / 2], [W - 6, H / 2], [W / 2, H - 6]].find(([x, y]) => x < b.left || x > b.right || y < b.top || y > b.bottom) || null;
+    });
+    if (outside) {
+      await page.mouse.click(outside[0], outside[1]);
+      check(r, !(await pfOpen()), 'klik na pozadie nezavrel profil');
+      await first.click();
+    }
+    await page.click('#pf [data-pf-copy]');
+    const copied = await page.waitForFunction(() => (document.querySelector('#pf .pf-copied') || {}).textContent, null, { timeout: 2000 }).then(h => h.jsonValue(), () => '');
+    check(r, /skopírovan/i.test(copied) || copied.includes('#profil-'), `kopírovanie odkazu nič neohlásilo („${copied}“)`);
+
+    // „Požiadať o ponuku“ v profile: zavrie profil a otvorí žiadosť pre tohto majstra
+    const cta = await readPf();
+    await page.click('#pf .pf-foot [data-open][data-pro]');
+    const s = await dialogState(page);
+    check(r, !(await pfOpen()), '„Požiadať o ponuku“ v profile nezavrel profil');
+    check(r, s.open && s.cat === cta.cta.cat && s.note && s.noteText.includes(cta.cta.pro), `„Požiadať o ponuku“ v profile: žiadosť ${s.open ? `má ${s.cat} / „${s.noteText}“` : 'sa neotvorila'}`);
+    await closeDialog(page);
+
+    // „Nahlásiť profil“: zavrie profil a otvorí otázku
+    await first.click();
+    const report = page.locator('#pf .pf-note a[href^="#faq-"]');
+    if (await report.count()) {
+      const href = await report.first().getAttribute('href');
+      await report.first().click();
+      const ok = await page.waitForFunction(id => {
+        const d = document.getElementById(id);
+        return !document.getElementById('pf').open && d && d.open;
+      }, href.slice(1), { timeout: 3000 }).then(() => true, () => false);
+      check(r, ok, `„Nahlásiť profil“ nezavrel profil alebo neotvoril ${href}`);
+    } else {
+      r.errors.push('v profile chýba odkaz „Nahlásiť profil“');
+      await closePf();
+    }
+
+    // Priamy odkaz na profil
+    if (sampleHash) {
+      await page.goto('about:blank');
+      await page.goto(target.split('#')[0] + sampleHash, { waitUntil: 'load' });
+      const ok = await page.waitForFunction(n => document.getElementById('pf').open && document.getElementById('pf-name').textContent.includes(n), sampleName, { timeout: 3000 }).then(() => true, () => false);
+      check(r, ok, `adresa ${sampleHash} neotvorila profil ${sampleName}`);
+      await closePf();
+      await page.goto(target, { waitUntil: 'load' });
+    }
+    r.info = `${tested} profilov otvorených`;
+  });
+
   await test(ctx, 'ceny: kraj a s/bez DPH', async r => {
     await fresh(page);
+    // Ceny môžu byť dočasne skryté: vtedy len overiť, že sekciu nevidno a nič na ňu viditeľne neodkazuje
+    const hidden = await page.$eval('#ceny', s => s.hidden || getComputedStyle(s).display === 'none').catch(() => true);
+    if (hidden) {
+      check(r, !(await page.isVisible('#ceny')), 'sekcia #ceny má byť skrytá, ale je viditeľná');
+      const links = await page.$$eval('a[href="#ceny"]', as => as
+        .filter(a => { const b = a.getBoundingClientRect(); return b.width > 0 && b.height > 0 && getComputedStyle(a).visibility !== 'hidden'; })
+        .map(a => (a.closest('header, footer, nav, section') || {}).id || a.closest('header, footer, nav, section')?.tagName.toLowerCase() || '?'));
+      check(r, links.length === 0, `viditeľné odkazy na skryté ceny: ${links.join(', ')}`);
+      r.info = 'ceny sú skryté, overené len skrytie a odkazy';
+      return;
+    }
     const opts = await page.$$eval('#kraj option', os => os.map(o => ({ v: o.value, t: o.textContent.trim() })));
     check(r, opts.length > 1, 'výber kraja má málo možností');
     let checked = 0;
@@ -796,6 +948,74 @@ async function runViewport(browser, target, vp, out) {
       await page.goto(target, { waitUntil: 'load' });
     }
     r.info = `${hrefs.length} odkazov`;
+  });
+
+  await test(ctx, 'fotky: odložené načítanie, všetky sa načítajú', async r => {
+    // Nová navigácia (nie reload), aby prehliadač neobnovil predošlú polohu posunu
+    await page.goto('about:blank');
+    await page.goto(target, { waitUntil: 'load' });
+    await page.waitForTimeout(400);
+    const photoState = () => page.evaluate(() => {
+      const secs = [...document.querySelectorAll('main > section')].filter(s => s.querySelector('.ph'));
+      const phs = [...document.querySelectorAll('main .ph')];
+      const bg = el => { const m = getComputedStyle(el).backgroundImage.match(/url\("?([^")]+)"?\)/); return m ? m[1] : ''; };
+      return {
+        secs: secs.length,
+        on: secs.filter(s => s.classList.contains('ph-on')).length,
+        withBg: phs.filter(bg).length,
+        missing: phs.filter(el => !bg(el)).map(el => [...el.classList].find(c => c.startsWith('ph-')) || el.className).slice(0, 5),
+        total: phs.length,
+      };
+    });
+    const before = await photoState();
+    if (!before.total) { r.info = 'na stránke nie sú fotky .ph'; return; }
+    // Bez posunu sa nemajú stiahnuť všetky sekcie s fotkami (inak odklad nefunguje)
+    check(r, before.on < before.secs, `hneď po načítaní má ph-on ${before.on} z ${before.secs} sekcií, odklad nefunguje`);
+
+    // Prejsť celú stránku ako používateľ
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y < height; y += vp.height * 0.8) {
+      await page.evaluate(v => window.scrollTo(0, v), y);
+      await page.waitForTimeout(40);
+    }
+    const allOn = await page.waitForFunction(() => [...document.querySelectorAll('main > section')]
+      .filter(s => s.querySelector('.ph')).every(s => s.classList.contains('ph-on')), null, { timeout: 3000 }).then(() => true, () => false);
+    const after = await photoState();
+    check(r, allOn, `po prejdení stránky má ph-on len ${after.on} z ${after.secs} sekcií`);
+    check(r, after.withBg === after.total, `fotky bez obrázka po posune: ${after.missing.join(', ')}`);
+
+    // Každý obrázok (aj úvodný) sa musí naozaj načítať
+    const broken = await page.evaluate(async () => {
+      const urls = new Set();
+      for (const el of document.querySelectorAll('*')) {
+        const m = getComputedStyle(el).backgroundImage.match(/url\("?([^")]+)"?\)/g);
+        if (m) m.forEach(u => { const x = u.replace(/^url\("?|"?\)$/g, ''); if (!x.startsWith('data:')) urls.add(x); });
+      }
+      for (const img of document.images) if (img.currentSrc && !img.currentSrc.startsWith('data:')) urls.add(img.currentSrc);
+      const res = await Promise.all([...urls].map(u => new Promise(ok => {
+        const i = new Image();
+        i.onload = () => ok([u, i.naturalWidth]);
+        i.onerror = () => ok([u, 0]);
+        i.src = u;
+      })));
+      return { count: urls.size, bad: res.filter(([, w]) => !w).map(([u]) => u.split('/').pop()) };
+    });
+    check(r, broken.bad.length === 0, `obrázky, ktoré sa nenačítali: ${broken.bad.join(', ')}`);
+
+    // Bez JavaScriptu sa majú zobraziť všetky fotky hneď
+    const noJs = await page.context().browser().newContext({ viewport: { width: vp.width, height: vp.height }, javaScriptEnabled: false });
+    try {
+      const p2 = await noJs.newPage();
+      await p2.goto(target, { waitUntil: 'load' });
+      const s2 = await p2.evaluate(() => {
+        const phs = [...document.querySelectorAll('main .ph')];
+        return phs.filter(el => !/url\(/.test(getComputedStyle(el).backgroundImage)).length;
+      });
+      check(r, s2 === 0, `bez JavaScriptu chýba obrázok v ${s2} fotkách`);
+    } finally {
+      await noJs.close();
+    }
+    r.info = `${before.on}/${before.secs} sekcií pred posunom, ${after.total} fotiek, ${broken.count} obrázkov overených`;
   });
 
   await test(ctx, 'kotvy vedú na existujúce miesta', async r => {
