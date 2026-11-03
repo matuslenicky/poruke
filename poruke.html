@@ -322,7 +322,8 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(data
 .dx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
 .biz{position:relative;display:flex;flex-direction:column;gap:14px;min-width:0;padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .15s, box-shadow .2s}
 @media (hover: hover){ .biz:hover{border-color:#D3D1CA;box-shadow:var(--shadow-card)} }
-.biz-head{display:flex;gap:12px;align-items:center;min-width:0}
+/* avatar vždy hore: pri zalomenom „remeslo · obec“ je v rade kariet v rovnakej výške */
+.biz-head{display:flex;gap:12px;align-items:flex-start;min-width:0}
 .biz .ava{width:52px;height:52px;font-size:16px;background:var(--tb);color:color-mix(in srgb, var(--ti) 70%, #000)}
 .biz-main{min-width:0;display:grid;gap:2px}
 .biz h3{font-weight:600;font-size:16.5px;line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
@@ -2536,7 +2537,8 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
      (žiadne prebliknutie, rýchle LCP). V mriežkach sa vynára každá položka zvlášť, s malým odstupom. */
   // príprava až vo voľnej chvíli po načítaní: nebrzdí prvé vykreslenie, skryje len to, čo je pod okrajom obrazovky
   const setupReveal = () => {
-    const GROUPS = ['.guar', '.strip-track', '.dir', '.zig', '.projects', '.pros', '.bento', '.faq'];
+    // .dir nie: čiary medzi bunkami tvorí sivé pozadie mriežky, pod skrytými bunkami by presvitalo ako sivý blok
+    const GROUPS = ['.guar', '.strip-track', '.zig', '.projects', '.pros', '.bento', '.faq'];
     const isGroup = el => GROUPS.some(g => el.matches(g));
     // vodorovne posuvný pás (mobil) sa vynorí ako celok, nie po kartách pri potiahnutí prstom
     const scrollsX = g => g.scrollWidth > g.clientWidth + 1 && /auto|scroll/.test(getComputedStyle(g).overflowX);
