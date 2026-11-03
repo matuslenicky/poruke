@@ -730,6 +730,103 @@ async function runViewport(browser, target, vp, out) {
     r.info = `${N} majstrov a firiem, ${elektroAll} elektrikárov`;
   });
 
+  await test(ctx, 'zoznam majstrov: vzdialenosť od obce', async r => {
+    await fresh(page);
+    if (!(await page.$('#dx-where')) || !(await page.$('#dx-km'))) { r.info = 'filter vzdialenosti na stránke nie je'; return; }
+    const read = () => page.evaluate(() => {
+      const items = [...document.querySelectorAll('#dx-list > li.biz')].map(li => {
+        const d = li.querySelector('.biz-dist');
+        const t = d ? d.textContent : '';
+        return { dist: !d ? null : /vašej obci/.test(t) ? 0 : +((t.match(/(\d+) km/) || [])[1]) };
+      });
+      const b = document.querySelector('#dx-count b');
+      const hint = document.getElementById('dx-hint');
+      return {
+        total: b ? +b.textContent : 0,
+        countText: document.getElementById('dx-count').textContent.replace(/\s+/g, ' ').trim(),
+        items,
+        more: !document.getElementById('dx-more').hidden,
+        empty: !!document.querySelector('#dx-list > li.dx-empty'),
+        hint: hint && !hint.hidden ? hint.textContent.trim() : '',
+        distOk: !document.querySelector('#dx-sort option[value="dist"]').disabled,
+        kraj: document.getElementById('dx-kraj').value,
+        km: document.getElementById('dx-km').value,
+        where: document.getElementById('dx-where').value,
+      };
+    });
+    const expandAll = async () => {
+      for (let i = 0; i < 20; i++) { const st = await read(); if (!st.more) return st; await page.click('#dx-more'); }
+      return read();
+    };
+    const setWhere = async v => { await page.fill('#dx-where', v); await page.dispatchEvent('#dx-where', 'change'); };
+
+    let st = await read();
+    const N = st.total;
+    check(r, !st.distOk && st.items.every(x => x.dist === null), 'bez obce nemá byť radenie „Najbližšie“ ani vzdialenosti na kartách');
+
+    // Vzdialenosť bez obce: upozornenie, zoznam sa nezmení
+    await page.selectOption('#dx-km', '25');
+    st = await read();
+    check(r, /obec alebo PSČ/.test(st.hint) && st.total === N, `vzdialenosť bez obce: upozornenie „${st.hint}“, počet ${st.total}/${N}`);
+
+    // Trnava + do 25 km: len blízki, s vzdialenosťou na karte
+    await setWhere('Trnava');
+    st = await expandAll();
+    check(r, !st.hint && st.distOk, `po zadaní Trnavy ostalo upozornenie („${st.hint}“) alebo chýba radenie „Najbližšie“`);
+    check(r, st.items.length > 0 && st.total < N && st.items.every(x => x.dist !== null && x.dist <= 25), `Trnava do 25 km: ${st.items.length} z ${N}, vzdialenosti ${st.items.map(x => x.dist).join(', ')}`);
+    check(r, st.countText.includes('do 25 km od obce Trnava'), `počítadlo nespomína okruh („${st.countText}“)`);
+    const near25 = st.total;
+    await page.selectOption('#dx-km', '100');
+    st = await read();
+    check(r, st.total > near25, `do 100 km má byť viac ako do 25 km (${st.total} vs ${near25})`);
+
+    // Najbližšie: vzostupne podľa vzdialenosti
+    await page.selectOption('#dx-km', '');
+    await page.selectOption('#dx-sort', 'dist');
+    st = await expandAll();
+    const ds = st.items.map(x => x.dist);
+    check(r, st.total === N && ds.every((d, i) => i === 0 || d === null || (ds[i - 1] !== null && ds[i - 1] <= d)), `radenie „Najbližšie“ nie je vzostupné: ${ds.slice(0, 12).join(', ')}`);
+    check(r, ds[0] === 0, `najbližší k Trnave má byť priamo v Trnave, je ${ds[0]} km`);
+
+    // Kraj a vzdialenosť sa vylučujú
+    await page.selectOption('#dx-km', '50');
+    await page.selectOption('#dx-kraj', 'KE');
+    st = await read();
+    check(r, st.km === '' && st.kraj === 'KE', `výber kraja nezrušil vzdialenosť (km=${st.km}, kraj=${st.kraj})`);
+    await page.selectOption('#dx-km', '50');
+    st = await read();
+    check(r, st.kraj === '' && st.km === '50', `výber vzdialenosti nezrušil kraj (km=${st.km}, kraj=${st.kraj})`);
+
+    // PSČ ako východisko, prázdny stav s rozšírením okruhu
+    await setWhere('040 01');
+    await page.selectOption('#dx-km', '10');
+    await page.selectOption('#dx-cat', 'stolar');
+    st = await read();
+    const widen = page.locator('#dx-list .dx-empty [data-dx-km]');
+    if (check(r, st.empty && (await widen.count()) === 1, `Košice (PSČ) + stolár do 10 km: čakal som prázdny stav s rozšírením (${st.total} výsledkov)`)) {
+      await widen.click();
+      st = await read();
+      check(r, st.km === '25', `„Rozšíriť“ nastavil ${st.km} km namiesto 25`);
+    }
+
+    // Neznáma obec: upozornenie po opustení poľa
+    await page.selectOption('#dx-cat', '');
+    await setWhere('Neexistujúca obec');
+    st = await read();
+    check(r, /nemáme/.test(st.hint) && !st.distOk, `neznáma obec: upozornenie „${st.hint}“, radenie Najbližšie ${st.distOk ? 'ostalo' : 'vypnuté'}`);
+
+    // Zrušiť filtre vyčistí aj obec a vzdialenosť
+    await page.click('#dx-reset');
+    st = await read();
+    check(r, st.where === '' && st.km === '' && !st.hint && st.total === N, `„Zrušiť filtre“: obec „${st.where}“, km „${st.km}“, upozornenie „${st.hint}“`);
+
+    // Obec zadaná hore vo vyhľadávaní sa prenesie do zoznamu
+    await page.fill('#where', 'Nitra');
+    const moved = await page.waitForFunction(() => document.getElementById('dx-where').value === 'Nitra', null, { timeout: 2000 }).then(() => true, () => false);
+    check(r, moved, 'obec Nitra z vyhľadávania sa neprenesla do poľa „Vaša obec“');
+    r.info = `Trnava do 25 km: ${near25} z ${N}`;
+  });
+
   await test(ctx, 'profil majstra: otvorenie, obsah, adresa, zatvorenie', async r => {
     await fresh(page);
     if (!(await page.$('#pf'))) { r.info = 'dialóg #pf na stránke nie je'; return; }

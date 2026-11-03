@@ -294,7 +294,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .empty-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
 
 /* Zoznam majstrov a firiem: výber priamo */
-.dx-bar{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3, minmax(0,1fr));gap:12px;padding:14px;margin:0 0 18px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-card)}
+.dx-bar{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px;padding:14px;margin:0 0 18px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow-card)}
 .dx-f{display:grid;gap:5px;min-width:0}
 .dx-f > label{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-left:4px}
 .dx-in{position:relative}
@@ -302,30 +302,45 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .dx-in .input{padding-left:44px}
 .dx-bar .input{border-color:var(--line);border-radius:14px;background-color:var(--bg-alt)}
 .dx-bar .input:focus{background-color:var(--surface)}
+.dx-where .input{padding-right:48px}
+/* šípka našepkávača by sa tlačila k tlačidlu polohy; ponuka obcí sa ukáže pri písaní */
+.dx-where .input::-webkit-calendar-picker-indicator{display:none!important}
+.dx-locate{position:absolute;right:2px;top:50%;transform:translateY(-50%);width:44px;height:44px;display:grid;place-items:center;border:0;border-radius:10px;background:none;color:var(--ink-2);cursor:pointer}
+.dx-locate .ic{width:20px;height:20px}
+@media (hover: hover){ .dx-locate:hover{background:var(--surface);color:var(--ink)} }
+.dx-locate:focus-visible{outline:3px solid var(--focus);outline-offset:0}
+.dx-locate[aria-busy="true"] .ic{animation:dx-spin 1s linear infinite}
+@keyframes dx-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){ .dx-locate[aria-busy="true"] .ic{animation:none;opacity:.5} }
+.dx-hint{display:flex;gap:8px;align-items:flex-start;margin:-6px 0 14px;padding:10px 14px;border-radius:14px;background:var(--bg-alt);font-size:14px;color:var(--ink-2)}
+.dx-hint .ic{width:16px;height:16px;margin-top:2px;flex:none}
 .dx-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;margin:0 0 12px;font-size:14.5px;color:var(--muted);min-height:44px}
 .dx-meta b{color:var(--ink);font-weight:700}
 .dx-acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
 #zoznam-title:focus{outline:none}
-.dx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;gap:10px 0}
-.biz{position:relative;grid-column:1 / -1;display:grid;grid-template-columns:auto minmax(0,1fr) 196px 218px auto;align-items:center;gap:12px 24px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .15s, box-shadow .2s}
-@supports (grid-template-columns: subgrid){
-  .dx-list{grid-template-columns:auto minmax(0,1fr) auto auto auto}
-  .biz{grid-template-columns:subgrid}
-}
+/* Karty majstrov: 4 / 3 / 2 / 1 v rade, rovnaká výška v rade, tlačidlo vždy dole */
+.dx-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:16px}
+.biz{position:relative;display:flex;flex-direction:column;gap:14px;min-width:0;padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--surface);transition:border-color .15s, box-shadow .2s}
 @media (hover: hover){ .biz:hover{border-color:#D3D1CA;box-shadow:var(--shadow-card)} }
-.biz .ava{width:54px;height:54px;font-size:16px;background:var(--tb);color:color-mix(in srgb, var(--ti) 70%, #000)}
+.biz-head{display:flex;gap:12px;align-items:center;min-width:0}
+.biz .ava{width:52px;height:52px;font-size:16px;background:var(--tb);color:color-mix(in srgb, var(--ti) 70%, #000)}
 .biz-main{min-width:0;display:grid;gap:2px}
-.biz h3{font-weight:600;font-size:17px;line-height:1.3;letter-spacing:-.01em}
-.biz .kind{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:999px;background:var(--bg-alt);font-size:12px;font-weight:600;color:var(--ink-2);vertical-align:2px;white-space:nowrap}
-.biz-tags{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
-.biz-tags li{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;font-weight:500;color:var(--ink-2);white-space:nowrap}
-.biz-rate{display:grid;gap:4px;justify-items:start}
-.biz-rate small{font-size:13px;color:var(--muted)}
-.biz-side{display:grid;gap:4px;justify-items:start}
-.biz-price{font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
-.biz-resp{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
-.biz-resp .ic{width:15px;height:15px}
-.biz .btn{min-height:44px;padding:0 18px;font-size:15px}
+.biz h3{font-weight:600;font-size:16.5px;line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
+/* odznak „IČO overené“ v rohu avatara: pri dvojriadkovom mene neodskakuje */
+.biz-ava{position:relative;flex:none;display:grid}
+.biz-ava .vf{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;margin:0;padding:2px;border-radius:50%;background:var(--surface);color:var(--good)}
+.biz .trade{font-size:13.5px}
+.biz-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.biz-chips li{padding:3px 10px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.biz-chips .hl{border-color:transparent;background:var(--tb);color:color-mix(in srgb, var(--ti) 72%, #000)}
+.biz-facts{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
+.biz-facts li{display:flex;gap:9px;align-items:flex-start;min-width:0}
+.biz-facts .ic{width:16px;height:16px;margin-top:3px;flex:none;color:var(--muted)}
+.biz-facts .biz-dist{color:var(--ink);font-weight:600}
+.biz-facts .biz-dist .ic{color:var(--ti)}
+.biz-foot{margin-top:auto;display:grid;gap:12px}
+.biz-price{font-weight:700;font-size:16px;line-height:1.35}
+.biz .btn{width:100%;min-height:44px;padding:0 18px;font-size:15px}
 /* Meno otvára profil: tlačidlo roztiahnuté cez celú kartu, akčné tlačidlo nad ním */
 .pro-name,.biz-name{display:inline-flex;align-items:center;min-height:24px;border:0;padding:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line-strong);text-decoration-thickness:1px;text-underline-offset:4px}
 .pro-name::after,.biz-name::after{content:"";position:absolute;inset:0;border-radius:20px}
@@ -498,6 +513,19 @@ dialog::backdrop{background:var(--scrim)}
 /* Profil majstra alebo firmy */
 .biz{cursor:pointer}
 dialog.pf{width:min(880px, calc(100% - 32px))}
+
+/* Plynulé prechody: vynáranie obsahu pri posúvaní (.rv pridáva skript), nové karty v zozname, otvorenie okien */
+@media (prefers-reduced-motion: no-preference){
+  html.js .rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  html.js .rv.rv-in{opacity:1;transform:none}
+  .biz.biz-in{animation:biz-in .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--k, 0) * 45ms)}
+  dialog[open]{animation:dlg-in .32s cubic-bezier(.2,.7,.2,1)}
+  dialog[open]::backdrop{animation:fade-in .32s ease}
+}
+@keyframes biz-in{from{opacity:0;transform:translateY(14px)}}
+@keyframes dlg-in{from{opacity:0;transform:translateY(18px) scale(.985)}}
+@keyframes fade-in{from{opacity:0}}
+@media print{ html.js .rv{opacity:1!important;transform:none!important} }
 .pf-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .pf-x{position:absolute;top:14px;right:14px;z-index:2;margin:0!important;background:color-mix(in srgb, var(--surface) 80%, transparent)!important;backdrop-filter:blur(6px)}
 .pf-head{position:relative;padding:28px 28px 22px;background:linear-gradient(180deg, var(--tb) 0%, color-mix(in srgb, var(--tb) 35%, var(--surface)) 100%)}
@@ -587,14 +615,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .dir-item{padding:18px 16px}
 }
 @media (max-width: 1080px){
-  .dx-list{grid-template-columns:minmax(0,1fr)}
-  .biz{grid-template-columns:auto minmax(0,1fr) 214px;gap:12px 20px}
-  .biz-side{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:4px 18px}
-  .biz-btn{grid-column:3;justify-self:stretch}
+  .dx-list{grid-template-columns:repeat(3, minmax(0,1fr))}
+}
+/* 641–800 px: v tretinových poliach by sa orezal placeholder hľadania, obce aj radenie */
+@media (max-width: 800px){
+  .dx-bar{grid-template-columns:repeat(2, minmax(0,1fr))}
+}
+@media (max-width: 760px){
+  .dx-list{grid-template-columns:repeat(2, minmax(0,1fr));gap:12px}
 }
 @media (max-width: 980px){
-  .dx-bar{grid-template-columns:repeat(3, minmax(0,1fr))}
-  .dx-bar .dx-q{grid-column:1 / -1}
   .prices,.band-grid,.faq-grid{grid-template-columns:minmax(0,1fr)}
   .bento{grid-template-columns:repeat(2, minmax(0,1fr))}
   .bento .b-2{grid-column:span 2}
@@ -675,13 +705,13 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .ptable tbody th{font-size:15px}
   .ptable td b{padding:5px 10px;font-size:15px}
   .dx-bar{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:12px;border-radius:20px}
-  .dx-bar .dx-sort{grid-column:1 / -1}
+  /* vzdialenosť pod obcou, radenie samostatne: „Najlepšie hodnotení“ by sa v polovičnom poli orezalo */
+  /* vzdialenosť (krátke hodnoty) a kraj vedľa seba, ostatné polia s dlhšími textami cez celú šírku */
+  .dx-bar{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+  .dx-bar .dx-q,.dx-bar .dx-where,.dx-bar .dx-cat,.dx-bar .dx-sort{grid-column:1 / -1}
   .dx-bar select.input{padding-left:12px;padding-right:30px;background-position:calc(100% - 16px) 52%, calc(100% - 11px) 52%}
-  .biz{grid-template-columns:auto minmax(0,1fr);gap:12px 14px;padding:16px}
+  .biz{gap:12px;padding:16px}
   .biz .ava{width:46px;height:46px;font-size:15px}
-  .biz-rate{grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
-  .biz-side{grid-column:1 / -1}
-  .biz-btn{grid-column:1 / -1;width:100%}
   .ico-row{flex-direction:column}
   .guar{grid-template-columns:minmax(0,1fr);gap:18px}
   .cta{border-radius:22px}
@@ -704,6 +734,9 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .pf-score b{font-size:36px}
   .pf-foot{padding:12px max(18px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(18px, env(safe-area-inset-left, 0px))}
 }
+@media (max-width: 520px){
+  .dx-list{grid-template-columns:minmax(0,1fr)}
+}
 @media (max-width: 380px){
   .logo{font-size:20px}
   .top-actions .btn-circ .circ{display:none}
@@ -720,6 +753,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></symbol>
+  <symbol id="i-locate" viewBox="0 0 24 24"><line x1="2" x2="5" y1="12" y2="12" /><line x1="19" x2="22" y1="12" y2="12" /><line x1="12" x2="12" y1="2" y2="5" /><line x1="12" x2="12" y1="19" y2="22" /><circle cx="12" cy="12" r="7" /><circle cx="12" cy="12" r="3" /></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /><circle cx="12" cy="10" r="3" /></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol>
@@ -826,11 +860,21 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         <label for="dx-q">Hľadať</label>
         <div class="dx-in"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input class="input" id="dx-q" type="search" placeholder="Meno, firma alebo obec" autocomplete="off" enterkeyhint="search"></div>
       </div>
-      <div class="dx-f">
-        <label for="dx-cat">Remeslo</label>
-        <select class="input" id="dx-cat"><option value="">Všetky remeslá</option></select>
+      <div class="dx-f dx-where">
+        <label for="dx-where">Vaša obec</label>
+        <div class="dx-in"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><input class="input" id="dx-where" list="obce" placeholder="Obec alebo PSČ" autocomplete="address-level2" enterkeyhint="search"><button class="dx-locate" type="button" id="dx-locate" aria-label="Použiť moju polohu" title="Použiť moju polohu"><svg class="ic" aria-hidden="true"><use href="#i-locate"/></svg></button></div>
       </div>
-      <div class="dx-f">
+      <div class="dx-f dx-km">
+        <label for="dx-km">Vzdialenosť</label>
+        <select class="input" id="dx-km">
+          <option value="">Ľubovoľná</option>
+          <option value="10">do 10 km</option>
+          <option value="25">do 25 km</option>
+          <option value="50">do 50 km</option>
+          <option value="100">do 100 km</option>
+        </select>
+      </div>
+      <div class="dx-f dx-kraj">
         <label for="dx-kraj">Kraj</label>
         <select class="input" id="dx-kraj">
           <option value="">Všetky kraje</option>
@@ -844,6 +888,10 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
           <option value="KE">Košický</option>
         </select>
       </div>
+      <div class="dx-f dx-cat">
+        <label for="dx-cat">Remeslo</label>
+        <select class="input" id="dx-cat"><option value="">Všetky remeslá</option></select>
+      </div>
       <div class="dx-f dx-sort">
         <label for="dx-sort">Zoradiť</label>
         <select class="input" id="dx-sort">
@@ -851,14 +899,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
           <option value="count">Najviac hodnotení</option>
           <option value="resp">Najrýchlejšia odpoveď</option>
           <option value="name">Podľa abecedy</option>
+          <option value="dist" disabled>Najbližšie</option>
         </select>
       </div>
     </form>
+    <p class="dx-hint" id="dx-hint" role="status" hidden></p>
     <p class="sr" id="dx-live" aria-live="polite"></p>
     <div class="dx-meta"><p id="dx-count"></p><span class="dx-acts"><button class="link" type="button" id="dx-reset" hidden>Zrušiť filtre</button><button class="btn btn-primary btn-circ" type="button" id="dx-ask" data-open="" hidden>Získať ponuky <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></span></div>
     <ol class="dx-list" id="dx-list"></ol>
     <div class="dx-more"><button class="btn btn-outline" type="button" id="dx-more" hidden>Zobraziť ďalších</button></div>
-    <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
+    <p class="note dx-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Poradie určuje len zvolené radenie, nie platby. Vzdialenosť je orientačná, vzdušnou čiarou medzi obcami. Ukážkové profily, mená a hodnotenia sú ilustračné.</p>
   </div>
 </section>
 
@@ -1465,6 +1515,16 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   const KRAJ = { BA: 'Bratislavský kraj', TT: 'Trnavský kraj', TN: 'Trenčiansky kraj', NR: 'Nitriansky kraj', ZA: 'Žilinský kraj', BB: 'Banskobystrický kraj', PO: 'Prešovský kraj', KE: 'Košický kraj' };
   const OBCE = [["Bratislava","Bratislava","BA",""],["Bratislava – Staré Mesto","Bratislava I","BA","811"],["Bratislava – Ružinov","Bratislava II","BA","821"],["Bratislava – Nové Mesto","Bratislava III","BA","831"],["Bratislava – Rača","Bratislava III","BA",""],["Bratislava – Dúbravka","Bratislava IV","BA","841"],["Bratislava – Karlova Ves","Bratislava IV","BA",""],["Bratislava – Petržalka","Bratislava V","BA","851"],["Senec","Senec","BA","903"],["Pezinok","Pezinok","BA","902"],["Malacky","Malacky","BA","901"],["Stupava","Malacky","BA","900"],["Trnava","Trnava","TT","917"],["Piešťany","Piešťany","TT","921"],["Hlohovec","Hlohovec","TT","920"],["Galanta","Galanta","TT","924"],["Sereď","Galanta","TT","926"],["Dunajská Streda","Dunajská Streda","TT","929"],["Šamorín","Dunajská Streda","TT","931"],["Senica","Senica","TT","905"],["Skalica","Skalica","TT","909"],["Trenčín","Trenčín","TN","911"],["Nové Mesto nad Váhom","Nové Mesto nad Váhom","TN","915"],["Považská Bystrica","Považská Bystrica","TN","017"],["Dubnica nad Váhom","Ilava","TN","018"],["Púchov","Púchov","TN","020"],["Prievidza","Prievidza","TN","971"],["Partizánske","Partizánske","TN","958"],["Bánovce nad Bebravou","Bánovce nad Bebravou","TN","957"],["Myjava","Myjava","TN","907"],["Nitra","Nitra","NR","949"],["Nové Zámky","Nové Zámky","NR","940"],["Komárno","Komárno","NR","945"],["Levice","Levice","NR","934"],["Topoľčany","Topoľčany","NR","955"],["Šaľa","Šaľa","NR","927"],["Zlaté Moravce","Zlaté Moravce","NR","953"],["Štúrovo","Nové Zámky","NR","943"],["Žilina","Žilina","ZA","010"],["Martin","Martin","ZA","036"],["Liptovský Mikuláš","Liptovský Mikuláš","ZA","031"],["Ružomberok","Ružomberok","ZA","034"],["Čadca","Čadca","ZA","022"],["Dolný Kubín","Dolný Kubín","ZA","026"],["Námestovo","Námestovo","ZA","029"],["Bytča","Bytča","ZA","014"],["Banská Bystrica","Banská Bystrica","BB","974"],["Zvolen","Zvolen","BB","960"],["Lučenec","Lučenec","BB","984"],["Rimavská Sobota","Rimavská Sobota","BB","979"],["Brezno","Brezno","BB","977"],["Žiar nad Hronom","Žiar nad Hronom","BB","965"],["Banská Štiavnica","Banská Štiavnica","BB","969"],["Detva","Detva","BB","962"],["Prešov","Prešov","PO","080"],["Poprad","Poprad","PO","058"],["Humenné","Humenné","PO","066"],["Bardejov","Bardejov","PO","085"],["Vranov nad Topľou","Vranov nad Topľou","PO","093"],["Kežmarok","Kežmarok","PO","060"],["Stará Ľubovňa","Stará Ľubovňa","PO","064"],["Snina","Snina","PO","069"],["Svidník","Svidník","PO","089"],["Levoča","Levoča","PO","054"],["Košice","Košice","KE","040"],["Michalovce","Michalovce","KE","071"],["Spišská Nová Ves","Spišská Nová Ves","KE","052"],["Trebišov","Trebišov","KE","075"],["Rožňava","Rožňava","KE","048"],["Moldava nad Bodvou","Košice-okolie","KE","045"],["Sobrance","Sobrance","KE","073"]];
   $('#obce').innerHTML = OBCE.map(([n, o, k]) => `<option value="${n}" label="okres ${o}, ${KRAJ[k]}"></option>`).join('');
+  // Približné stredy obcí (zemepisná šírka, dĺžka) na orientačnú vzdialenosť vzdušnou čiarou
+  const OBCE_GEO = {"Bratislava":[48.148,17.107],"Bratislava – Staré Mesto":[48.144,17.108],"Bratislava – Ružinov":[48.155,17.165],"Bratislava – Nové Mesto":[48.172,17.130],"Bratislava – Rača":[48.208,17.153],"Bratislava – Dúbravka":[48.183,17.035],"Bratislava – Karlova Ves":[48.155,17.055],"Bratislava – Petržalka":[48.112,17.110],"Senec":[48.220,17.400],"Pezinok":[48.289,17.267],"Malacky":[48.436,17.022],"Stupava":[48.274,17.032],"Trnava":[48.377,17.588],"Piešťany":[48.591,17.827],"Hlohovec":[48.430,17.803],"Galanta":[48.190,17.727],"Sereď":[48.286,17.735],"Dunajská Streda":[47.993,17.619],"Šamorín":[48.031,17.309],"Senica":[48.679,17.367],"Skalica":[48.845,17.227],"Trenčín":[48.894,18.044],"Nové Mesto nad Váhom":[48.757,17.831],"Považská Bystrica":[49.121,18.421],"Dubnica nad Váhom":[48.960,18.170],"Púchov":[49.124,18.326],"Prievidza":[48.774,18.627],"Partizánske":[48.629,18.381],"Bánovce nad Bebravou":[48.719,18.258],"Myjava":[48.753,17.568],"Nitra":[48.307,18.087],"Nové Zámky":[47.986,18.162],"Komárno":[47.763,18.129],"Levice":[48.217,18.600],"Topoľčany":[48.561,18.177],"Šaľa":[48.151,17.877],"Zlaté Moravce":[48.385,18.400],"Štúrovo":[47.798,18.717],"Žilina":[49.223,18.740],"Martin":[49.066,18.923],"Liptovský Mikuláš":[49.083,19.612],"Ružomberok":[49.075,19.303],"Čadca":[49.437,18.789],"Dolný Kubín":[49.209,19.296],"Námestovo":[49.408,19.481],"Bytča":[49.224,18.558],"Banská Bystrica":[48.736,19.146],"Zvolen":[48.578,19.125],"Lučenec":[48.330,19.667],"Rimavská Sobota":[48.383,20.022],"Brezno":[48.805,19.639],"Žiar nad Hronom":[48.592,18.854],"Banská Štiavnica":[48.449,18.910],"Detva":[48.558,19.418],"Prešov":[48.998,21.240],"Poprad":[49.059,20.297],"Humenné":[48.937,21.912],"Bardejov":[49.292,21.276],"Vranov nad Topľou":[48.889,21.684],"Kežmarok":[49.135,20.432],"Stará Ľubovňa":[49.300,20.687],"Snina":[48.988,22.152],"Svidník":[49.306,21.570],"Levoča":[49.025,20.588],"Košice":[48.716,21.261],"Michalovce":[48.755,21.918],"Spišská Nová Ves":[48.944,20.565],"Trebišov":[48.630,21.719],"Rožňava":[48.660,20.532],"Moldava nad Bodvou":[48.614,21.000],"Sobrance":[48.745,22.181]};
+  // „Bratislava – Petržalka“ aj „Bratislava-Petržalka“ (zápis v zozname majstrov) = rovnaký kľúč
+  const geoKey = s => norm(s).replace(/\s*[-–]\s*/g, '-');
+  const GEO = new Map(Object.entries(OBCE_GEO).map(([n, c]) => [geoKey(n), c]));
+  const townGeo = t => GEO.get(geoKey(t)) || GEO.get(geoKey(String(t).split(/\s*[-–]\s*/)[0])) || null;
+  const kmBetween = ([la1, lo1], [la2, lo2]) => {
+    const r = Math.PI / 180, a = Math.sin((la2 - la1) * r / 2) ** 2 + Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin((lo2 - lo1) * r / 2) ** 2;
+    return 12742 * Math.asin(Math.sqrt(a));
+  };
   const findPlace = v => {
     const t = norm(v);
     if (!t) return null;
@@ -1475,12 +1535,13 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   let regionTimer;
   const applyRegion = place => {
     const hint = $('#where-hint');
-    if (!place) { hint.textContent = ''; return; }
+    if (!place) { hint.textContent = ''; dxFromHero(null); return; }
     hint.textContent = `${place[0]} · okres ${place[1]} · ${KRAJ[place[2]]}. Ceny a majstri nižšie sú pre váš kraj.`;
     const opt = [...$('#kraj').options].find(o => o.dataset.k === place[2]);
     if (opt && $('#kraj').value !== opt.value) { $('#kraj').value = opt.value; $('#kraj').dispatchEvent(new Event('change')); }
     const chip = $(`#filter [data-kraj="${place[2]}"]`);
     if (chip && chip.getAttribute('aria-pressed') !== 'true') chip.click();
+    dxFromHero(place);
   };
   const onWhere = () => { clearTimeout(regionTimer); regionTimer = setTimeout(() => applyRegion(findPlace($('#where').value)), 250); };
   $('#where').addEventListener('input', onWhere);
@@ -1607,46 +1668,124 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     rating: (a, b) => b.rating - a.rating || b.count - a.count,
     count: (a, b) => b.count - a.count,
     resp: (a, b) => a.resp - b.resp || b.rating - a.rating,
-    name: (a, b) => a.name.localeCompare(b.name, 'sk')
+    name: (a, b) => a.name.localeCompare(b.name, 'sk'),
+    // najbližší prví; majstri bez známej polohy na koniec
+    dist: (a, b) => (a.dist ?? Infinity) - (b.dist ?? Infinity) || b.rating - a.rating
   };
   $('#dx-cat').insertAdjacentHTML('beforeend', Object.entries(CAT).map(([k, [label]]) => `<option value="${k}">${label}</option>`).join(''));
 
-  const bizHTML = p => {
+  /* Vzdialenosť: od obce alebo PSČ zo zoznamu, prípadne od polohy zariadenia */
+  const KM_STEPS = [10, 25, 50, 100];
+  const MY_PLACE = 'Moja poloha';
+  let dxRef = null; // { at: [šírka, dĺžka], name, geo }
+  const dxWhere = $('#dx-where');
+  const dxHint = $('#dx-hint');
+  const showHint = msg => {
+    dxHint.hidden = !msg;
+    dxHint.innerHTML = msg ? `<svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span>${esc(msg)}</span>` : '';
+  };
+  const distText = d => d < 1 ? 'Vo vašej obci' : `≈ ${d} km od vás`;
+  const refName = () => dxRef.geo ? 'vašej polohy' : `obce ${dxRef.name}`;
+  // loud = pole bolo opustené alebo vybraté z ponuky; počas písania sa „obec nepoznáme“ neukazuje
+  const syncRefUI = (loud = false) => {
+    const opt = $('#dx-sort option[value="dist"]');
+    opt.disabled = !dxRef;
+    if (!dxRef && $('#dx-sort').value === 'dist') $('#dx-sort').value = 'rating';
+    const v = dxWhere.value.trim();
+    if (v && !dxRef && v !== MY_PLACE && loud) showHint(`Obec „${v}“ v zozname nemáme. Vyberte ju z ponuky alebo zadajte PSČ.`);
+    else if (!dxRef && $('#dx-km').value) showHint('Na filter vzdialenosti zadajte vašu obec alebo PSČ, prípadne použite svoju polohu.');
+    else showHint('');
+  };
+  const setRefFromInput = (loud = false) => {
+    const v = dxWhere.value.trim();
+    if (dxRef && dxRef.geo && v === MY_PLACE) return;
+    const pl = findPlace(v);
+    const at = pl && OBCE_GEO[pl[0]];
+    const next = at ? { at, name: pl[0], geo: false } : null;
+    // rovnaká obec ako doteraz (napr. „change“ po opustení poľa): neprekresľovať, inak by sa stratil práve začatý klik do zoznamu
+    const same = (next && dxRef && !dxRef.geo && next.name === dxRef.name) || (!next && !dxRef);
+    dxRef = next;
+    syncRefUI(loud);
+    if (!same) refreshDir();
+    else dx.reset.hidden = !($('#dx-q').value.trim() || $('#dx-cat').value || $('#dx-kraj').value || v || $('#dx-km').value);
+  };
+  let whereTimer;
+  dxWhere.addEventListener('input', () => { delete dxWhere.dataset.auto; clearTimeout(whereTimer); whereTimer = setTimeout(setRefFromInput, 300); });
+  dxWhere.addEventListener('change', () => { clearTimeout(whereTimer); setRefFromInput(true); });
+  // Obec zadaná hore vo vyhľadávaní sa prenesie aj sem, kým ju zákazník v zozname neprepíše
+  function dxFromHero(place) {
+    if (dxWhere.value && !dxWhere.dataset.auto) return;
+    dxWhere.value = place ? place[0] : '';
+    if (place) dxWhere.dataset.auto = '1'; else delete dxWhere.dataset.auto;
+    setRefFromInput();
+  }
+  $('#dx-locate').addEventListener('click', e => {
+    const btn = e.currentTarget;
+    if (!('geolocation' in navigator)) { showHint('Tento prehliadač polohu neposkytuje. Zadajte obec alebo PSČ.'); return; }
+    btn.setAttribute('aria-busy', 'true');
+    navigator.geolocation.getCurrentPosition(pos => {
+      btn.removeAttribute('aria-busy');
+      dxRef = { at: [pos.coords.latitude, pos.coords.longitude], name: '', geo: true };
+      dxWhere.value = MY_PLACE;
+      delete dxWhere.dataset.auto;
+      syncRefUI();
+      $('#dx-sort').value = 'dist';
+      refreshDir();
+    }, () => {
+      btn.removeAttribute('aria-busy');
+      showHint('Polohu sa nepodarilo zistiť (prístup zamietnutý alebo nedostupný). Zadajte obec alebo PSČ.');
+    }, { timeout: 10000, maximumAge: 600000 });
+  });
+
+  // k ≥ 0: karta naskočí s oneskorením k × 45 ms (len nové karty, pozri renderDir)
+  const bizHTML = (p, k = -1) => {
     const [trade, tint] = CAT[p.cat];
     const nm = esc(p.name);
-    return `<li class="biz tc-${tint}">
-      <span class="ava" aria-hidden="true">${esc(initials(p.name))}</span>
-      <div class="biz-main">
-        <h3 tabindex="-1"><button class="biz-name" type="button" data-profile="${nm}">${nm}</button><svg class="ic vf" role="img" aria-label="IČO overené"><use href="#i-verified"/></svg><span class="kind">${p.firm ? 'Firma' : 'Živnostník'}</span></h3>
-        <p class="trade">${trade} · ${esc(p.town)}</p>
-        <ul class="biz-tags"><li>${esc(p.tag)}</li><li>${esc(p.langs)}</li></ul>
+    const fact = (ic, text, cls = '') => `<li${cls ? ` class="${cls}"` : ''}><svg class="ic" aria-hidden="true"><use href="#${ic}"/></svg><span>${text}</span></li>`;
+    return `<li class="biz tc-${tint}${k >= 0 ? ' biz-in' : ''}"${k >= 0 ? ` style="--k:${k}"` : ''}>
+      <div class="biz-head">
+        <span class="biz-ava" aria-hidden="true"><span class="ava">${esc(initials(p.name))}</span><svg class="ic vf"><use href="#i-verified"/></svg></span>
+        <div class="biz-main">
+          <h3 tabindex="-1"><button class="biz-name" type="button" data-profile="${nm}">${nm}</button><span class="sr">, IČO overené</span></h3>
+          <p class="trade">${trade} · ${esc(p.town)}</p>
+        </div>
       </div>
-      <div class="biz-rate">
-        <p class="rating"><span class="stars" style="--p:${p.rating / 5 * 100}%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>${num(p.rating)}<span class="sr"> z 5</span></strong>(${p.count} hodnotení)</p>
-        <small>${p.jobs} dokončených zákaziek</small>
-      </div>
-      <div class="biz-side">
+      <p class="rating"><span class="stars" style="--p:${p.rating / 5 * 100}%" aria-hidden="true"></span><strong><span class="sr">Hodnotenie </span>${num(p.rating)}<span class="sr"> z 5</span></strong>(${p.count} hodnotení)</p>
+      <ul class="biz-chips"><li class="hl">${esc(p.tag)}</li><li>${p.firm ? 'Firma' : 'Živnostník'}</li></ul>
+      <ul class="biz-facts">
+        ${p.dist != null ? fact('i-pin', distText(p.dist), 'biz-dist') : ''}
+        ${fact('i-clock', `Odpovedá ${respText(p.resp)}`, 'biz-resp')}
+        ${fact('i-check', `${p.jobs} dokončených zákaziek`)}
+        ${fact('i-msg', `Jazyky: ${esc(p.langs)}`)}
+      </ul>
+      <div class="biz-foot">
         <span class="biz-price">${esc(p.price)}</span>
-        <span class="biz-resp"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg>Odpovedá ${respText(p.resp)}</span>
+        <button class="btn btn-outline biz-btn" type="button" data-open="${p.cat}" data-pro="${nm}" aria-label="Požiadať o ponuku: ${nm}">Požiadať o ponuku</button>
       </div>
-      <button class="btn btn-outline biz-btn" type="button" data-open="${p.cat}" data-pro="${nm}" aria-label="Požiadať o ponuku: ${nm}">Požiadať o ponuku</button>
     </li>`;
   };
 
-  const renderDir = (focusFrom = -1) => {
+  // anim: 'all' = všetky karty naskočia (zmena filtra, radenia), 'new' = len tie, ktoré tam ešte neboli (písanie, ďalšia strana), 'none' = bez animácie
+  const renderDir = (focusFrom = -1, anim = 'all') => {
     const q = norm($('#dx-q').value);
     const cat = $('#dx-cat').value;
     const kraj = $('#dx-kraj').value;
+    const km = dxRef ? +$('#dx-km').value || 0 : 0;
     const sort = SORT[$('#dx-sort').value] || SORT.rating;
-    const hits = PROS.filter(p => (!cat || p.cat === cat) && (!kraj || p.kraj === kraj) &&
+    PROS.forEach(p => { const g = dxRef && townGeo(p.town); p.dist = g ? Math.round(kmBetween(dxRef.at, g)) : null; });
+    const hits = PROS.filter(p => (!cat || p.cat === cat) && (!kraj || p.kraj === kraj) && (!km || (p.dist != null && p.dist <= km)) &&
       (!q || norm(`${p.name} ${p.town} ${CAT[p.cat][0]} ${KRAJ[p.kraj]}`).includes(q))).sort(sort);
     const shown = hits.slice(0, dx.limit);
-    const where = (cat ? ` · ${CAT[cat][0]}` : '') + (kraj ? ` · ${KRAJ[kraj]}` : '');
+    const where = (cat ? ` · ${CAT[cat][0]}` : '') + (kraj ? ` · ${KRAJ[kraj]}` : '') + (km ? ` · do ${km} km od ${refName()}` : '');
     dx.count.innerHTML = hits.length
       ? `<b>${hits.length}</b> ${plural(hits.length, 'majster alebo firma', 'majstri a firmy', 'majstrov a firiem')}${where}${shown.length < hits.length ? ` · zobrazených ${shown.length}` : ''}`
       : `Žiadny výsledok${where}`;
-    dx.list.innerHTML = shown.length ? shown.map(bizHTML).join('') :
-      `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><span class="empty-acts">${kraj ? '<button class="link" type="button" data-dx-all>Všetky kraje</button>' : ''}<button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></span></li>`;
+    const wider = km ? KM_STEPS.find(s => s > km) : 0;
+    const widen = km ? `<button class="link" type="button" data-dx-km="${wider || ''}">${wider ? `Rozšíriť na ${wider} km` : 'Bez obmedzenia vzdialenosti'}</button>` : '';
+    const had = anim === 'new' ? new Set([...dx.list.querySelectorAll('[data-profile]')].map(b => b.dataset.profile)) : null;
+    let order = 0;
+    dx.list.innerHTML = shown.length ? shown.map(p => bizHTML(p, anim === 'none' || (had && had.has(p.name)) ? -1 : Math.min(order++, 7))).join('') :
+      `<li class="dx-empty"><p>Pre tento výber zatiaľ nemáme majstra v zozname. Zadajte zákazku a ponuky vám pošlú overení majstri z okolia.</p><span class="empty-acts">${widen}${kraj ? '<button class="link" type="button" data-dx-all>Všetky kraje</button>' : ''}<button class="btn btn-primary" type="button" data-open="${cat}">Zadať zákazku</button></span></li>`;
     dx.ask.hidden = !cat;
     dx.ask.dataset.open = cat;
     // čítačke ohlásiť počet až po pauze v písaní, nie po každom písmene
@@ -1656,16 +1795,37 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     dx.more.hidden = rest <= 0;
     const k = Math.min(PAGE, rest);
     dx.more.textContent = `Zobraziť ${plural(k, 'ďalší', 'ďalšie', 'ďalších')} ${k}`;
-    dx.reset.hidden = !(q || cat || kraj);
+    dx.reset.hidden = !(q || cat || kraj || dxWhere.value.trim() || $('#dx-km').value);
     if (focusFrom >= 0) { const h = dx.list.children[focusFrom]?.querySelector('h3'); if (h) h.focus(); }
   };
   const refreshDir = () => { dx.limit = PAGE; renderDir(); };
-  function setDirKraj(k) { if ($('#dx-kraj').value !== k) { $('#dx-kraj').value = k; refreshDir(); } }
-  $('#dx-q').addEventListener('input', refreshDir);
-  ['#dx-cat', '#dx-kraj', '#dx-sort'].forEach(s => $(s).addEventListener('change', refreshDir));
+  // Kraj a vzdialenosť sú dva spôsoby, ako obmedziť miesto: zvolený jeden zruší druhý, aby si neodporovali
+  function setDirKraj(k) {
+    if (k && $('#dx-km').value) { $('#dx-km').value = ''; syncRefUI(); }
+    if ($('#dx-kraj').value !== k) { $('#dx-kraj').value = k; refreshDir(); }
+  }
+  $('#dx-q').addEventListener('input', () => { dx.limit = PAGE; renderDir(-1, 'new'); });
+  ['#dx-cat', '#dx-sort'].forEach(s => $(s).addEventListener('change', refreshDir));
+  $('#dx-kraj').addEventListener('change', () => {
+    if ($('#dx-kraj').value && $('#dx-km').value) { $('#dx-km').value = ''; syncRefUI(); }
+    refreshDir();
+  });
+  $('#dx-km').addEventListener('change', () => {
+    if ($('#dx-km').value && $('#dx-kraj').value) $('#dx-kraj').value = '';
+    syncRefUI();
+    refreshDir();
+    if ($('#dx-km').value && !dxRef) dxWhere.focus();
+  });
   $('#dx-form').addEventListener('submit', e => e.preventDefault());
-  dx.more.addEventListener('click', () => { const from = dx.limit; dx.limit += PAGE; renderDir(from); });
-  dx.reset.addEventListener('click', () => { $('#dx-form').reset(); refreshDir(); $('#dx-q').focus(); });
+  dx.more.addEventListener('click', () => { const from = dx.limit; dx.limit += PAGE; renderDir(from, 'new'); });
+  dx.reset.addEventListener('click', () => {
+    $('#dx-form').reset();
+    delete dxWhere.dataset.auto;
+    dxRef = null;
+    syncRefUI();
+    refreshDir();
+    $('#dx-q').focus();
+  });
   // Prázdny stav v najlepšie hodnotených: odkaz na zoznam s rovnakým krajom
   $('#pros-empty a[href="#zoznam"]').addEventListener('click', () => {
     const b = $('#filter button[aria-pressed="true"]');
@@ -1674,9 +1834,10 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   // Klik na kategóriu (služby, karty pod vyhľadávaním): zoznam majstrov s týmto remeslom
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
   document.addEventListener('click', e => {
-    const b = e.target.closest('[data-dx], [data-dx-all]');
+    const b = e.target.closest('[data-dx], [data-dx-all], [data-dx-km]');
     if (!b) return;
     if (b.hasAttribute('data-dx-all')) { $('#dx-kraj').value = ''; refreshDir(); return; }
+    if (b.hasAttribute('data-dx-km')) { $('#dx-km').value = b.dataset.dxKm; syncRefUI(); refreshDir(); $('#zoznam-title').focus({ preventScroll: true }); return; }
     $('#dx-q').value = '';
     $('#dx-cat').value = b.dataset.dx;
     refreshDir();
@@ -1693,7 +1854,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     s.innerHTML = n ? `<span class="nw">${esc(s.dataset.t)}</span><span class="dot"> · </span><span class="nw">${n} ${plural(n, 'majster', 'majstri', 'majstrov')}</span>` : esc(s.dataset.t);
   });
   countDir();
-  renderDir();
+  renderDir(-1, 'none');
 
   /* Profil majstra alebo firmy: kto je, s čím pracuje, ukážky prác a hodnotenia (ilustračný obsah podľa remesla) */
   // ja = živnostník, my = firma; works = s čím pracuje; svc = služby [názov, cena]; proj = ukážky [práca, trvanie, cena]; rev = hodnotenia [text, práca]
@@ -2019,7 +2180,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       const act = document.activeElement;
       const keep = dx.list.contains(act) ? act.closest('li')?.querySelector('[data-profile]')?.dataset.profile : '';
       countDir();
-      renderDir();
+      renderDir(-1, 'none');
       if (keep) dx.list.querySelector(`[data-profile="${CSS.escape(keep)}"]`)?.focus();
     }
     } catch (e) {
@@ -2029,7 +2190,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
       DB_REVS.clear();
       prev.revs.forEach((v, k) => DB_REVS.set(k, v));
       countDir();
-      renderDir();
+      renderDir(-1, 'none');
       throw e;
     }
     document.documentElement.dataset.db = 'ok';
@@ -2364,6 +2525,55 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     photoSecs.forEach(s => pio.observe(s));
   } else photoSecs.forEach(photosOn);
   window.addEventListener('beforeprint', () => photoSecs.forEach(photosOn));
+
+  /* Plynulé vynáranie obsahu pri posúvaní. Úvod a všetko, čo je vidno hneď po načítaní, ostáva bez animácie
+     (žiadne prebliknutie, rýchle LCP). V mriežkach sa vynára každá položka zvlášť, s malým odstupom. */
+  // príprava až vo voľnej chvíli po načítaní: nebrzdí prvé vykreslenie, skryje len to, čo je pod okrajom obrazovky
+  const setupReveal = () => {
+    const GROUPS = ['.guar', '.strip-track', '.dir', '.zig', '.projects', '.pros', '.bento', '.faq'];
+    const isGroup = el => GROUPS.some(g => el.matches(g));
+    // vodorovne posuvný pás (mobil) sa vynorí ako celok, nie po kartách pri potiahnutí prstom
+    const scrollsX = g => g.scrollWidth > g.clientWidth + 1 && /auto|scroll/.test(getComputedStyle(g).overflowX);
+    const groupIn = el => {
+      const g = isGroup(el) ? el : [...el.children].find(isGroup);
+      return g && !scrollsX(g) ? g : null;
+    };
+    const items = [];
+    $$('main > section:not(.hero)').forEach(sec => {
+      const wrap = sec.querySelector(':scope > .wrap') || sec;
+      [...wrap.children].forEach(el => {
+        if (el.matches('.sr, .dx-hint, [hidden]')) return;
+        const g = groupIn(el);
+        if (g && g !== el) items.push(...[...el.children].filter(c => c !== g));
+        if (g) items.push(...g.children); else items.push(el);
+      });
+    });
+    const finish = el => { el.classList.remove('rv', 'rv-in'); el.style.transitionDelay = ''; };
+    const reveal = (el, k = 0) => {
+      rio.unobserve(el);
+      if (k) el.style.transitionDelay = `${k * 70}ms`;
+      el.classList.add('rv-in');
+      // po dobehnutí vrátiť prvok do pôvodného stavu (vlastné prechody pri hoveri bez oneskorenia)
+      setTimeout(() => finish(el), 760 + k * 70);
+    };
+    const rio = new IntersectionObserver(entries => {
+      entries.filter(en => en.isIntersecting).forEach((en, k) => reveal(en.target, Math.min(k, 5)));
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.04 });
+    // prvé hlásenie pozorovateľa povie, čo je pod okrajom obrazovky (bez vynúteného prepočtu rozloženia); len to sa skryje
+    const pre = new IntersectionObserver(entries => entries.forEach(en => {
+      pre.unobserve(en.target);
+      if (!en.isIntersecting && en.boundingClientRect.top > 0) { en.target.classList.add('rv'); rio.observe(en.target); }
+    }));
+    items.forEach(el => pre.observe(el));
+    // klávesnica, skok na kotvu alebo hľadanie v stránke: skrytý prvok sa ukáže hneď
+    document.addEventListener('focusin', e => { const r = e.target.closest('.rv:not(.rv-in)'); if (r) reveal(r); });
+    window.addEventListener('beforeprint', () => $$('.rv').forEach(finish));
+  };
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const idle = window.requestIdleCallback || (fn => setTimeout(fn, 200));
+    const go = () => idle(setupReveal, { timeout: 1500 });
+    if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true });
+  }
 })();
 </script>
 </body>
