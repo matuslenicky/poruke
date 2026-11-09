@@ -1,4 +1,4 @@
-# Poruke
+# Zruční
 
 Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuálne v čistom modernom business štýle (inšpirácia Thumbtack), obsahom v európskom duchu namiesto amerického modelu predaja kontaktov.
 

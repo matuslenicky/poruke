@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Automatické testy Poruke. Otvorí web v headless Chromiu (Playwright) na troch šírkach
+ * Automatické testy webu Zruční. Otvorí web v headless Chromiu (Playwright) na troch šírkach
  * (390, 820, 1440 px) a preklikne hlavné funkcie. Projekt nemení, len ho číta.
  *
  *   node tests/run.js                  koreňový index.html cez file://
@@ -896,7 +896,7 @@ async function runViewport(browser, target, vp, out) {
       check(r, p.hash === '#profil-' + slugOf(info.name), `${what}: adresa ${p.hash}, čakal som #profil-${slugOf(info.name)}`);
       check(r, p.focus, `${what}: fokus nie je na tlačidle Zavrieť`);
       const firm = p.kind.startsWith('Firma');
-      const need = [firm ? 'O nás' : 'O mne', firm ? 'S čím pracujeme' : 'S čím pracujem', 'Služby a orientačné ceny', 'Overené Poruke', 'Ukážky prác', 'Hodnotenia', firm ? 'Ako pracujeme' : 'Ako pracujem'];
+      const need = [firm ? 'O nás' : 'O mne', firm ? 'S čím pracujeme' : 'S čím pracujem', 'Služby a orientačné ceny', 'Overené Zručnými', 'Ukážky prác', 'Hodnotenia', firm ? 'Ako pracujeme' : 'Ako pracujem'];
       const miss = need.filter(h => !p.secs.includes(h));
       check(r, miss.length === 0, `${what}: chýbajú časti ${miss.join(', ')}`);
       check(r, p.facts === 4, `${what}: ${p.facts} údajov v .pf-facts, čakal som 4`);
@@ -1198,7 +1198,7 @@ async function main() {
   const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const out = path.join(os.tmpdir(), 'poruke-tests', stamp);
   fs.mkdirSync(out, { recursive: true });
-  console.log(`Poruke testy: ${target}\nVýstupy: ${out}\n`);
+  console.log(`Zruční testy: ${target}\nVýstupy: ${out}\n`);
 
   const browser = await pw.chromium.launch({ headless: true });
   const t0 = Date.now();
