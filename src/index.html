@@ -78,7 +78,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .ic-s{width:16px;height:16px}
 
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-left:var(--gut);padding-right:var(--gut-r)}
-.section{padding-block:clamp(72px, 9vw, 120px)}
+.section{padding-block:clamp(64px, 7.5vw, 104px)}
 .alt{background:var(--bg-alt)}
 .kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .h2{font-weight:600;font-size:clamp(30px, 3.4vw, 44px);line-height:1.1;letter-spacing:-.03em}
@@ -130,6 +130,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 .hero-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 62%}
 .hero-panel::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse 54% 66% at 50% 47%, rgba(255,255,255,.93) 0%, rgba(255,255,255,.84) 48%, rgba(255,255,255,.5) 78%, rgba(255,255,255,.28) 100%)}
 .hero .lead{color:var(--ink-2)}
+/* Dôvera nad nadpisom: avatary majstrov a priemerné hodnotenie (Daibau) */
+.trust{display:inline-flex;align-items:center;gap:12px;margin-bottom:-4px;padding:6px 16px 6px 6px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb, var(--surface) 86%, transparent);font-size:14px;color:var(--ink-2);text-align:left}
+.trust-ava{display:flex;padding-left:5px}
+.trust .ava{width:32px;height:32px;margin-left:-5px;font-size:11.5px;background:var(--tb);color:color-mix(in srgb, var(--ti) 70%, #000);box-shadow:0 0 0 2px var(--surface)}
+.trust-t{display:flex;flex-wrap:wrap;align-items:center;gap:0 8px;line-height:1.35}
+.trust-r{display:inline-flex;align-items:center;gap:4px;color:var(--ink);font-weight:700}
+.trust .star{width:16px;height:16px}
 .hero-in{display:grid;justify-items:center;gap:22px;max-width:820px;margin-inline:auto;text-align:center}
 .hero h1{display:grid;gap:4px;line-height:1}
 .hero h1 .l1{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:-.035em;line-height:1.06}
@@ -155,15 +162,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 .strip{margin-bottom:clamp(16px, 2vw, 24px)}
 #zoznam{padding-top:clamp(48px, 6vw, 80px)}
 .strip-track{display:grid;grid-template-columns:repeat(7, minmax(0,1fr));gap:16px;list-style:none;margin:0;padding:0}
-.tile{display:grid;gap:10px;width:100%;border:0;padding:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:16px}
+.tile{position:relative;display:grid;gap:10px;width:100%;border:0;padding:0;background:none;color:var(--ink);text-align:left;cursor:pointer;border-radius:16px}
 .tile-img{display:block;border-radius:16px;overflow:hidden;background:var(--bg-alt)}
 .tile .ph{aspect-ratio:4 / 5;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
 .tile-label{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:600;font-size:15px;line-height:1.3;padding-inline:2px}
-.tile-label .ic{width:15px;height:15px;color:var(--muted);transition:transform .2s, color .2s}
-@media (hover: hover){
-  .tile:hover .ph{transform:scale(1.045)}
-  .tile:hover .tile-label .ic{color:var(--ink);transform:translate(2px, -2px)}
-}
+/* priemerné hodnotenie majstrov remesla (Daibau: najhľadanejší zhotovitelia) */
+.tile-rate{display:inline-flex;align-items:center;gap:2px;flex:none;font-size:13px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.tile-rate b{font-weight:600}
+.tile-rate .star{width:13px;height:13px}
+@media (hover: hover){ .tile:hover .ph{transform:scale(1.045)} }
 
 /* Tri piliere s deliacimi čiarami */
 
@@ -228,18 +235,54 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .cta-in span{font-size:14px;color:var(--ink-2);max-width:22ch}
 @media (hover: hover){ .proj-cta:hover{background:#E8E0D1} }
 
-/* Ako to funguje: 01–03 striedavo */
-.zig{list-style:none;margin:0;padding:0;display:grid;gap:clamp(20px, 3vw, 28px)}
-.zig li{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px, 5vw, 72px);align-items:center}
-.zig li.rev{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
-.zig li.rev .zig-img{order:2}
-.zig-img{border-radius:22px;overflow:hidden;background:var(--surface)}
-.zig-img .ph{aspect-ratio:16 / 10}
-.zig-text{display:grid;gap:10px;align-content:center;max-width:440px}
-.zig-n{font-weight:400;font-size:56px;letter-spacing:-.05em;line-height:1;color:var(--ink)}
-.zig h3{font-weight:600;font-size:clamp(22px, 2.2vw, 28px);line-height:1.2;letter-spacing:-.025em}
-.zig p{color:var(--muted)}
-.zig-cta{display:flex;justify-content:center;margin-top:clamp(36px, 5vw, 56px)}
+/* Čísla pod úvodom (Daibau): hodnotenia, majstri, zákazky, najviac tri ponuky */
+.stats-sec{padding-top:clamp(40px, 5vw, 64px)}
+.stats{list-style:none;margin:0;padding:0 0 clamp(40px, 5vw, 64px);display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:24px;border-bottom:1px solid var(--line);text-align:center}
+.stats li{display:grid;gap:6px;align-content:start}
+.stats b{font-weight:700;font-size:clamp(34px, 3.8vw, 48px);letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.stats span{font-size:14.5px;color:var(--muted);text-wrap:balance}
+
+/* Ako to funguje: tri kroky vedľa seba, pod nimi pás výhod s tlačidlom (Daibau) */
+#ako{padding-bottom:clamp(56px, 6.5vw, 88px)}
+.kroky{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:clamp(16px, 2.4vw, 28px)}
+.kroky li{display:grid;gap:10px;align-content:start}
+.krok-img{display:block;margin-bottom:8px;border-radius:20px;overflow:hidden;background:var(--bg-alt)}
+.krok-img .ph{aspect-ratio:4 / 3}
+.kroky h3{display:flex;align-items:center;gap:12px;font-weight:600;font-size:clamp(19px, 1.7vw, 22px);line-height:1.25;letter-spacing:-.02em}
+.krok-n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--ink);color:var(--brand-ink);font-size:14px;font-weight:700;letter-spacing:0}
+.kroky p{color:var(--muted);font-size:15.5px;max-width:42ch}
+.kroky-pas{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;margin-top:clamp(28px, 4vw, 44px);padding:16px 16px 16px 28px;border-radius:22px;background:var(--bg-alt)}
+.kroky-pas ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 28px}
+.kroky-pas li{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px}
+.kroky-pas .ic{stroke-width:2.2}
+
+/* Posledné zákazky: pás kariet so šípkami, na mobile posúvanie prstom (Daibau) */
+.jobs-sec{padding-top:0}
+.jobs-sec > .wrap::before{content:"";display:block;height:1px;background:var(--line);margin-bottom:clamp(56px, 6.5vw, 88px)}
+.sec-head > .jobs-nav{display:flex;gap:8px;max-width:none}
+.jobs-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:border-color .15s, opacity .15s}
+#jobs-prev .ic{transform:rotate(180deg)}
+@media (hover: hover){ .jobs-nav button:not(:disabled):hover{border-color:var(--ink)} }
+.jobs-nav button:disabled{opacity:.35;cursor:default}
+.jobs{list-style:none;margin:0;padding:2px;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 48px) / 4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.jobs::-webkit-scrollbar{display:none}
+.job{position:relative;scroll-snap-align:start;display:flex;flex-direction:column;gap:10px;min-width:0;padding:20px 20px 8px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.job-top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.job-st{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.job-st::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px var(--good-soft)}
+.job-st.full{color:var(--muted)}
+.job-st.full::before{background:var(--line-strong);box-shadow:0 0 0 4px var(--bg-alt)}
+.job h3{font-weight:600;font-size:16.5px;line-height:1.3;letter-spacing:-.01em}
+.job-loc{display:flex;align-items:center;gap:6px;margin-top:-4px;font-size:14px;color:var(--ink-2)}
+.job-loc .ic{width:16px;height:16px;color:var(--muted)}
+.job-desc{font-size:14px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.job-foot{margin-top:auto;display:grid;gap:2px;padding-top:12px;border-top:1px solid var(--line)}
+.job-of{display:flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.job-of i{width:20px;height:6px;border-radius:6px;background:var(--line)}
+.job-of i.on{background:var(--ink)}
+.job-of span{margin-left:8px}
+.job .link{justify-self:start;font-size:14.5px}
+.jobs-foot{margin-top:16px}
 
 /* Prečo Zruční: mozaika (Flowblox) */
 .bento{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));grid-auto-rows:minmax(300px, auto);gap:16px}
@@ -461,15 +504,19 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .cta p{color:var(--muted);margin-top:12px;max-width:50ch}
 .cta .btn{min-height:52px;padding:0 24px;font-size:16px}
 
-/* Pätička */
-.foot{padding-block:40px 28px;font-size:14px}
-.foot-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px}
-.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:0 22px}
-.foot .foot-r ul{justify-content:flex-end}
-.foot li a,.foot li button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;min-width:44px;color:var(--muted);text-decoration:none;background:none;border:0;padding:0;cursor:pointer;font-size:13.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:500}
-@media (hover: hover){ .foot li a:hover,.foot li button:hover{color:var(--ink)} }
-@media (pointer: coarse){ .foot li a,.foot li button{min-height:44px} }
-.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+/* Pätička: stĺpce remesiel, miest a odkazov (Daibau), ale svetlá */
+.foot{margin-top:clamp(24px, 3vw, 40px);padding-block:clamp(48px, 6vw, 72px) 28px;font-size:14px;background:var(--bg-alt);border-radius:32px 32px 0 0}
+.foot-cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.1fr);gap:32px 28px}
+.foot-brand{display:grid;gap:14px;align-content:start;justify-items:start}
+.foot .logo{justify-self:start}
+.foot-brand p{max-width:30ch;font-size:14.5px;color:var(--muted)}
+.foot-h{margin-bottom:8px;font-size:12.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid}
+.foot-crafts ul{grid-template-columns:repeat(2, minmax(0,1fr));column-gap:20px}
+.foot-col a,.foot-col button{display:inline-flex;align-items:center;min-height:34px;padding:0;border:0;background:none;color:var(--ink-2);font-size:14.5px;font-weight:500;line-height:1.3;text-align:left;text-decoration:none;cursor:pointer}
+@media (hover: hover){ .foot-col a:hover,.foot-col button:hover{color:var(--ink);text-decoration:underline} }
+@media (pointer: coarse){ .foot-col a,.foot-col button{min-height:44px} }
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:clamp(32px, 4vw, 48px);padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 .foot-bottom a{color:inherit}
 
 /* Spodná lišta (mobil) */
@@ -624,6 +671,9 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 }
 @media (max-width: 1080px){
   .dx-list{grid-template-columns:repeat(3, minmax(0,1fr))}
+  .jobs{grid-auto-columns:calc((100% - 32px) / 3)}
+  .foot-cols{grid-template-columns:minmax(0,2fr) repeat(3, minmax(0,1fr))}
+  .foot-brand{grid-column:1 / -1}
 }
 /* 641–800 px: v tretinových poliach by sa orezal placeholder hľadania, obce aj radenie */
 @media (max-width: 800px){
@@ -656,18 +706,14 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .tabbar .tb-main .plus .ic{width:20px;height:20px;stroke-width:2.4}
   .projects{grid-template-columns:repeat(2, minmax(0,1fr))}
   .guar{grid-template-columns:repeat(2, minmax(0,1fr))}
-  .foot-row{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}
-  .foot ul,.foot .foot-r ul{justify-content:center}
-  .foot-bottom{justify-content:center;text-align:center}
   .top-actions .btn-primary{background:var(--surface);color:var(--ink);border-color:var(--line-strong)}
   .top-actions .btn-primary .circ{background:var(--ink);color:var(--surface)}
-  .foot .logo{order:-1}
 }
 @media (max-width: 860px){
   .strip-track{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:136px;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:2px var(--gut-r) 6px var(--gut);scroll-padding-inline:var(--gut)}
   .strip-track::-webkit-scrollbar{display:none}
   .strip-track > li{scroll-snap-align:start}
-  .tile-label{font-size:14.5px}
+  .tile-label{flex-direction:column;align-items:flex-start;gap:1px;font-size:14.5px}
   .hero-panel{border-radius:24px}
   .hero-bg{object-position:50% 60%}
 }
@@ -678,11 +724,24 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .dir-item .tic .ic{width:24px;height:24px}
   .pf-facts{grid-template-columns:repeat(2, minmax(0,1fr))}
   .pf-two,.pf-proj,.pf-revs,.pf-how{grid-template-columns:minmax(0,1fr)}
-  .zig li,.zig li.rev{grid-template-columns:minmax(0,1fr)}
-  .zig li.rev .zig-img{order:0}
-  .zig-n{font-size:44px}
-  .zig{gap:56px}
-  .zig li,.zig li.rev{gap:18px}
+  .stats{grid-template-columns:repeat(2, minmax(0,1fr));gap:28px 16px}
+  /* kroky ako zoznam: malá fotka vľavo, text vpravo */
+  .kroky{grid-template-columns:minmax(0,1fr);gap:24px}
+  .kroky li{grid-template-columns:104px minmax(0,1fr);column-gap:16px;row-gap:6px;align-items:start}
+  .krok-img{grid-row:span 2;margin:0;border-radius:16px}
+  .krok-img .ph{aspect-ratio:1}
+  .kroky h3{gap:10px;font-size:18px}
+  .krok-n{width:26px;height:26px;font-size:13px}
+  .kroky p{font-size:15px}
+  .kroky-pas{flex-direction:column;align-items:stretch;padding:20px}
+  .kroky-pas ul{flex-direction:column}
+  .kroky-pas .btn{justify-content:space-between;padding-left:22px}
+  .sec-head > .jobs-nav{display:none}
+  .jobs{grid-auto-columns:min(82%, 300px);gap:12px;margin-inline:calc(-1 * var(--gut)) calc(-1 * var(--gut-r));padding:2px var(--gut-r) 6px var(--gut);scroll-padding-inline:var(--gut)}
+  .foot{border-radius:24px 24px 0 0}
+  .foot-cols{grid-template-columns:repeat(2, minmax(0,1fr));gap:28px 20px}
+  .foot-brand,.foot-crafts,.foot-towns{grid-column:1 / -1}
+  .foot-towns ul{grid-template-columns:repeat(2, minmax(0,1fr));column-gap:20px}
   .bento{grid-template-columns:minmax(0,1fr);grid-auto-rows:minmax(240px, auto)}
   .bento .b-2{grid-column:auto}
   .bento .b-photo{min-height:340px}
@@ -749,6 +808,11 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .logo{font-size:20px}
   .top-actions .btn-circ .circ{display:none}
   .top-actions .btn-circ{padding-right:16px}
+}
+/* riadok dôvery v úvode: na 360 px telefóne v dvoch riadkoch, nie v troch */
+@media (max-width: 400px){
+  .trust{gap:10px;font-size:13px}
+  .trust .ava{width:28px;height:28px}
 }
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -828,6 +892,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   <div class="hero-panel">
   <picture><source media="(max-width: 640px)" srcset="photos/hero-m.jpg"><img class="hero-bg" src="photos/hero.jpg" alt="" fetchpriority="high" decoding="async"></picture>
   <div class="wrap hero-in">
+    <p class="trust"><span class="trust-ava" aria-hidden="true"><span class="ava tc-amber">MK</span><span class="ava tc-teal">ZH</span><span class="ava tc-clay">KŠ</span></span><span class="trust-t"><span class="trust-r"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><b data-stat="avg">4,8</b><span class="sr"> z 5</span></span><span><span data-stat="reviews">4&nbsp;075</span> hodnotení od zákazníkov</span></span></p>
     <h1 id="hero-title"><span class="l1">Každá práca doma,</span> <span class="l2">s overeným majstrom.</span></h1>
     <p class="lead">Opíšte, čo treba urobiť. Do 24 hodín porovnáte najviac tri ponuky od remeselníkov z okolia, každú s cenou vrátane DPH, termínom a zárukou.</p>
 
@@ -848,10 +913,21 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     <datalist id="obce"></datalist>
     <p class="where-hint" id="where-hint" aria-live="polite"></p>
 
-    <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Telefón dostane len majster, ktorého si vyberiete.</p>
+    <p class="privacy"><svg class="ic ic-s" aria-hidden="true"><use href="#i-lock"/></svg>Zadarmo a nezáväzne. Telefón dostane len majster, ktorého si vyberiete.</p>
   </div>
   </div>
 
+</section>
+
+<section class="stats-sec" aria-label="Zruční v číslach">
+  <div class="wrap">
+    <ul class="stats">
+      <li><b data-stat="reviews">4&nbsp;075</b><span>hodnotení od zákazníkov</span></li>
+      <li><b data-stat="pros">65</b><span>overených majstrov a firiem</span></li>
+      <li><b data-stat="jobs">11&nbsp;231</b><span>dokončených zákaziek</span></li>
+      <li><b>3</b><span>najviac toľko ponúk na zákazku</span></li>
+    </ul>
+  </div>
 </section>
 
 <section class="section" id="zoznam" data-tab="majstri" aria-labelledby="zoznam-title">
@@ -942,13 +1018,13 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     </div>
     <div class="strip">
       <ul class="strip-track" aria-label="Obľúbené služby">
-        <li><button class="tile" type="button" data-dx="elektro" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-elektro"></span></span><span class="tile-label">Elektrikár<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="voda" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-instalater"></span></span><span class="tile-label">Vodoinštalatér<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="maliar" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-malovanie"></span></span><span class="tile-label">Maliar<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="obklad" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-obklad"></span></span><span class="tile-label">Obklady<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="upratovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-upratovanie"></span></span><span class="tile-label">Upratovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="zahrada" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-zahrada"></span></span><span class="tile-label">Záhrada<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
-        <li><button class="tile" type="button" data-dx="stahovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-stahovanie"></span></span><span class="tile-label">Sťahovanie<svg class="ic" aria-hidden="true"><use href="#i-upright"/></svg></span></button></li>
+        <li><button class="tile" type="button" data-dx="elektro" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-elektro"></span></span><span class="tile-label">Elektrikár<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,8</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="voda" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-instalater"></span></span><span class="tile-label">Vodoinštalatér<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,8</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="maliar" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-malovanie"></span></span><span class="tile-label">Maliar<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,8</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="obklad" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-obklad"></span></span><span class="tile-label">Obklady<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,9</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="upratovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-upratovanie"></span></span><span class="tile-label">Upratovanie<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,8</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="zahrada" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-zahrada"></span></span><span class="tile-label">Záhrada<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,7</b></span></span></button></li>
+        <li><button class="tile" type="button" data-dx="stahovanie" aria-controls="dx-list"><span class="tile-img"><span class="ph ph-s-stahovanie"></span></span><span class="tile-label">Sťahovanie<span class="tile-rate"><svg class="ic star" aria-hidden="true"><use href="#i-star"/></svg><span class="sr">hodnotenie </span><b>4,7</b></span></span></button></li>
       </ul>
     </div>
     <ul class="dir">
@@ -980,12 +1056,46 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
         <h2 class="h2" id="ako-title">Ako to funguje. <span class="gray">Tri kroky.</span></h2>
       </div>
     </div>
-    <ol class="zig">
-      <li><span class="zig-img"><span class="ph ph-krok-opis"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">01</span><h3>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty a je to zadarmo.</p></div></li>
-      <li class="rev"><span class="zig-img"><span class="ph ph-krok-ponuky"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">02</span><h3>Porovnajte najviac tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach, bez telefonovania.</p></div></li>
-      <li><span class="zig-img"><span class="ph ph-krok-praca"></span></span><div class="zig-text"><span class="zig-n" aria-hidden="true">03</span><h3>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></div></li>
+    <ol class="kroky">
+      <li><span class="krok-img"><span class="ph ph-krok-opis"></span></span><h3><span class="krok-n" aria-hidden="true">1</span>Opíšte prácu</h3><p>Pár viet a fotka stačia. Pridajte PSČ a kedy sa vám to hodí. Zaberie to asi dve minúty a je to zadarmo.</p></li>
+      <li><span class="krok-img"><span class="ph ph-krok-ponuky"></span></span><h3><span class="krok-n" aria-hidden="true">2</span>Porovnajte najviac tri ponuky</h3><p>Každá má cenu s DPH, termín, záruku a hodnotenia z dokončených zákaziek. Otázky vyriešite v správach, bez telefonovania.</p></li>
+      <li><span class="krok-img"><span class="ph ph-krok-praca"></span></span><h3><span class="krok-n" aria-hidden="true">3</span>Vyberte a zaplaťte po práci</h3><p>Majster dostane váš kontakt až po výbere. Platíte priamo jemu, na faktúru alebo s dokladom z eKasy.</p></li>
     </ol>
-    <div class="zig-cta"><button class="btn btn-primary btn-circ" type="button" data-open="">Zadať zákazku zadarmo <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button></div>
+    <div class="kroky-pas">
+      <ul>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Jedna žiadosť, najviac tri ponuky</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Pre zákazníkov zadarmo</li>
+        <li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Hodnotenia len po dokončenej práci</li>
+      </ul>
+      <button class="btn btn-primary btn-circ" type="button" data-open="">Zadať zákazku zadarmo <span class="circ"><svg class="ic" aria-hidden="true"><use href="#i-arrow"/></svg></span></button>
+    </div>
+  </div>
+</section>
+
+<section class="section jobs-sec" id="zakazky" aria-labelledby="jobs-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="kicker">Posledné zákazky</p>
+        <h2 class="h2" id="jobs-title">Čo ľudia zadali tento týždeň</h2>
+        <p class="sub">Každú zákazku dostanú najviac traja majstri z okolia. Meno a telefón zákazníka uvidí len ten, koho si vyberie.</p>
+      </div>
+      <div class="jobs-nav">
+        <button type="button" id="jobs-prev" aria-controls="jobs-track" aria-label="Predchádzajúce zákazky"><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <button type="button" id="jobs-next" aria-controls="jobs-track" aria-label="Ďalšie zákazky"><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></button>
+      </div>
+    </div>
+    <ul class="jobs" id="jobs-track" aria-label="Posledné zákazky">
+      <li class="job"><p class="job-top"><span class="job-st">Nová</span><span>pred 2 h</span></p><h3>Výmena elektrického bojlera 80 l</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Hlohovec</p><p class="job-desc">Starý bojler tečie pri prírube. Treba demontáž, odvoz a montáž nového, byt je na 3. poschodí bez výťahu.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i></i><i></i><span>1 z 3 ponúk</span></p><button class="link" type="button" data-open="voda" data-desc="Výmena elektrického bojlera">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st">Nová</span><span>pred 3 h</span></p><h3>Čistenie a kontrola komína</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Zvolen</p><p class="job-desc">Rodinný dom, plynový kotol a krb. Pred zimou potrebujeme vyčistiť oba prieduchy a správu pre poisťovňu.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i class="on"></i><i></i><span>2 z 3 ponúk</span></p><button class="link" type="button" data-open="komin" data-desc="Čistenie a kontrola komína">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st">Nová</span><span>dnes</span></p><h3>Výmena ističov a zásuviek v kuchyni</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Trnava</p><p class="job-desc">Pri zapnutí rúry a rýchlovarnej kanvice padá istič. Chceme nové zásuvky nad linkou a samostatný okruh na rúru.</p><div class="job-foot"><p class="job-of"><i></i><i></i><i></i><span>zatiaľ bez ponuky</span></p><button class="link" type="button" data-open="elektro" data-desc="Výmena ističov a zásuviek">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st full">Obsadená</span><span>dnes</span></p><h3>Maľovanie bytu 3 + 1</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Košice</p><p class="job-desc">Steny aj stropy, asi 70 m² podlahy. Nábytok zakryjeme sami, ideálne do Vianoc.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i class="on"></i><i class="on"></i><span>3 z 3 ponúk</span></p><button class="link" type="button" data-open="maliar" data-desc="Maľovanie bytu">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st">Nová</span><span>včera</span></p><h3>Obklad kúpeľne, asi 6 m²</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Dunajská Streda</p><p class="job-desc">Starý obklad je už dole, steny sú vyrovnané. Dlažbu aj obklad máme kúpené, treba len pokládku.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i class="on"></i><i></i><span>2 z 3 ponúk</span></p><button class="link" type="button" data-open="obklad" data-desc="Obklad kúpeľne">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st full">Obsadená</span><span>včera</span></p><h3>Upratovanie po maľovaní</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Bratislava – Petržalka</p><p class="job-desc">Byt 2 + 1 po maliaroch, okná, podlahy a kuchynská linka. Termín v sobotu dopoludnia.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i class="on"></i><i class="on"></i><span>3 z 3 ponúk</span></p><button class="link" type="button" data-open="upratovanie" data-desc="Upratovanie po maľovaní">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st">Nová</span><span>včera</span></p><h3>Montáž kuchynskej linky 3,2 m</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Nitra</p><p class="job-desc">Linka je doma v krabiciach, aj s pracovnou doskou. Treba zložiť, osadiť drez a pripojiť spotrebiče.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i></i><i></i><span>1 z 3 ponúk</span></p><button class="link" type="button" data-open="montaz" data-desc="Montáž kuchynskej linky">Mám podobnú prácu</button></div></li>
+      <li class="job"><p class="job-top"><span class="job-st full">Obsadená</span><span>pred 2 dňami</span></p><h3>Servis plynového kotla</h3><p class="job-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg>Žilina</p><p class="job-desc">Kondenzačný kotol, posledný servis pred dvoma rokmi. Potrebujeme vyčistiť, nastaviť a protokol.</p><div class="job-foot"><p class="job-of"><i class="on"></i><i class="on"></i><i class="on"></i><span>3 z 3 ponúk</span></p><button class="link" type="button" data-open="kurenie" data-desc="Servis plynového kotla">Mám podobnú prácu</button></div></li>
+    </ul>
+    <p class="note jobs-foot"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg>Ukážkové zákazky konceptu. Mená zákazníkov sa nezverejňujú.</p>
   </div>
 </section>
 
@@ -1255,19 +1365,60 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 
 <footer class="foot">
   <div class="wrap">
-    <div class="foot-row">
-      <nav class="foot-l" aria-label="Pre zákazníkov">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <a class="logo" href="#obsah" aria-label="Zruční, na začiatok stránky"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M10.5 10.5h11l-11 11h11"/></svg>zruční</a>
+        <p>Overení majstri z okolia. Najviac tri ponuky s cenou vrátane DPH, telefón len tomu, koho si vyberiete.</p>
+      </div>
+      <nav class="foot-col foot-crafts" aria-labelledby="fh-remesla">
+        <h2 class="foot-h" id="fh-remesla">Remeslá</h2>
         <ul>
-          <li><a href="#sluzby">Služby</a></li>
-          <li><a href="#ako">Ako to funguje</a></li>
-          <li><a href="#ceny">Ceny</a></li>
-          <li><a href="#zoznam">Majstri</a></li>
-          <li><a href="#pre-majstrov">Pre firmy</a></li>
+          <li><button type="button" data-dx="elektro">Elektrikár</button></li>
+          <li><button type="button" data-dx="voda">Vodoinštalatér</button></li>
+          <li><button type="button" data-dx="kurenie">Kúrenie a plyn</button></li>
+          <li><button type="button" data-dx="maliar">Maliar</button></li>
+          <li><button type="button" data-dx="upratovanie">Upratovanie</button></li>
+          <li><button type="button" data-dx="montaz">Montáž nábytku</button></li>
+          <li><button type="button" data-dx="obklad">Obklady a dlažby</button></li>
+          <li><button type="button" data-dx="stahovanie">Sťahovanie</button></li>
+          <li><button type="button" data-dx="zahrada">Záhrada</button></li>
+          <li><button type="button" data-dx="komin">Kominár</button></li>
+          <li><button type="button" data-dx="okna">Okná a fasády</button></li>
+          <li><button type="button" data-dx="solar">Fotovoltika</button></li>
+          <li><button type="button" data-dx="murar">Murár</button></li>
+          <li><button type="button" data-dx="podlahy">Podlahár</button></li>
+          <li><button type="button" data-dx="strecha">Pokrývač a klampiar</button></li>
+          <li><button type="button" data-dx="stolar">Stolár</button></li>
         </ul>
       </nav>
-      <a class="logo" href="#obsah" aria-label="Zruční, na začiatok stránky"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9"/><path d="M10.5 10.5h11l-11 11h11"/></svg>zruční</a>
-      <nav class="foot-r" aria-label="Pravidlá">
+      <nav class="foot-col foot-towns" aria-labelledby="fh-mesta">
+        <h2 class="foot-h" id="fh-mesta">Majstri v okolí</h2>
         <ul>
+          <li><button type="button" data-town="Bratislava">Bratislava</button></li>
+          <li><button type="button" data-town="Trnava">Trnava</button></li>
+          <li><button type="button" data-town="Trenčín">Trenčín</button></li>
+          <li><button type="button" data-town="Nitra">Nitra</button></li>
+          <li><button type="button" data-town="Žilina">Žilina</button></li>
+          <li><button type="button" data-town="Banská Bystrica">Banská Bystrica</button></li>
+          <li><button type="button" data-town="Prešov">Prešov</button></li>
+          <li><button type="button" data-town="Košice">Košice</button></li>
+        </ul>
+      </nav>
+      <nav class="foot-col" aria-labelledby="fh-zakaznici">
+        <h2 class="foot-h" id="fh-zakaznici">Zákazníci</h2>
+        <ul>
+          <li><a href="#ako">Ako to funguje</a></li>
+          <li><a href="#zakazky">Posledné zákazky</a></li>
+          <li><a href="#zoznam">Zoznam majstrov</a></li>
+          <li><a href="#ceny">Ceny</a></li>
+          <li><a href="#otazky">Časté otázky</a></li>
+        </ul>
+      </nav>
+      <nav class="foot-col" aria-labelledby="fh-firmy">
+        <h2 class="foot-h" id="fh-firmy">Firmy a pravidlá</h2>
+        <ul>
+          <li><a href="#pre-majstrov">Profil firmy zadarmo</a></li>
+          <li><a href="#faq-zarabanie">Ako zarábame</a></li>
           <li><a href="#faq-udaje">Ochrana údajov</a></li>
           <li><a href="#faq-reklamacia">Reklamácie</a></li>
           <li><a href="#faq-nahlasit">Nahlásiť obsah</a></li>
@@ -1852,8 +2003,47 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     $('#zoznam .sec-head').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
     $('#zoznam-title').focus({ preventScroll: true });
   });
+  // Mestá v pätičke („Majstri v okolí“): zoznam od najbližších k mestu, ostatné filtre preč
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-town]');
+    if (!b) return;
+    const pl = findPlace(b.dataset.town);
+    const at = pl && OBCE_GEO[pl[0]];
+    if (!at) return;
+    $('#dx-form').reset();
+    dxWhere.value = pl[0];
+    delete dxWhere.dataset.auto;
+    dxRef = { at, name: pl[0], geo: false };
+    syncRefUI();
+    $('#dx-sort').value = 'dist';
+    refreshDir();
+    $('#zoznam .sec-head').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+    $('#zoznam-title').focus({ preventScroll: true });
+  });
+
+  /* Posledné zákazky: šípky posúvajú o šírku pásu, na dotykových zariadeniach prstom */
+  const jobs = $('#jobs-track');
+  if (jobs) {
+    const prev = $('#jobs-prev'), next = $('#jobs-next');
+    const sync = () => {
+      const start = jobs.scrollLeft <= 2, end = jobs.scrollLeft >= jobs.scrollWidth - jobs.clientWidth - 2;
+      const had = document.activeElement;
+      prev.disabled = start;
+      next.disabled = end;
+      // vypnutá šípka by zhodila fokus klávesnice na <body>: presunie sa na druhú šípku
+      if (had === next && end && !start) prev.focus();
+      else if (had === prev && start && !end) next.focus();
+    };
+    const go = d => jobs.scrollBy({ left: d * jobs.clientWidth, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    let raf = 0;
+    jobs.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
   // Počet majstrov pri každej službe (znova po načítaní zoznamu z databázy)
-  const countDir = () => $$('.dir-item[data-dx]').forEach(b => {
+  let countDir = () => $$('.dir-item[data-dx]').forEach(b => {
     const n = PROS.filter(p => p.cat === b.dataset.dx).length;
     const s = b.querySelector('small');
     if (!s) return;
@@ -1861,6 +2051,23 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     // cena a počet sa nezalomia vnútri, len medzi sebou
     s.innerHTML = n ? `<span class="nw">${esc(s.dataset.t)}</span><span class="dot"> · </span><span class="nw">${n} ${plural(n, 'majster', 'majstri', 'majstrov')}</span>` : esc(s.dataset.t);
   });
+  // Čísla pod úvodom a hodnotenia remesiel sa rátajú zo zoznamu (po načítaní z databázy znova)
+  const avgOf = list => { const c = list.reduce((t, p) => t + p.count, 0); return c ? list.reduce((t, p) => t + p.rating * p.count, 0) / c : 0; };
+  const nf = n => n.toLocaleString('sk-SK');
+  const countStats = () => {
+    const set = (k, v) => $$(`[data-stat="${k}"]`).forEach(el => { el.textContent = v; });
+    set('reviews', nf(PROS.reduce((t, p) => t + p.count, 0)));
+    set('avg', num(Math.round(avgOf(PROS) * 10) / 10));
+    set('pros', nf(PROS.length));
+    set('jobs', nf(PROS.reduce((t, p) => t + p.jobs, 0)));
+    $$('.tile[data-dx]').forEach(t => {
+      const list = PROS.filter(p => p.cat === t.dataset.dx);
+      const r = t.querySelector('.tile-rate');
+      if (r) { r.hidden = !list.length; r.querySelector('b').textContent = num(Math.round(avgOf(list) * 10) / 10); }
+    });
+  };
+  const countDirBase = countDir;
+  countDir = () => { countDirBase(); countStats(); };
   countDir();
   renderDir(-1, 'none');
 
@@ -2539,7 +2746,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   // príprava až vo voľnej chvíli po načítaní: nebrzdí prvé vykreslenie, skryje len to, čo je pod okrajom obrazovky
   const setupReveal = () => {
     // .dir nie: čiary medzi bunkami tvorí sivé pozadie mriežky, pod skrytými bunkami by presvitalo ako sivý blok
-    const GROUPS = ['.guar', '.strip-track', '.zig', '.projects', '.pros', '.bento', '.faq'];
+    const GROUPS = ['.stats', '.guar', '.strip-track', '.kroky', '.jobs', '.projects', '.pros', '.bento', '.faq'];
     const isGroup = el => GROUPS.some(g => el.matches(g));
     // vodorovne posuvný pás (mobil) sa vynorí ako celok, nie po kartách pri potiahnutí prstom
     const scrollsX = g => g.scrollWidth > g.clientWidth + 1 && /auto|scroll/.test(getComputedStyle(g).overflowX);
