@@ -22,7 +22,7 @@ Koncept slovenského trhoviska remeselníkov a služieb pre domácnosť. Vizuál
 
 ```
 src/index.html      zdroj stránky (HTML, CSS, vanilla JS)
-src/fonts/          písmo Manrope orezané na latinku strednej a západnej Európy (WOFF)
+src/fonts/          písmo Inter 4 (variabilné, WOFF2) orezané na latinku strednej a západnej Európy; na zariadeniach Apple systémové SF Pro
 src/photos/         fotky prác (JPEG) a credits.json
 build.js            zloží index.html (web) a poruke.html (offline, jeden súbor)
 index.html          výsledok pre web (GitHub Pages): fonty vložené, fotky ako súbory zo src/photos
