@@ -21,6 +21,7 @@
   --ink:#141414;
   --ink-2:#34342F;
   --muted:#62625D;
+  --ink-3:#4A4A45; /* text na priesvitnom materiáli (spodná lišta): tmavší než --muted, aby bol čitateľný aj nad fotkou */
   --line:#E7E6E1;
   --line-strong:#8F8F89;
   --brand:#141414;
@@ -59,6 +60,29 @@
   --gut-r:max(20px, env(safe-area-inset-right, 0px));
   --header:72px;
   color-scheme:only light;
+
+  /* Pohyb (Apple, Designing Fluid Interfaces): stlačenie hneď a krátko, pustenie a okná ako kriticky tlmená
+     pružina (damping 1,0, response 0,35 s). --spring je jej krivka v linear(), kde ho prehliadač nepozná, ostáva ease-out. */
+  --press-t:100ms;
+  --release-t:300ms;
+  --spring-t:520ms;
+  --spring:cubic-bezier(.2,.8,.2,1);
+  --press:.97;      /* tlačidlá, čipy */
+  --press-card:.985; /* väčšie plochy (karty) sa stláčajú menej */
+
+  /* Typografia: tracking podľa veľkosti (čím väčšie, tým tesnejšie), leading obrátene (veľké nadpisy tesne, drobný text voľnejšie) */
+  --tr-1:-.025em;  /* 40 px a viac: h1, čísla */
+  --tr-2:-.022em;  /* 28–40 px: nadpisy sekcií */
+  --tr-3:-.018em;  /* 20–27 px */
+  --tr-4:-.012em;  /* 17–19 px */
+  --tr-5:-.01em;   /* 15–16,5 px názvy na kartách */
+  --tr-s:.01em;    /* drobný text 12–13,5 px */
+  --lh-head:calc(1em + .3rem); /* 66 px → 1,07 · 44 px → 1,11 · 30 px → 1,16 · 22 px → 1,22 · 16,5 px → 1,29 */
+  --lh-lead:1.5;   /* úvodné odseky 17–19 px */
+  --lh-sm:1.6;     /* odseky 13–14,5 px (telo 16 px má 1,6) */
+}
+@supports (transition-timing-function: linear(0, 1)){
+  :root{--spring:linear(0, 0.0039 1%, 0.0315 3%, 0.0981 5.7%, 0.2032 9%, 0.334 12.9%, 0.4732 17.2%, 0.6047 22.1%, 0.718 27.3%, 0.8082 33%, 0.8753 39%, 0.9223 45.5%, 0.9535 52.3%, 0.9733 59.4%, 0.9852 66.9%, 0.9921 74.7%, 0.9959 82.8%, 0.998 91.3%, 1)}
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -68,7 +92,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--f);-
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
 body:has(dialog[open]){overflow:hidden}
 img,svg{max-width:100%}
-h1,h2,h3{text-wrap:balance;margin:0}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:var(--lh-head)}
 p{margin:0}
 a{color:var(--ink);text-underline-offset:3px}
 button,input,select,textarea{font:inherit;color:inherit}
@@ -81,13 +105,13 @@ button,input,select,textarea{font:inherit;color:inherit}
 .section{padding-block:clamp(64px, 7.5vw, 104px)}
 .alt{background:var(--bg-alt)}
 .kicker{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.h2{font-weight:600;font-size:clamp(30px, 3.4vw, 44px);line-height:1.1;letter-spacing:-.03em}
+.h2{font-weight:600;font-size:clamp(30px, 3.4vw, 44px);line-height:var(--lh-head);letter-spacing:var(--tr-2)}
 .h2 .gray,.cta h2 .gray{color:var(--muted)}
 .sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 32px;margin-bottom:clamp(32px, 4vw, 52px)}
 .sec-head > div{display:grid;gap:12px;max-width:640px}
 .sec-head.center{justify-content:center;text-align:center}
 .sec-head.center > div{justify-items:center}
-.sub{color:var(--muted);font-size:17px;line-height:1.6;max-width:58ch;text-wrap:pretty}
+.sub{color:var(--muted);font-size:17px;line-height:var(--lh-lead);max-width:58ch;text-wrap:pretty}
 
 /* Tlačidlá: tabletky, hlavné s bielym krúžkom a šípkou */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;font-weight:600;font-size:15.5px;line-height:1.2;text-decoration:none;cursor:pointer;white-space:nowrap;transition:background-color .15s, border-color .15s, color .15s, transform .15s}
@@ -108,8 +132,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 @media (hover: hover){ .link:hover{text-decoration-thickness:2px} }
 
 /* Hlavička: odkazy vľavo, logo v strede, akcie vpravo */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb, var(--bg) 92%, transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
-.top.scrolled{border-bottom-color:var(--line)}
+/* Materiál: priesvitná vrstva, obsah pod ňou presvitá rozmazaný; svetlý horný okraj = svetlo na hrane materiálu.
+   Namiesto 1px čiary jemný prechod pod hlavičkou, a len keď sa pod ňu obsah podsúva (.scrolled). */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb, var(--bg) 72%, transparent);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.top::after{content:"";position:absolute;left:0;right:0;top:100%;height:14px;pointer-events:none;background:linear-gradient(rgba(20,20,20,.06), rgba(20,20,20,0));opacity:0;transition:opacity .25s ease}
+.top.scrolled::after{opacity:1}
 .top .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;height:var(--header)}
 .nav{display:flex;gap:2px}
 .nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border-radius:999px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:15px}
@@ -139,9 +166,9 @@ button,input,select,textarea{font:inherit;color:inherit}
 .trust .star{width:16px;height:16px}
 .hero-in{display:grid;justify-items:center;gap:22px;max-width:820px;margin-inline:auto;text-align:center}
 .hero h1{display:grid;gap:4px;line-height:1}
-.hero h1 .l1{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:-.035em;line-height:1.06}
-.hero h1 .l2{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:-.035em;line-height:1.06}
-.lead{font-size:clamp(17px, 1.45vw, 19px);color:var(--muted);max-width:52ch;text-wrap:pretty}
+.hero h1 .l1{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:var(--tr-1);line-height:var(--lh-head)}
+.hero h1 .l2{font-weight:700;font-size:clamp(36px, 5.2vw, 66px);letter-spacing:var(--tr-1);line-height:var(--lh-head)}
+.lead{font-size:clamp(17px, 1.45vw, 19px);line-height:var(--lh-lead);color:var(--muted);max-width:52ch;text-wrap:pretty}
 .search{width:100%;max-width:700px;display:flex;align-items:stretch;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;box-shadow:var(--shadow);padding:6px;text-align:left;transition:border-color .15s;margin-top:6px}
 .search:focus-within{border-color:var(--ink)}
 .s-field{flex:1 1 0;display:flex;align-items:center;gap:10px;padding:0 16px;min-width:0;cursor:text;border-radius:999px}
@@ -231,7 +258,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .proj-cta{background:var(--sand)}
 .proj-cta .proj-img{aspect-ratio:4 / 3;display:grid;place-items:center;background:transparent}
 .cta-in{display:grid;justify-items:center;gap:8px;padding:12px}
-.cta-in b{font-weight:700;font-size:26px;letter-spacing:-.03em;line-height:1.1}
+.cta-in b{font-weight:700;font-size:26px;letter-spacing:var(--tr-3);line-height:var(--lh-head)}
 .cta-in span{font-size:14px;color:var(--ink-2);max-width:22ch}
 @media (hover: hover){ .proj-cta:hover{background:#E8E0D1} }
 
@@ -239,7 +266,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .stats-sec{padding-top:clamp(40px, 5vw, 64px)}
 .stats{list-style:none;margin:0;padding:0 0 clamp(40px, 5vw, 64px);display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:24px;border-bottom:1px solid var(--line);text-align:center}
 .stats li{display:grid;gap:6px;align-content:start}
-.stats b{font-weight:700;font-size:clamp(34px, 3.8vw, 48px);letter-spacing:-.035em;line-height:1;font-variant-numeric:tabular-nums}
+.stats b{font-weight:700;font-size:clamp(34px, 3.8vw, 48px);letter-spacing:var(--tr-1);line-height:1;font-variant-numeric:tabular-nums}
 .stats span{font-size:14.5px;color:var(--muted);text-wrap:balance}
 
 /* Ako to funguje: tri kroky vedľa seba, pod nimi pás výhod s tlačidlom (Daibau) */
@@ -248,7 +275,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .kroky li{display:grid;gap:10px;align-content:start}
 .krok-img{display:block;margin-bottom:8px;border-radius:20px;overflow:hidden;background:var(--bg-alt)}
 .krok-img .ph{aspect-ratio:4 / 3}
-.kroky h3{display:flex;align-items:center;gap:12px;font-weight:600;font-size:clamp(19px, 1.7vw, 22px);line-height:1.25;letter-spacing:-.02em}
+.kroky h3{display:flex;align-items:center;gap:12px;font-weight:600;font-size:clamp(19px, 1.7vw, 22px);line-height:var(--lh-head);letter-spacing:var(--tr-3)}
 .krok-n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;background:var(--ink);color:var(--brand-ink);font-size:14px;font-weight:700;letter-spacing:0}
 .kroky p{color:var(--muted);font-size:15.5px;max-width:42ch}
 .kroky-pas{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px;margin-top:clamp(28px, 4vw, 44px);padding:16px 16px 16px 28px;border-radius:22px;background:var(--bg-alt)}
@@ -272,10 +299,10 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .job-st::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px var(--good-soft)}
 .job-st.full{color:var(--muted)}
 .job-st.full::before{background:var(--line-strong);box-shadow:0 0 0 4px var(--bg-alt)}
-.job h3{font-weight:600;font-size:16.5px;line-height:1.3;letter-spacing:-.01em}
+.job h3{font-weight:600;font-size:16.5px;line-height:var(--lh-head);letter-spacing:var(--tr-5)}
 .job-loc{display:flex;align-items:center;gap:6px;margin-top:-4px;font-size:14px;color:var(--ink-2)}
 .job-loc .ic{width:16px;height:16px;color:var(--muted)}
-.job-desc{font-size:14px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.job-desc{font-size:14px;line-height:var(--lh-sm);color:var(--muted);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 .job-foot{margin-top:auto;display:grid;gap:2px;padding-top:12px;border-top:1px solid var(--line)}
 .job-of{display:flex;align-items:center;gap:4px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
 .job-of i{width:20px;height:6px;border-radius:6px;background:var(--line)}
@@ -288,7 +315,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .bento{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));grid-auto-rows:minmax(300px, auto);gap:16px}
 .b{position:relative;isolation:isolate;overflow:hidden;display:grid;align-content:space-between;gap:16px;padding:28px;border-radius:24px;background:var(--bg-alt)}
 .b-2{grid-column:span 2}
-.b h3{font-weight:600;font-size:22px;line-height:1.2;letter-spacing:-.02em}
+.b h3{font-weight:600;font-size:22px;line-height:var(--lh-head);letter-spacing:var(--tr-3)}
 .b p{font-size:15px;color:var(--ink-2);max-width:42ch;margin-top:8px}
 .b > .ic{width:28px;height:28px;stroke-width:1.5}
 .b-sand{background:var(--sand)}
@@ -313,7 +340,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .pro-top{display:flex;gap:12px;align-items:center;min-width:0}
 .pro-top > div{min-width:0}
 .ava{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--bg-alt);color:var(--ink);font-weight:700;font-size:15px;letter-spacing:.02em;flex:none}
-.pro h3{font-weight:600;font-size:16.5px;line-height:1.25;letter-spacing:-.01em}
+.pro h3{font-weight:600;font-size:16.5px;line-height:var(--lh-head);letter-spacing:var(--tr-5)}
 .vf{display:inline-block;width:17px;height:17px;margin-left:5px;vertical-align:-3px;color:var(--good)}
 .trade{font-size:14px;color:var(--muted)}
 .rating{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;font-size:14px;color:var(--muted)}
@@ -322,7 +349,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 /* Päť hviezd ako maska, vyplnené podľa --p (hodnotenie / 5) */
 .stars{--p:100%;display:inline-block;flex:none;width:85px;height:17px;background:linear-gradient(90deg, var(--star) var(--p), #E6E0D3 var(--p));-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.85 5.95 6.55.88-4.8 4.55 1.2 6.5L12 17.33l-5.8 3.15 1.2-6.5-4.8-4.55 6.55-.88z'/%3E%3C/svg%3E") 0 0 / 17px 17px repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6l2.85 5.95 6.55.88-4.8 4.55 1.2 6.5L12 17.33l-5.8 3.15 1.2-6.5-4.8-4.55 6.55-.88z'/%3E%3C/svg%3E") 0 0 / 17px 17px repeat-x}
 .quote{margin:0;display:grid;gap:6px;padding:12px 14px;border-radius:14px;background:#FBF5E8}
-.quote blockquote{margin:0;font-size:14px;line-height:1.5;font-weight:500;color:var(--ink-2);text-wrap:pretty}
+.quote blockquote{margin:0;font-size:14px;line-height:var(--lh-sm);font-weight:500;color:var(--ink-2);text-wrap:pretty}
 .quote figcaption{font-size:12.5px;color:var(--muted)}
 .pro-facts{list-style:none;margin:0;padding:12px 0 0;border-top:1px solid var(--line);display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
 .pro-facts li{display:flex;gap:9px;align-items:flex-start;min-width:0}
@@ -376,7 +403,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .biz-head{display:flex;gap:12px;align-items:flex-start;min-width:0}
 .biz .ava{width:52px;height:52px;font-size:16px;background:var(--tb);color:color-mix(in srgb, var(--ti) 70%, #000)}
 .biz-main{min-width:0;display:grid;gap:2px}
-.biz h3{font-weight:600;font-size:16.5px;line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
+.biz h3{font-weight:600;font-size:16.5px;line-height:var(--lh-head);letter-spacing:var(--tr-5);overflow-wrap:anywhere}
 /* odznak „IČO overené“ v rohu avatara: pri dvojriadkovom mene neodskakuje */
 .biz-ava{position:relative;flex:none;display:grid}
 .biz-ava .vf{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;margin:0;padding:2px;border-radius:50%;background:var(--surface);color:var(--good)}
@@ -438,7 +465,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .ptable .tic .ic{width:22px;height:22px}
 .ptable .pn small{display:block;font-weight:400;font-size:13.5px;color:var(--muted);margin-top:2px}
 .ptable td{text-align:right;white-space:nowrap}
-.ptable td b{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--bg-alt);font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
+.ptable td b{display:inline-block;padding:6px 12px;border-radius:999px;background:var(--bg-alt);font-weight:700;font-size:16px;letter-spacing:var(--tr-5);color:var(--ink)}
 @media (hover: hover){ .ptable tbody tr:hover td b{background:var(--tb, var(--bg-alt))} }
 
 /* Pre firmy */
@@ -460,7 +487,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 .lead-list li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--band-line)}
 .lead-list b{display:block;font-weight:600;font-size:15.5px}
 .lead-list small{display:block;font-size:13.5px;color:var(--band-muted)}
-.lead-list strong{font-weight:700;font-size:30px;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lead-list strong{font-weight:700;font-size:30px;letter-spacing:var(--tr-2);line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
 .lead-foot{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--band-muted);padding-top:12px;border-top:1px solid var(--band-line)}
 .lead-foot .ic{margin-top:2px}
 .pf-teaser{background:var(--band-card);border:1px solid var(--band-line);border-radius:20px;padding:24px;display:grid;gap:14px}
@@ -499,7 +526,7 @@ html:not(.js) .ph-s-stahovanie,.ph-on .ph-s-stahovanie{background-image:url(phot
 
 /* Výzva (slúchadlá) */
 .cta{background:var(--bg-alt);border-radius:28px;padding:clamp(28px, 5vw, 56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px}
-.cta h2{font-weight:600;font-size:clamp(28px, 3.4vw, 44px);line-height:1.1;letter-spacing:-.03em}
+.cta h2{font-weight:600;font-size:clamp(28px, 3.4vw, 44px);line-height:var(--lh-head);letter-spacing:var(--tr-2)}
 .cta h2 span{display:block}
 .cta p{color:var(--muted);margin-top:12px;max-width:50ch}
 .cta .btn{min-height:52px;padding:0 24px;font-size:16px}
@@ -535,7 +562,7 @@ dialog[open]{display:flex;flex-direction:column}
 dialog::backdrop{background:var(--scrim)}
 .dlg-form{display:flex;flex-direction:column;min-height:0;flex:1}
 .dlg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}
-.dlg-head h2{font-weight:600;font-size:24px;letter-spacing:-.025em;margin-top:2px}
+.dlg-head h2{font-weight:600;font-size:24px;letter-spacing:var(--tr-3);margin-top:2px}
 .steplabel{font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-variant-numeric:tabular-nums}
 .x{width:44px;height:44px;margin:-8px -10px 0 0;border-radius:50%;border:0;background:none;display:grid;place-items:center;cursor:pointer;color:var(--ink)}
 @media (hover: hover){ .x:hover{background:var(--bg-alt)} }
@@ -557,7 +584,7 @@ dialog::backdrop{background:var(--scrim)}
 .done{display:grid;gap:16px}
 .okmark{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--good-soft);color:var(--good)}
 .okmark .ic{width:24px;height:24px;stroke-width:2.4}
-.done h3{font-weight:600;font-size:22px;letter-spacing:-.02em}
+.done h3{font-weight:600;font-size:22px;letter-spacing:var(--tr-3)}
 .done p{color:var(--muted)}
 .summary{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;padding:16px;border-radius:14px;background:var(--bg-alt);font-size:14.5px}
 .summary dt{color:var(--muted)}
@@ -574,13 +601,101 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   html.js .rv{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
   html.js .rv.rv-in{opacity:1;transform:none}
   .biz.biz-in{animation:biz-in .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--k, 0) * 45ms)}
-  dialog[open]{animation:dlg-in .32s cubic-bezier(.2,.7,.2,1)}
-  dialog[open]::backdrop{animation:fade-in .32s ease}
 }
 @keyframes biz-in{from{opacity:0;transform:translateY(14px)}}
-@keyframes dlg-in{from{opacity:0;transform:translateY(18px) scale(.985)}}
-@keyframes fade-in{from{opacity:0}}
 @media print{ html.js .rv{opacity:1!important;transform:none!important} }
+
+/* Okná (žiadosť, profil): vstup aj odchod rovnakou cestou cez CSS prechody, nie @keyframes. Prechod sa dá kedykoľvek
+   prerušiť a ide z aktuálnej (zobrazenej) hodnoty: zavretie a hneď otvorenie sa plynule otočí, bez skoku.
+   Na počítači okno vyrastá z tlačidla, ktoré ho otvorilo (--dlg-origin nastaví skript), na mobile vychádza zdola
+   ako list a rovnako zdola odchádza; dá sa stiahnuť prstom (pružina v skripte). */
+dialog{--dlg-from:translateY(14px) scale(.96);--dlg-op:0;transform-origin:var(--dlg-origin, 50% 50%)}
+dialog:not([open]),dialog:not([open])::backdrop{pointer-events:none} /* počas odchodu už neprekáža klikom */
+@media (prefers-reduced-motion: no-preference){
+  dialog{opacity:var(--dlg-op);transform:var(--dlg-from);transition:opacity .2s ease, transform var(--spring-t) var(--spring), display var(--spring-t) allow-discrete, overlay var(--spring-t) allow-discrete}
+  dialog[open]{opacity:1;transform:none}
+  dialog::backdrop{opacity:0;transition:opacity .3s ease, display var(--spring-t) allow-discrete, overlay var(--spring-t) allow-discrete}
+  dialog[open]::backdrop{opacity:calc(1 - var(--drag-p, 0))}
+  @starting-style{
+    dialog[open]{opacity:var(--dlg-op);transform:var(--dlg-from)}
+    dialog[open]::backdrop{opacity:0}
+  }
+}
+/* menej pohybu: žiadny posun ani zväčšenie, len krátke prelínanie (prebije aj globálne transition:none nižšie) */
+@media (prefers-reduced-motion: reduce){
+  dialog{opacity:0;transition:opacity .15s ease, display .15s allow-discrete, overlay .15s allow-discrete!important}
+  dialog[open]{opacity:1}
+  dialog::backdrop{opacity:0;transition:opacity .15s ease, display .15s allow-discrete, overlay .15s allow-discrete}
+  dialog[open]::backdrop{opacity:1}
+  @starting-style{
+    dialog[open]{opacity:0}
+    dialog[open]::backdrop{opacity:0}
+  }
+}
+
+/* Otázky: obsah sa rozbalí z aktuálnej výšky (prerušiteľný CSS prechod na block-size:auto), ikona + sa otáča rovnakou pružinou */
+.faq summary .ic{transition:transform var(--spring-t) var(--spring)}
+@supports selector(::details-content){
+  @media (prefers-reduced-motion: no-preference){
+    .faq details{interpolate-size:allow-keywords}
+    .faq details::details-content{block-size:0;overflow:hidden;opacity:0;transition:block-size var(--spring-t) var(--spring), opacity .25s ease, content-visibility var(--spring-t) allow-discrete}
+    .faq details[open]::details-content{block-size:auto;opacity:1}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .faq details::details-content{opacity:0;transition:opacity .15s ease, content-visibility .15s allow-discrete}
+    .faq details[open]::details-content{opacity:1}
+  }
+}
+
+/* Odozva na stlačenie: hneď pri dotyku (pointer-down, :active), stlačenie 100 ms, pustenie pružinou 300 ms.
+   Vlastná odozva nahrádza sivé bliknutie prehliadača; manipulation vypne čakanie na dvojklik. */
+.btn,.chip,.tile,.dir-item,.proj,.biz,.pro,.jobs-nav button,.seg label,.opt,.tabbar a,.tabbar button,.x,.dx-locate,.foot-col button,.faq summary{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.btn{transition:background-color .15s, border-color .15s, color .15s, transform var(--release-t) var(--spring)}
+.chip{transition:border-color .15s, background-color .15s, color .15s, transform var(--release-t) var(--spring)}
+.jobs-nav button{transition:border-color .15s, opacity .15s, transform var(--release-t) var(--spring)}
+.dir-item{transition:background-color .15s, transform var(--release-t) var(--spring)}
+.proj{transition:background-color .2s, transform var(--release-t) var(--spring)}
+.biz{transition:border-color .15s, box-shadow .2s, transform var(--release-t) var(--spring)}
+.pro{transition:box-shadow .2s, transform var(--release-t) var(--spring)}
+.tile,.x,.opt,.tabbar a,.tabbar button{transition:transform var(--release-t) var(--spring), color .15s, background-color .15s}
+.seg label{transition:transform var(--release-t) var(--spring), color .15s, background-color .15s}
+.dx-locate{transition:transform var(--release-t) var(--spring), background-color .15s}
+@media (prefers-reduced-motion: no-preference){
+  .btn:active,.chip:active,.jobs-nav button:not(:disabled):active,.seg label:active,.x:active,.tabbar a:active,.tabbar button:active{transform:scale(var(--press));transition-duration:var(--press-t);transition-timing-function:ease-out}
+  .opt:active{transform:scale(.985);transition-duration:var(--press-t);transition-timing-function:ease-out}
+  .dx-locate:active{transform:translateY(-50%) scale(.92);transition-duration:var(--press-t);transition-timing-function:ease-out}
+  /* karta sa stlačí, len keď sa nestláča tlačidlo v nej (to má vlastnú odozvu) */
+  .tile:active,.dir-item:active,.proj:active,.biz:active:not(:has(.biz-btn:active)),.pro:active:not(:has(.btn:active)){transform:scale(var(--press-card));transition-duration:var(--press-t);transition-timing-function:ease-out}
+}
+/* menej pohybu: odozva ostáva, ale ako stlmenie namiesto zmenšenia */
+@media (prefers-reduced-motion: reduce){
+  .btn:active,.chip:active,.jobs-nav button:not(:disabled):active,.seg label:active,.x:active,.tabbar a:active,.tabbar button:active,.opt:active,.dx-locate:active,
+  .tile:active,.dir-item:active,.proj:active,.biz:active:not(:has(.biz-btn:active)),.pro:active:not(:has(.btn:active)){opacity:.72}
+}
+
+/* Materiály bez priesvitnosti: prehliadač bez backdrop-filter, menej priehľadnosti, vyšší kontrast */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .top,.tabbar{background:var(--bg)}
+}
+@media (prefers-reduced-transparency: reduce){
+  .top,.tabbar{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none}
+  .pf-x{background:var(--surface)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .trust{background:var(--surface)}
+}
+@media (prefers-contrast: more){
+  .top,.tabbar{background:var(--bg);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .top{border-bottom:1px solid var(--ink)}
+  .tabbar{border-top:1px solid var(--ink)}
+  .tabbar a,.tabbar button{color:var(--ink)}
+  .top::after,.tabbar::before{display:none}
+  .pf-x{background:var(--surface)!important;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:0 0 0 1px var(--ink)}
+}
+
+/* Drobný text: mierne kladný tracking a voľnejší leading (doplnok k tokenom --tr-*, --lh-*) */
+.pf-revs small,.job-top,.tile-rate,.pf-facts span,.pf-gal figcaption,.pf-proj small,.pf-score small,.pf-bars li,
+.foot-bottom,.note,.dir-item small,.biz .trade,.biz-chips li,.f .hint,.err,.ico-note,.lead-foot,.pf-note,
+.leads-head span,.lead-list small,.pf-teaser-list small,.pf-copied,.job-of,.ptable .pn small,.summary{letter-spacing:var(--tr-s)}
+.pf-note,.ico-note,.lead-foot,.f .hint,.note{line-height:var(--lh-sm)}
 .pf-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain}
 .pf-x{position:absolute;top:14px;right:14px;z-index:2;margin:0!important;background:color-mix(in srgb, var(--surface) 80%, transparent)!important;backdrop-filter:blur(6px)}
 .pf-head{position:relative;padding:28px 28px 22px;background:linear-gradient(180deg, var(--tb) 0%, color-mix(in srgb, var(--tb) 35%, var(--surface)) 100%)}
@@ -588,7 +703,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-id > div{min-width:0}
 .pf-ava{width:88px;height:88px;font-size:28px;background:var(--surface);color:color-mix(in srgb, var(--ti) 70%, #000);box-shadow:0 0 0 4px color-mix(in srgb, var(--surface) 55%, transparent)}
 .pf-kind{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb, var(--ti) 70%, #000)}
-.pf-id h2{font-weight:700;font-size:clamp(24px, 3vw, 32px);letter-spacing:-.025em;line-height:1.15;margin:4px 0 2px}
+.pf-id h2{font-weight:700;font-size:clamp(24px, 3vw, 32px);letter-spacing:var(--tr-2);line-height:var(--lh-head);margin:4px 0 2px}
 .pf-id h2 .vf{width:22px;height:22px;vertical-align:-2px}
 .pf-loc{font-size:15px;color:var(--ink-2)}
 .pf-id .rating{margin-top:8px}
@@ -599,10 +714,10 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-body{padding:22px 28px 28px;display:grid;gap:30px;align-content:start}
 .pf-facts{display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:10px}
 .pf-facts > div{padding:14px;border-radius:14px;background:var(--bg-alt);display:grid;gap:2px;align-content:start}
-.pf-facts b{font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.pf-facts b{font-size:20px;font-weight:700;letter-spacing:var(--tr-3);line-height:1.2}
 .pf-facts span{font-size:13px;color:var(--muted)}
 .pf-sec{display:grid;gap:12px;min-width:0}
-.pf-sec > h3{font-size:18px;font-weight:600;letter-spacing:-.01em}
+.pf-sec > h3{font-size:18px;font-weight:600;letter-spacing:var(--tr-4)}
 .pf-sec > p{color:var(--ink-2);max-width:68ch;text-wrap:pretty}
 .pf-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .pf-chips li{display:flex;align-items:center;gap:7px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:14px;font-weight:500}
@@ -644,7 +759,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-proj small{display:block;margin-top:3px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .pf-rev-sum{display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;align-items:center}
 .pf-score{display:grid;justify-items:start;gap:6px}
-.pf-score b{font-size:44px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.pf-score b{font-size:44px;font-weight:700;letter-spacing:var(--tr-1);line-height:1}
 .pf-score small{font-size:13px;color:var(--muted)}
 .pf-bars{list-style:none;margin:0;padding:0;display:grid;gap:5px;max-width:360px}
 .pf-bars li{display:grid;grid-template-columns:30px minmax(0,1fr) 34px;gap:10px;align-items:center;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -653,7 +768,7 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 .pf-revs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:10px}
 .pf-revs li{display:grid;gap:8px;align-content:start;padding:14px;border-radius:14px;background:#FBF5E8}
 .pf-revs .stars{width:70px;height:14px;-webkit-mask-size:14px 14px;mask-size:14px 14px}
-.pf-revs blockquote{margin:0;font-size:14px;line-height:1.5;font-weight:500;color:var(--ink-2)}
+.pf-revs blockquote{margin:0;font-size:14px;line-height:var(--lh-sm);font-weight:500;color:var(--ink-2)}
 .pf-revs small{font-size:12.5px;color:var(--muted)}
 .pf-how{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:10px}
 .pf-how li{display:grid;gap:4px;padding:14px;border-radius:14px;background:var(--bg-alt);font-size:14px;color:var(--ink-2)}
@@ -696,8 +811,12 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .nav,.top-actions .link{display:none}
   .logo{justify-self:auto}
   body{padding-bottom:calc(68px + env(safe-area-inset-bottom, 0px))}
-  .tabbar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);position:fixed;left:0;right:0;bottom:0;z-index:55;background:color-mix(in srgb, var(--surface) 94%, transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px))}
-  .tabbar a,.tabbar button{display:grid;justify-items:center;align-content:center;gap:3px;min-height:54px;border:0;background:none;color:var(--muted);text-decoration:none;font-size:11.5px;font-weight:600;cursor:pointer;border-radius:10px;padding:0}
+  /* spodná lišta: rovnaký materiál ako hlavička; obsah sa pod ňu podsúva stále, okrem úplného konca stránky (.at-end) */
+  .tabbar{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);position:fixed;left:0;right:0;bottom:0;z-index:55;background:color-mix(in srgb, var(--surface) 78%, transparent);-webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.7);padding:6px max(8px, env(safe-area-inset-right, 0px)) calc(6px + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px))}
+  .tabbar::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:14px;pointer-events:none;background:linear-gradient(to top, rgba(20,20,20,.06), rgba(20,20,20,0));transition:opacity .25s ease}
+  html.at-end .tabbar::before{opacity:0}
+  /* text na priesvitnom materiáli: tmavší než bežná sivá a o kúsok širší tracking (vibrancy), aby bol čitateľný aj nad fotkou */
+  .tabbar a,.tabbar button{display:grid;justify-items:center;align-content:center;gap:3px;min-height:54px;border:0;background:none;color:var(--ink-3);text-decoration:none;font-size:11.5px;font-weight:600;letter-spacing:.02em;cursor:pointer;border-radius:10px;padding:0}
   .tabbar a[aria-current="true"]{color:var(--ink)}
   .tabbar .ic{width:22px;height:22px}
   .tabbar a .ic{margin-block:5px}
@@ -785,6 +904,8 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
   .cta .btn{width:100%}
   .top-actions .btn{padding-left:16px}
   dialog{width:100%;max-width:100%;height:100%;max-height:100%;border-radius:0;margin:0}
+  /* okno ako list: zdola dnu, zdola von, nepriehľadné počas cesty; biely pás pod ním zakryje odraz po švihnutí nahor */
+  dialog{--dlg-from:translateY(100%);--dlg-op:1;box-shadow:0 64px 0 var(--surface)}
   .dlg-head{padding:calc(16px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) 0 max(18px, env(safe-area-inset-left, 0px))}
   .progress{margin-inline:18px}
   .dlg-body{padding:18px max(18px, env(safe-area-inset-right, 0px)) 24px max(18px, env(safe-area-inset-left, 0px))}
@@ -1709,7 +1830,13 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
 
   /* Hlavička pri rolovaní */
   const top = $('#top');
-  const onScroll = () => top.classList.toggle('scrolled', window.scrollY > 40);
+  // prechod pod hlavičkou len keď sa pod ňu obsah podsúva; pod spodnou lištou nie na úplnom konci stránky
+  const onScroll = () => {
+    // najprv všetky čítania, potom zápisy: čítanie scrollHeight po zmene triedy by vynútilo ďalší prepočet rozloženia
+    const y = window.scrollY, end = y + innerHeight >= document.documentElement.scrollHeight - 2;
+    top.classList.toggle('scrolled', y > 4);
+    document.documentElement.classList.toggle('at-end', end);
+  };
   window.addEventListener('scroll', onScroll, { passive: true });
   requestAnimationFrame(onScroll);
 
@@ -2790,6 +2917,145 @@ dialog.pf{width:min(880px, calc(100% - 32px))}
     const go = () => idle(setupReveal, { timeout: 1500 });
     if (document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true });
   }
+
+  /* Pohyb podľa zásad Apple (Designing Fluid Interfaces): odozva už pri dotyku, okno vyrastá z tlačidla,
+     ktoré ho otvorilo, a na mobile je okno list, ktorý sa dá prstom stiahnuť dole. */
+  // iOS Safari ukáže :active (odozvu pri stlačení) len vtedy, keď na stránke počúva touchstart
+  document.addEventListener('touchstart', () => {}, { passive: true });
+  // karta po vynorení: animácia s fill-mode „both“ by inak navždy prebíjala transform pri stlačení
+  $('#dx-list').addEventListener('animationend', e => { if (e.target.classList.contains('biz-in')) e.target.classList.remove('biz-in'); });
+
+  const reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
+  const phoneMq = matchMedia('(max-width: 640px)');
+
+  // Pôvod okna = stred spúšťača v súradniciach okna (transform-origin), takže sa okno zväčšuje smerom od tlačidla
+  let trigger = null;
+  document.addEventListener('pointerdown', e => {
+    const el = e.target.closest && e.target.closest('button, a, label, [role="button"]');
+    trigger = el ? { el, t: performance.now() } : null;
+  }, true);
+  const setOrigin = d => {
+    const recent = trigger && performance.now() - trigger.t < 2000 && document.contains(trigger.el) ? trigger.el : null;
+    const src = recent || document.activeElement; // klávesnica: zdrojom je prvok s fokusom
+    trigger = null;
+    d.style.removeProperty('--dlg-origin');
+    if (phoneMq.matches || !src || src === document.body || d.contains(src)) return;
+    const r = src.getBoundingClientRect();
+    if (!r.width && !r.height) return;
+    // modálne okno je vycentrované; offsetWidth/Height nezávisia od práve bežiaceho transformu
+    const w = d.offsetWidth, h = d.offsetHeight;
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const x = clamp(r.left + r.width / 2 - (innerWidth - w) / 2, -w * 0.25, w * 1.25);
+    const y = clamp(r.top + r.height / 2 - (innerHeight - h) / 2, -h * 0.5, h * 1.5);
+    d.style.setProperty('--dlg-origin', `${Math.round(x)}px ${Math.round(y)}px`);
+  };
+
+  /* Pružina s parametrami ako u Apple: damping (pomer tlmenia, 1 = bez prekmitu) a response (s).
+     ω0 = 2π / response; integrácia po malých krokoch (240 Hz), takže je stabilná pri každej snímkovej frekvencii.
+     Začína z aktuálnej polohy a rýchlosti, takže sa dá kedykoľvek chytiť a presmerovať. */
+  const spring = (from, to, velocity, { damping = 1, response = 0.35 } = {}, onUpdate, onDone) => {
+    const w0 = 2 * Math.PI / response;
+    let x = from - to, v = velocity, last = 0, id = 0;
+    const tick = now => {
+      const dt = last ? Math.min((now - last) / 1000, 1 / 20) : 1 / 60;
+      last = now;
+      const n = Math.max(1, Math.ceil(dt * 240)), h = dt / n;
+      for (let i = 0; i < n; i++) { v += (-w0 * w0 * x - 2 * damping * w0 * v) * h; x += v * h; }
+      if (Math.abs(x) < 0.5 && Math.abs(v) < 10) { id = 0; onUpdate(to); if (onDone) onDone(); return; }
+      if (onUpdate(to + x) === false) { id = 0; return; }
+      id = requestAnimationFrame(tick);
+    };
+    id = requestAnimationFrame(tick);
+    return { stop: () => { cancelAnimationFrame(id); id = 0; return to + x; } };
+  };
+  // Kam by list dobehol, keby ho nič nebrzdilo (Apple: rovnaký útlm ako pri posúvaní, 0,998)
+  const project = (v, rate = 0.998) => (v / 1000) * rate / (1 - rate);
+  // Za okrajom (ťahanie nahor) list kladie rastúci odpor namiesto tvrdého zastavenia
+  const rubber = (over, dim, c = 0.55) => (over * dim * c) / (dim + c * Math.abs(over));
+
+  const sheet = d => {
+    let st = null, anim = null, y = 0;
+    const set = val => {
+      y = val;
+      d.style.transform = `translateY(${val.toFixed(2)}px)`;
+      d.style.setProperty('--drag-p', Math.max(0, Math.min(1, val / d.offsetHeight)).toFixed(3));
+    };
+    const clear = () => { y = 0; d.style.transform = ''; d.style.transition = ''; d.style.removeProperty('--drag-p'); };
+    const dismiss = () => {
+      HTMLDialogElement.prototype.close.call(d);
+      void getComputedStyle(d).opacity; // zavrieť hneď (list je už mimo obrazovky), bez CSS odchodu
+      clear();
+    };
+    const settle = (target, v) => {
+      const H = d.offsetHeight;
+      // odraz (damping 0,8) len keď list vracia švihnutie prstom; inak kriticky tlmená pružina bez prekmitu
+      const opts = { response: 0.35, damping: target === 0 && Math.abs(v) > 400 ? 0.8 : 1 };
+      // pri zatváraní mieri pružina kúsok za spodný okraj, aby ho prešla plynulo a nedobiehala k nemu asymptoticky
+      anim = spring(y, target ? H * 1.25 : 0, v, opts, val => {
+        set(val);
+        if (target && val >= H) { anim = null; dismiss(); return false; }
+      }, () => { anim = null; if (target) dismiss(); else clear(); });
+    };
+    d.addEventListener('touchstart', e => {
+      if (!phoneMq.matches || reduceMq.matches || !d.open || e.touches.length > 1) return;
+      const t = e.target;
+      if (!t.closest('.dlg-head, .dlg-body, .pf-scroll, .pf-x') || t.closest('input, textarea, select, [contenteditable]')) return;
+      const sc = t.closest('.dlg-body, .pf-scroll');
+      if (!anim && sc && sc.scrollTop > 0) return; // obsah je posunutý: prst posúva obsah, nie list
+      // chytenie listu v pohybe: pokračuje sa z aktuálnej polohy, nie z cieľa
+      if (anim) { set(anim.stop()); anim = null; d.style.transition = 'none'; }
+      const p = e.touches[0];
+      st = { x0: p.clientX, y0: p.clientY, base: y, sc, drag: y !== 0, hist: [{ t: e.timeStamp, y }] };
+    }, { passive: true });
+    d.addEventListener('touchmove', e => {
+      if (!st) return;
+      const p = e.touches[0];
+      if (!st.drag) {
+        const dx = p.clientX - st.x0, dy = p.clientY - st.y0;
+        if (st.sc && st.sc.scrollTop > 0) { st = null; return; }
+        // prah 10 px (hysterézia), kým sa rozhodne smer; ťah nadol na vrchu obsahu patrí listu
+        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) { if (dy > 0 && e.cancelable) e.preventDefault(); return; }
+        if (dy <= 0 || Math.abs(dx) > Math.abs(dy)) { st = null; return; } // nahor alebo do strany: bežné posúvanie
+        st.drag = true;
+        st.y0 = p.clientY; // od prekonania prahu ide list s prstom 1 : 1, bez skoku o prah
+        d.style.transition = 'none';
+      }
+      if (e.cancelable) e.preventDefault();
+      const raw = st.base + (p.clientY - st.y0);
+      set(raw < 0 ? rubber(raw, d.offsetHeight) : raw);
+      st.hist.push({ t: e.timeStamp, y: raw });
+      if (st.hist.length > 6) st.hist.shift();
+    }, { passive: false });
+    const end = e => {
+      if (!st) return;
+      const s = st;
+      st = null;
+      if (!s.drag) { if (y) settle(0, 0); return; }
+      // rýchlosť z posledných 100 ms pred pustením → odovzdá sa pružine, aby nebol šev medzi prstom a animáciou;
+      // prst, ktorý sa pred pustením zastavil, má rýchlosť 0 (švihnutie sa nepočíta)
+      const h = s.hist.filter(q => e.timeStamp - q.t <= 100);
+      const a = h[0], b = h[h.length - 1];
+      const v = h.length > 1 && b.t > a.t ? (b.y - a.y) / (b.t - a.t) * 1000 : 0;
+      // cieľ podľa premietnutého dobehu, nie podľa miesta pustenia: švihnutie zavrie aj z malej výšky
+      settle(y + project(v) > d.offsetHeight / 2 ? d.offsetHeight : 0, v);
+    };
+    d.addEventListener('touchend', end);
+    d.addEventListener('touchcancel', end);
+    // Esc, krížik alebo pozadie počas ťahu či pružiny: zastaviť pružinu a zrušiť vložený štýl v tej istej chvíli,
+    // keď sa okno zatvára → CSS odchod plynule pokračuje z aktuálnej (zobrazenej) polohy listu
+    const release = () => { if (anim) { anim.stop(); anim = null; } st = null; if (y || d.style.transform) clear(); };
+    d.addEventListener('cancel', release);
+    d.addEventListener('close', release);
+    return release;
+  };
+
+  ['req', 'pf'].forEach(id => {
+    const d = document.getElementById(id);
+    const { showModal, close } = HTMLDialogElement.prototype;
+    const release = sheet(d);
+    d.showModal = function () { showModal.call(this); setOrigin(this); };
+    d.close = function (...a) { release(); return close.apply(this, a); };
+  });
 })();
 </script>
 </body>
